@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>TipDigital - Estrutura de Funil</title>
+</head>
+<body>
+  <style>
+    .hub-container {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .header-logo {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 2rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .link-card {
+      text-align: left;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .link-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 255, 136, 0.2);
+    }
+    .card-title {
+      font-size: 1.3rem;
+      font-family: 'Outfit', sans-serif;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .slug-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      background: rgba(0, 255, 136, 0.1);
+      color: var(--accent-color);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+  </style>
+
+  <main class="hub-container">
+    <div class="header-logo glow-text">TIP<span style="color:var(--accent-color)">DIGITAL</span></div>
+    
+    <h1 style="font-size: 3rem; margin-bottom: 1rem;" class="glow-text">Arquitetura de Funil <span class="glow-accent">Cloudflare</span></h1>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+      Sua estrutura de alta performance está pronta para ser conectada. Clique nos links abaixo para visualizar o template de cada etapa.
+    </p>
+
+    <div class="grid-links">
+      <a href="./captura/" class="glass-card link-card" style="text-decoration:none; color:inherit;">
+        <span class="slug-badge">/captura</span>
+        <h3 class="card-title">Página de Captura 🎯</h3>
+        <p class="card-desc">Otimizada para coletar leads com alta conversão e carregamento instantâneo.</p>
+      </a>
+
+      <a href="./vsl/" class="glass-card link-card" style="text-decoration:none; color:inherit;">
+        <span class="slug-badge">/vsl</span>
+        <h3 class="card-title">Página de Vendas (VSL) 📹</h3>
+        <p class="card-desc">Foco na retenção do vídeo de vendas e gatilhos de dor/solução.</p>
+      </a>
+
+      <a href="./obrigado/" class="glass-card link-card" style="text-decoration:none; color:inherit;">
+        <span class="slug-badge">/obrigado</span>
+        <h3 class="card-title">Página de Obrigado 🎉</h3>
+        <p class="card-desc">Confirmação, pixels de conversão e próximos passos para o lead.</p>
+      </a>
+    </div>
+
+    <div style="margin-top: 5rem;" class="glass-card">
+      <h2 style="margin-bottom: 1rem;">Como Publicar Agora?</h2>
+      <ol style="text-align: left; padding-left: 1.5rem; color: var(--text-secondary);">
+        <li style="margin-bottom: 0.7rem;">Faça Push desta estrutura para o GitHub.</li>
+        <li style="margin-bottom: 0.7rem;">No Cloudflare Dashboard, vá em **Workers & Pages > Create Page**.</li>
+        <li>Conecte seu Git `tipdigital/paginasweb` e clique em Deploy.</li>
+      </ol>
+    </div>
+  </main>
+</body>
+</html>

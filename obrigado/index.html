@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Sucesso - TipDigital</title>
+</head>
+<body>
+  <style>
+    .success-container {
+      max-width: 600px;
+      margin: 120px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .icon-box {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      color: var(--accent-color);
+      filter: drop-shadow(0 0 20px rgba(0,255,136,0.3));
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .steps {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: left;
+      margin-bottom: 3rem;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+    
+    .step-item:last-child {
+      margin-bottom: 0px;
+    }
+
+    .step-num {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+  </style>
+
+  <main class="success-container">
+    <div class="icon-box">🎉</div>
+    <h1 class="title glow-text">Dados Enviados com <span class="glow-accent">Sucesso!</span></h1>
+    <p class="subtitle">Sua vaga para o diagnóstico está reservada. Veja o que fazer a seguir:</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <span class="step-num">1</span>
+        <span>Aguarde nosso especialista te acionar via WhatsApp.</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">2</span>
+        <span>Separe os acessos ao seu Gestor de Anúncios para auditoria.</span>
+      </div>
+    </div>
+
+    <a href="https://wa.me/seu-numero" class="btn-accent" style="border: none; background: #25D366; color: #fff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); text-transform: none; text-decoration:none;">Falar direto no WhatsApp 💬</a>
+    
+    <div style="margin-top: 1.5rem;">
+      <a href="../" style="color: var(--text-secondary); font-size: 0.9rem; text-decoration: underline;">Voltar ao início</a>
+    </div>
+  </main>
+</body>
+</html>
