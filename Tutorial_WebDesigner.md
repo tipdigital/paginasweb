@@ -7,9 +7,9 @@ Este guia descreve como configurar o seu ambiente de funnel de páginas estátic
 ## 📋 1. Pré-Requisitos (Checklist do que já deve estar pronto)
 
 Antes de começar a configuração no Cloudflare, garanta que:
-- [ ] **Domínio Contratado**: Exemplo: `thetipdigital.com.br`
+- [ ] **Domínio Contratado**: Exemplo: `meudominio.com.br`
 - [ ] **Conta no Cloudflare**: Criada via método de login do GitHub (Recomendado).
-- [ ] **Repositório GitHub**: Criado e clonado na sua máquina (ex: `tipdigital/paginasweb`).
+- [ ] **Repositório GitHub**: Criado e clonado na sua máquina (ex: `antigravity/paginasweb`).
 - [ ] **Estrutura de Código Criada**: Com pastas dedicadas (ex: `/captura/index.html`) para seus slugs.
 - [ ] **Arquivos Committados Localmente**: Pelo menos um commit inicial na branch `main` do seu projeto.
 
@@ -55,7 +55,7 @@ Para testar no seu próprio domínio sem quebrar o site principal hospedado em o
 1. Acesse o painel do seu projeto no Cloudflare Pages.
 2. Clique na aba **Custom Domains** (Domínios Personalizados).
 3. Clique em **Set up a Custom Domain**.
-4. Insira um subdomínio de testes (ex: `lp.thetipdigital.com.br` ou `promo.*`).
+4. Insira um subdomínio de testes (ex: `lp.meudominio.com.br` ou `promo.*`).
 5. Siga as instruções para que o Cloudflare resolva o apontamento.
 
 ---
@@ -65,3 +65,17 @@ Sempre que precisar de um novo slug:
 1. Peça ao **Antigravity**: *"Crie um design premium para o slug /leads"*.
 2. Ele fará a criação da pasta `/leads/index.html` e do CSS localmente.
 3. Você roda `git push` e o Cloudflare atualiza **sozinho**, sem que você precise abrir nenhuma plataforma arrasta-e-solta!
+
+
+## Quando for criar os sites aqui estão referências:
+LINKS:
+
+1- https://land-book.com/
+2- https://www.landingfolio.com/
+3- https://br.pinterest.com/
+4- https://www.behance.net/
+5- https://screenlane.com/
+6- https://saaslandingpage.com/
+7- https://www.lapa.ninja/
+8- https://designvault.io/
+9- https://www.siteinspire.com/
