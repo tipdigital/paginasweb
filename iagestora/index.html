@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Gestora — Configure sua IA que analisa, gera insights e otimiza suas campanhas</title>
+    <meta name="description" content="Conteúdo gravado passo a passo para configurar uma IA que analisa campanhas Meta e Google Ads, gera insights e executa otimizações. Por apenas R$47.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#06060b',
+                        surface: '#0d0d16',
+                        card: '#111119',
+                        neon: '#00e5ff',
+                        neonDim: '#00b8d4',
+                        accent: '#a855f7',
+                        accentDim: '#7c3aed',
+                        success: '#22c55e',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #06060b; color: #e2e8f0; overflow-x: hidden; }
+        .glow-neon { text-shadow: 0 0 30px rgba(0,229,255,.4), 0 0 60px rgba(0,229,255,.15); }
+        .glow-accent { text-shadow: 0 0 30px rgba(168,85,247,.4); }
+        .glass { background: rgba(17,17,25,.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.06); }
+        .gradient-border { position:relative; }
+        .gradient-border::before { content:''; position:absolute; inset:-2px; background:linear-gradient(135deg,#00e5ff,#a855f7,#00e5ff); background-size:300% 300%; border-radius:inherit; z-index:-1; animation:borderSpin 4s ease infinite; }
+        @keyframes borderSpin { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3)} 50%{box-shadow:0 0 40px rgba(0,229,255,.6),0 0 80px rgba(0,229,255,.2)} }
+        .btn-pulse { animation: pulse-glow 2s ease-in-out infinite; }
+        .fade-in { opacity:0; transform:translateY(30px); transition:all .7s ease; }
+        .fade-in.visible { opacity:1; transform:translateY(0); }
+        .bg-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='rgba(255,255,255,0.02)' fill-rule='evenodd'/%3E%3C/svg%3E"); }
+        details summary { cursor:pointer; list-style:none; }
+        details summary::-webkit-details-marker { display:none; }
+        details[open] summary .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform .3s ease; }
+        .strike { text-decoration: line-through; opacity:.5; }
+    </style>
+</head>
+<body class="antialiased bg-grid">
+
+<!-- STICKY HEADER -->
+<header id="stickyHeader" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 -translate-y-full opacity-0">
+    <div class="glass border-b border-white/5 py-3 px-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <span class="font-tech font-bold text-sm text-white">IA Gestora — <span class="text-neon">R$ 47</span></span>
+            <a href="#comprar" class="bg-neon text-base font-tech font-bold text-xs px-5 py-2 rounded-full hover:scale-105 transition-transform uppercase tracking-wider">Garantir Acesso</a>
+        </div>
+    </div>
+</header>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="relative min-h-screen flex items-center justify-center py-20 px-6">
+    <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-neon/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
+        <div class="inline-block border border-accent/30 bg-accent/10 px-5 py-1.5 rounded-full text-accent font-tech text-xs tracking-[.2em] uppercase">
+            Conteúdo Gravado · Acesso Imediato
+        </div>
+
+        <h1 class="font-tech font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
+            Configure uma IA que <br class="hidden md:block">
+            <span class="text-neon glow-neon">analisa, diagnostica</span> e <br class="hidden md:block">
+            <span class="text-accent glow-accent">otimiza campanhas</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Aulas gravadas, passo a passo, para você configurar uma <strong class="text-white">Inteligência Artificial</strong> que se conecta ao <strong class="text-white">Meta Ads e Google Ads</strong>, entrega insights em segundos e executa otimizações com um comando.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-400 font-medium">
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Sem programação</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Acesso vitalício</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>7 dias de garantia</span>
+        </div>
+
+        <div class="pt-4">
+            <a href="#comprar" class="inline-block bg-neon text-base font-tech font-bold text-lg px-10 py-5 rounded-full hover:scale-105 transition-transform uppercase tracking-wider btn-pulse">
+                🚀 Quero Configurar Minha IA — R$ 47
+            </a>
+            <p class="text-xs text-gray-500 mt-3">Pagamento único · Compra 100% segura</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ PROBLEMA ══════════════════════ -->
+<section id="problema" class="py-20 md:py-28 px-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-xs font-tech tracking-[.2em] uppercase text-red-400 bg-red-500/10 border border-red-500/20 px-4 py-1.5 rounded-full">O problema que ninguém fala</span>
+            <h2 class="font-tech font-bold text-3xl md:text-5xl mt-6">Você ainda faz isso <span class="text-red-400">manualmente?</span></h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5 fade-in">
+            <div class="glass rounded-2xl p-6 hover:border-red-500/20 transition-colors group">
+                <div class="text-2xl mb-3">📊</div>
+                <h3 class="font-tech font-bold text-lg mb-2 text-white">Exportar CSV, montar planilha, formatar na mão</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Você abre o Gerenciador de Anúncios, exporta dados, cola no Sheets, formata… Todo. Santo. Dia. Enquanto isso, seu concorrente já tomou as decisões certas.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 hover:border-red-500/20 transition-colors group">
+                <div class="text-2xl mb-3">🔥</div>
+                <h3 class="font-tech font-bold text-lg mb-2 text-white">Dinheiro sangrando em campanhas erradas</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Aquele conjunto de anúncios que deveria ter sido pausado há dias continua comendo seu orçamento. Você nem sabe quanto está perdendo — porque não tem tempo de olhar.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 hover:border-red-500/20 transition-colors group">
+                <div class="text-2xl mb-3">📸</div>
+                <h3 class="font-tech font-bold text-lg mb-2 text-white">Print de tela como "relatório"</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Cliente cobra resultados e você manda screenshot do Ads Manager. Sem análise, sem comparativo, sem plano de ação. A credibilidade vai pro ralo.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 hover:border-red-500/20 transition-colors group">
+                <div class="text-2xl mb-3">😰</div>
+                <h3 class="font-tech font-bold text-lg mb-2 text-white">Mais contas = mais esgotamento</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Mais campanhas, mais abas abertas, mais horas. Você não cresce — você se enterra. A conta não fecha e o burnout bate na porta.</p>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 fade-in">
+            <p class="text-xl md:text-2xl font-tech text-gray-300">E se <strong class="text-neon">um único comando</strong> resolvesse tudo isso?</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ SOLUÇÃO ══════════════════════ -->
+<section id="solucao" class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/[.03] to-transparent"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-xs font-tech tracking-[.2em] uppercase text-neon bg-neon/10 border border-neon/20 px-4 py-1.5 rounded-full">A Solução</span>
+            <h2 class="font-tech font-bold text-3xl md:text-5xl mt-6">De horas para <span class="text-neon glow-neon">segundos.</span></h2>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">Aprenda a configurar uma IA que conecta nas suas contas de anúncio via API e faz o trabalho pesado por você.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5 fade-in">
+            <div class="glass rounded-2xl p-6 text-center hover:border-neon/20 transition-colors">
+                <div class="w-14 h-14 rounded-xl bg-neon/10 flex items-center justify-center mx-auto mb-4 text-2xl">🔍</div>
+                <h3 class="font-tech font-bold text-base mb-2 text-white">Diagnóstico Completo</h3>
+                <p class="text-gray-400 text-sm">Gasto, leads, CPL, CTR, ROAS — hoje, 7d, 30d. Com alertas automáticos e plano de ação priorizado.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:border-neon/20 transition-colors">
+                <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4 text-2xl">📈</div>
+                <h3 class="font-tech font-bold text-base mb-2 text-white">Insights Inteligentes</h3>
+                <p class="text-gray-400 text-sm">A IA detecta padrões que você não vê: criativos cansados, público saturado, verba mal distribuída. E sugere ações.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:border-neon/20 transition-colors">
+                <div class="w-14 h-14 rounded-xl bg-success/10 flex items-center justify-center mx-auto mb-4 text-2xl">⚡</div>
+                <h3 class="font-tech font-bold text-base mb-2 text-white">Otimização Executada</h3>
+                <p class="text-gray-400 text-sm">Não é só recomendação. A IA executa: pausa campanhas, ajusta orçamento, negativar termos — com um comando.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ O QUE VOCÊ VAI APRENDER ══════════════════════ -->
+<section id="conteudo" class="py-20 md:py-28 px-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-xs font-tech tracking-[.2em] uppercase text-accent bg-accent/10 border border-accent/20 px-4 py-1.5 rounded-full">Dentro do Conteúdo</span>
+            <h2 class="font-tech font-bold text-3xl md:text-5xl mt-6">O que você vai <span class="text-accent glow-accent">aprender</span></h2>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Aulas gravadas, direto ao ponto. Você assiste no seu ritmo e configura tudo no mesmo dia.</p>
+        </div>
+
+        <div class="space-y-4 fade-in">
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent">01</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Setup completo da IA + Conexão via API</h3>
+                    <p class="text-gray-400 text-sm mt-1">Passo a passo para conectar sua IA ao Meta Ads e Google Ads usando as APIs oficiais. Sem código, sem complicação.</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent">02</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Diagnóstico automático de campanhas</h3>
+                    <p class="text-gray-400 text-sm mt-1">Configure a IA para puxar dados em tempo real, gerar diagnósticos completos e entregar um plano de ação priorizado em segundos.</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent">03</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Insights e análise avançada de métricas</h3>
+                    <p class="text-gray-400 text-sm mt-1">Ensine a IA a encontrar padrões ocultos: criativos fadigados, públicos saturados, distribuição de verba ineficiente — e sugerir ações concretas.</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent">04</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Execução de otimizações com comandos</h3>
+                    <p class="text-gray-400 text-sm mt-1">A IA não só analisa — ela executa. Pausar campanhas, ajustar orçamento, negativar termos de busca, tudo com um simples comando.</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent">05</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Dashboards e relatórios automáticos</h3>
+                    <p class="text-gray-400 text-sm mt-1">Gere relatórios HTML interativos com KPIs, gráficos, comparativos e dark mode. Pronto pra enviar ao cliente ou para análise própria.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ ANTES vs DEPOIS ══════════════════════ -->
+<section class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[.03] to-transparent"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="font-tech font-bold text-3xl md:text-5xl">Antes vs <span class="text-neon glow-neon">Depois</span></h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 fade-in">
+            <div class="glass rounded-2xl p-8 border-red-500/10">
+                <h3 class="font-tech font-bold text-xl text-red-400 mb-6">❌ Sem a IA Gestora</h3>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✕</span>Horas exportando CSVs e montando planilhas</li>
+                    <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✕</span>Decisões baseadas em "achismo"</li>
+                    <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✕</span>Campanhas sangrando sem você perceber</li>
+                    <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✕</span>Relatórios genéricos (prints de tela)</li>
+                    <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✕</span>Burnout e estagnação</li>
+                </ul>
+            </div>
+            <div class="glass rounded-2xl p-8 border-neon/10">
+                <h3 class="font-tech font-bold text-xl text-neon mb-6">✅ Com a IA Gestora</h3>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li class="flex items-start gap-3"><span class="text-neon mt-0.5">✓</span>Diagnóstico completo em <strong class="text-white">segundos</strong></li>
+                    <li class="flex items-start gap-3"><span class="text-neon mt-0.5">✓</span>Decisões baseadas em dados reais + IA</li>
+                    <li class="flex items-start gap-3"><span class="text-neon mt-0.5">✓</span>Alertas automáticos de desperdício</li>
+                    <li class="flex items-start gap-3"><span class="text-neon mt-0.5">✓</span>Relatórios interativos prontos pra apresentar</li>
+                    <li class="flex items-start gap-3"><span class="text-neon mt-0.5">✓</span>Mais resultados com menos esforço</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ PARA QUEM É ══════════════════════ -->
+<section class="py-20 md:py-28 px-6">
+    <div class="max-w-4xl mx-auto text-center fade-in">
+        <h2 class="font-tech font-bold text-3xl md:text-5xl mb-10">Para quem é <span class="text-accent">esse conteúdo?</span></h2>
+        <div class="grid sm:grid-cols-2 gap-4 text-left">
+            <div class="glass rounded-xl p-5 flex items-center gap-4"><span class="text-2xl">🎯</span><span class="text-sm text-gray-300"><strong class="text-white">Gestores de tráfego</strong> que querem escalar sem escalar o esforço</span></div>
+            <div class="glass rounded-xl p-5 flex items-center gap-4"><span class="text-2xl">🏢</span><span class="text-sm text-gray-300"><strong class="text-white">Agências</strong> que precisam entregar mais com menos operacional</span></div>
+            <div class="glass rounded-xl p-5 flex items-center gap-4"><span class="text-2xl">💼</span><span class="text-sm text-gray-300"><strong class="text-white">Donos de negócio</strong> que investem em anúncios e querem clareza</span></div>
+            <div class="glass rounded-xl p-5 flex items-center gap-4"><span class="text-2xl">📱</span><span class="text-sm text-gray-300"><strong class="text-white">Infoprodutores</strong> que rodam Meta e Google e precisam de inteligência</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ CUSTO DE NÃO TER ══════════════════════ -->
+<section class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/[.03] to-transparent"></div>
+    <div class="max-w-5xl mx-auto relative z-10 fade-in">
+        <div class="text-center mb-12">
+            <h2 class="font-tech font-bold text-3xl md:text-5xl">Quanto custa <span class="text-red-400">NÃO</span> ter isso?</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">R$ 2.000/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Contratar freelancer para relatórios</p>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">R$ 500/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Ferramentas de BI genéricas</p>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">R$ 1.200+</p>
+                <p class="text-xs text-gray-500 mt-1">Cursos teóricos sobre IA</p>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">40h/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Continuar fazendo tudo manual</p>
+            </div>
+        </div>
+        <div class="glass rounded-2xl p-8 text-center border-neon/20">
+            <p class="font-tech text-lg text-gray-300">Tudo isso ou…</p>
+            <p class="font-tech font-bold text-4xl md:text-5xl text-neon glow-neon mt-3">R$ 47</p>
+            <p class="text-sm text-gray-400 mt-2">Pagamento único. Acesso vitalício. Sem mensalidade.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ PREÇO / CTA ══════════════════════ -->
+<section id="comprar" class="py-20 md:py-28 px-6">
+    <div class="max-w-2xl mx-auto fade-in">
+        <div class="gradient-border rounded-3xl">
+            <div class="bg-surface rounded-3xl p-8 md:p-12 text-center space-y-6">
+                <span class="inline-block bg-neon/10 text-neon text-xs font-tech tracking-[.15em] uppercase px-4 py-1.5 rounded-full border border-neon/20">Oferta de Lançamento</span>
+
+                <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Acesso completo ao<br><span class="text-neon glow-neon">IA Gestora</span></h2>
+
+                <ul class="text-left space-y-3 text-sm text-gray-300 max-w-md mx-auto">
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Aulas gravadas passo a passo</li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Setup completo da IA + Conexão API</li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Diagnóstico automático de campanhas</li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Insights e análise avançada de métricas</li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Execução de otimizações com comandos</li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Dashboards e relatórios automáticos</li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Acesso vitalício + atualizações</li>
+                </ul>
+
+                <div class="pt-2">
+                    <p class="text-gray-500 text-sm"><span class="strike">De R$ 197,00</span></p>
+                    <p class="font-tech font-bold text-5xl md:text-6xl text-white mt-1">R$ 47<span class="text-xl text-gray-400">,00</span></p>
+                    <p class="text-xs text-gray-500 mt-1">pagamento único · acesso vitalício</p>
+                </div>
+
+                <a href="#" class="inline-block w-full bg-neon text-base font-tech font-bold text-lg py-5 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse">
+                    🚀 Quero minha IA Gestora agora
+                </a>
+
+                <p class="text-xs text-gray-500">7 dias de garantia incondicional. Não gostou, devolvemos 100%.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ GARANTIA ══════════════════════ -->
+<section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto glass rounded-2xl p-8 md:p-12 text-center fade-in">
+        <div class="text-5xl mb-4">🛡️</div>
+        <h3 class="font-tech font-bold text-2xl text-white mb-3">Garantia incondicional de 7 dias</h3>
+        <p class="text-gray-400 leading-relaxed max-w-xl mx-auto">Se por qualquer motivo você sentir que o conteúdo não é pra você, basta pedir reembolso em até 7 dias. Devolvemos 100% do valor. Sem perguntas, sem burocracia.</p>
+    </div>
+</section>
+
+<!-- ══════════════════════ FAQ ══════════════════════ -->
+<section id="faq" class="py-20 md:py-28 px-6">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="font-tech font-bold text-3xl md:text-4xl">Perguntas <span class="text-accent">frequentes</span></h2>
+        </div>
+
+        <div class="space-y-3 fade-in">
+            <details class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    Preciso saber programar?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Não. Zero código. Tudo é configurado através de interfaces visuais e comandos em português. As aulas mostram passo a passo cada etapa.</div>
+            </details>
+            <details class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    Funciona pra Meta Ads, Google Ads ou os dois?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Ambos. A IA se conecta via API oficial tanto no Meta Ads quanto no Google Ads. Você aprende a configurar os dois.</div>
+            </details>
+            <details class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    É curso teórico ou prático?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">100% prático. São aulas gravadas, direto ao ponto. Cada aula tem um objetivo claro: no final, sua IA já está rodando e analisando suas campanhas.</div>
+            </details>
+            <details class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    Quanto tempo leva pra configurar tudo?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Cerca de 1 a 2 horas no primeiro setup. Depois disso, cada análise e otimização leva segundos.</div>
+            </details>
+            <details class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    E se eu não gostar?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Você tem 7 dias de garantia incondicional. Se não for pra você, devolvemos 100% do valor sem perguntas.</div>
+            </details>
+            <details class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    O acesso é vitalício mesmo?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Sim. Você paga uma vez e tem acesso para sempre, incluindo atualizações futuras do conteúdo.</div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ CTA FINAL ══════════════════════ -->
+<section class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-t from-neon/[.05] to-transparent"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10 fade-in">
+        <h2 class="font-tech font-bold text-3xl md:text-5xl mb-6">Enquanto você lê isso, alguém já está <span class="text-neon glow-neon">otimizando com IA.</span></h2>
+        <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">O preço de lançamento não vai durar. Garanta seu acesso agora com 7 dias de garantia.</p>
+        <a href="#comprar" class="inline-block bg-neon text-base font-tech font-bold text-lg px-10 py-5 rounded-full hover:scale-105 transition-transform uppercase tracking-wider btn-pulse">
+            🚀 Garantir por R$ 47 — Acesso Imediato
+        </a>
+        <p class="text-xs text-gray-500 mt-4">Compra 100% segura · 7 dias de garantia</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 border-t border-white/5 text-center px-6">
+    <p class="text-xs text-gray-600">© 2025 IA Gestora. Todos os direitos reservados.</p>
+    <p class="text-xs text-gray-700 mt-2">Este produto não garante resultados. Resultados dependem da aplicação individual.</p>
+</footer>
+
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Sticky header
+const header = document.getElementById('stickyHeader');
+window.addEventListener('scroll', () => {
+    if(window.scrollY > 600) { header.classList.remove('-translate-y-full','opacity-0'); header.classList.add('translate-y-0','opacity-100'); }
+    else { header.classList.add('-translate-y-full','opacity-0'); header.classList.remove('translate-y-0','opacity-100'); }
+});
+</script>
+</body>
+</html>
