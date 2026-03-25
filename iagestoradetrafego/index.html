@@ -82,20 +82,22 @@
 <body class="antialiased selection:bg-neonBlue selection:text-base bg-base">
 
     <!-- HERO SECTION -->
-    <section class="relative h-screen flex flex-col justify-end overflow-hidden pb-12 md:pb-24">
+    <section class="relative min-h-[100vh] flex flex-col justify-end pb-16 md:pb-24 pt-[55vh] md:pt-[45vh]">
         
         <!-- Absolute Background Video -->
-        <div class="absolute inset-0 z-0">
-            <!-- object-[25%_center] shifts the video left on mobile to focus on the hologram & data. md:object-center restores it on desktop -->
-            <video src="../assets/Ands IA Holograma.mp4" autoplay muted playsinline class="w-full h-full object-cover object-[25%_center] md:object-center opacity-70 lg:opacity-80"></video>
-            <!-- Overlays -->
-            <div class="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-base/10 to-transparent"></div>
+        <div class="absolute inset-0 z-0 h-full w-full">
+            <!-- object-[75%_center] repositions the mobile view to the right so we see the hologram + part of your face -->
+            <video src="../assets/Ands IA Holograma.mp4" autoplay muted playsinline class="w-full h-full object-cover object-[75%_center] md:object-center opacity-70 lg:opacity-80"></video>
+            
+            <!-- Overlays to fade smoothly into the text area -->
+            <div class="absolute inset-0 bg-gradient-to-t from-base via-base/60 to-transparent"></div>
+            <!-- Strong bottom fade to guarantee the text is perfectly legible -->
+            <div class="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-gradient-to-t from-base to-transparent"></div>
         </div>
 
         <!-- Content Container -->
         <div class="container mx-auto px-6 max-w-7xl relative z-10 w-full mt-auto">
-            <div class="max-w-4xl space-y-5 md:space-y-8">
+            <div class="max-w-4xl space-y-6 md:space-y-8">
                 
                 <div class="inline-block border border-neonPurple/30 bg-neonPurple/10 px-4 py-1.5 rounded-full text-neonPurple font-tech text-xs md:text-sm tracking-widest uppercase shadow-[0_0_15px_rgba(123,44,191,0.2)]">
                     Exclusivo para mentores, consultores e infoprodutores que já vendem High Ticket
@@ -110,13 +112,14 @@
                     Analisa campanhas, gera insights e EXECUTA otimizações automaticamente.
                 </p>
                 
-                <div class="text-gray-300 space-y-4 text-sm md:text-lg leading-relaxed max-w-3xl hidden sm:block">
+                <!-- Brought back the paragraph on mobile since we have no constraints cutting it off anymore -->
+                <div class="text-gray-300 space-y-4 text-sm md:text-lg leading-relaxed max-w-3xl">
                     <p>
                         Vou mostrar <strong>AO VIVO</strong> o "Jarvis" do seu marketing: Uma IA conectada às suas ferramentas que monitora campanhas, analisa métricas, identifica onde você está perdendo dinheiro e executa os comandos que você der.
                     </p>
                 </div>
 
-                <div class="grid sm:grid-cols-2 gap-3 md:gap-4 max-w-4xl">
+                <div class="grid sm:grid-cols-2 gap-4 max-w-4xl">
                     <div class="glass-panel p-4 md:p-5 rounded-xl md:rounded-2xl backdrop-blur-md">
                         <ul class="space-y-2 md:space-y-3">
                             <li class="flex items-start gap-3 text-xs md:text-sm text-gray-300">
@@ -129,7 +132,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="glass-panel p-4 md:p-5 rounded-xl md:rounded-2xl backdrop-blur-md hidden sm:block">
+                    <!-- Brought back the second box on mobile too -->
+                    <div class="glass-panel p-4 md:p-5 rounded-xl md:rounded-2xl backdrop-blur-md">
                         <ul class="space-y-2 md:space-y-3">
                             <li class="flex items-start gap-3 text-xs md:text-sm text-gray-300">
                                 <span class="w-1.5 h-1.5 rounded-full bg-neonBlue mt-1.5 flex-shrink-0"></span>
@@ -151,13 +155,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- FAKE SCROLL SPACE just to ensure you have content below hero for context -->
-    <section class="min-h-screen bg-base relative z-10 py-24 flex items-center justify-center border-t border-white/5">
-        <div class="text-center text-gray-500 opacity-50">
-            <p>Mais conteúdo sobre as IAs entra aqui na próxima fase.</p>
         </div>
     </section>
 
