@@ -213,79 +213,181 @@
         </div>
     </section>
 
-    <!-- TRÍADE DE ATUAÇÃO (O QUÊ NÓS FAZEMOS) - BENTO BOX LAYOUT -->
-    <section id="inteligencia" class="py-32 relative border-t border-white/5">
+    <!-- NOSSAS SOLUÇÕES (CADA PRODUTO UMA SEÇÃO) -->
+    
+    <!-- Solução 1: IA Gestora de Tráfego -->
+    <section id="inteligencia" class="py-32 relative border-t border-white/5 overflow-hidden">
         <div class="container mx-auto px-6 max-w-7xl">
-            <div class="mb-20" data-aos="fade-right">
-                <h2 class="text-4xl md:text-6xl font-tech font-bold mb-6">O Fim da <span class="text-gray-500">Burocracia.</span><br>O Início da <span class="text-neonBlue">Escala Absoluta.</span></h2>
-                <p class="text-gray-400 text-lg max-w-2xl">Não vendemos consultorias genéricas. Entregamos infraestruturas de processamento hiper-rápidas aplicadas ao setor comercial (High-Ticket, Infoprodutos e B2B).</p>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <div class="inline-block border border-neonBlue/30 bg-neonBlue/5 px-4 py-1.5 rounded-full text-neonBlue font-tech text-xs tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(0,207,255,0.1)]">
+                        Inteligência de Dados
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-tech font-bold mb-6">IA Gestora de Tráfego</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Um cérebro analítico conectado diretamente ao seu Meta Ads que lê milhares de pontos de dados em tempo real. Identifique o momento exato para cortar campanhas que sangram dinheiro e escalar aquelas que trazem lucro com precisão cirúrgica.
+                    </p>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonBlue"></span> Diagnóstico profundo de métricas (CPL, CPA, CTR)</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonBlue"></span> Alertas instantâneos de performance</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonBlue"></span> Dashboards executivos sem planilhas complexas</li>
+                    </ul>
+                </div>
+                <div class="relative h-[400px] glass-panel rounded-3xl border border-white/10 flex items-center justify-center overflow-hidden" data-aos="fade-left">
+                    <div class="absolute inset-0 bg-gradient-to-br from-neonBlue/20 to-transparent opacity-50"></div>
+                    <!-- Abstract chart UI -->
+                    <div class="relative w-3/4 h-3/4 flex items-end gap-4 opacity-80">
+                        <div class="w-full bg-neonBlue/20 rounded-t-lg h-[40%] animate-pulse"></div>
+                        <div class="w-full bg-neonBlue/40 rounded-t-lg h-[60%] animate-pulse" style="animation-delay: 0.2s"></div>
+                        <div class="w-full bg-neonBlue/60 rounded-t-lg h-[90%] animate-pulse" style="animation-delay: 0.4s"></div>
+                        <div class="w-full bg-white/20 rounded-t-lg h-[30%]"></div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Bento Box Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-12 md:grid-rows-2 gap-6">
+    <!-- Solução 2: Construtor de Funil -->
+    <section class="py-32 relative border-t border-white/5 bg-[#0a0a0f] overflow-hidden">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <div class="grid lg:grid-cols-2 gap-16 items-center flex-col-reverse lg:flex-row-reverse">
+                <div data-aos="fade-left">
+                    <div class="inline-block border border-neonPurple/30 bg-neonPurple/5 px-4 py-1.5 rounded-full text-neonPurple font-tech text-xs tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(123,44,191,0.1)]">
+                        Arquitetura de Conversão
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-tech font-bold mb-6">Construtor de Funil VSL</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Enquanto páginas comuns demoram a carregar e perdem cliques preciosos, nosso ambiente hospedado no Edge do Cloudflare garante velocidades sub-segundo. Uma engenharia de alta conversão imune a quedas durante picos de lançamentos e tráfego massivo.
+                    </p>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonPurple"></span> Templates Ultra-Rápidos sem frameworks pesados</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonPurple"></span> Proteção contra picos no tráfego (Escala Global)</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonPurple"></span> Design Persuasivo (Neuromarketing visual)</li>
+                    </ul>
+                </div>
+                <div class="relative h-[400px] glass-panel rounded-3xl border border-white/10 flex items-center justify-center overflow-hidden" data-aos="fade-right">
+                    <div class="absolute -left-20 top-1/2 -translate-y-1/2 w-64 h-64 bg-neonPurple/30 blur-[100px] mix-blend-screen"></div>
+                    <div class="w-3/4 p-6 glass border border-white/5 rounded-2xl relative z-10 backdrop-blur-xl bg-black/40">
+                        <div class="w-full h-4 bg-white/10 rounded mb-4"></div>
+                        <div class="w-3/4 h-4 bg-white/10 rounded mb-8"></div>
+                        <div class="w-full h-32 bg-neonPurple/20 rounded-xl mb-4"></div>
+                        <div class="w-1/2 h-8 bg-neonPurple/50 rounded-lg mx-auto"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solução 3: Criativo em Escala -->
+    <section class="py-32 relative border-t border-white/5 overflow-hidden">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <div class="inline-block border border-neonGreen/30 bg-neonGreen/5 px-4 py-1.5 rounded-full text-neonGreen font-tech text-xs tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(0,255,136,0.1)]">
+                        Automação Criativa
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-tech font-bold mb-6">Geração de Criativos em Escala</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Se a fadiga de anúncios é seu maior inimigo, a geração em escala automática é sua arma secreta. Construímos esteiras (pipelines) generativas que constroem dezenas de imagens e vídeos usando Inteligência Artificial todos os dias.
+                    </p>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonGreen"></span> Esteira de Prompts para Criativos Inéditos</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonGreen"></span> Testes infinitos sem sobrecarregar designers</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-neonGreen"></span> Renovação constante do seu custo por lead</li>
+                    </ul>
+                </div>
+                <div class="relative h-[400px] flex gap-4 pr-10" data-aos="fade-left">
+                    <div class="absolute -right-20 top-0 w-64 h-64 bg-neonGreen/20 blur-[100px] mix-blend-screen"></div>
+                    <div class="w-1/2 h-full glass-panel rounded-3xl border border-white/10 mt-8 p-4 relative z-10 backdrop-blur-xl bg-black/40">
+                        <div class="w-full h-full bg-neonGreen/10 rounded-2xl overflow-hidden border border-neonGreen/20 relative">
+                            <div class="absolute inset-0 bg-grid-pattern opacity-50"></div>
+                        </div>
+                    </div>
+                    <div class="w-1/2 h-full glass-panel rounded-3xl border border-white/10 mb-8 p-4 relative z-10 backdrop-blur-xl bg-black/40">
+                        <div class="w-full h-full bg-white/5 rounded-2xl overflow-hidden border border-white/10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solução 4: Mentoria TIP -->
+    <section class="py-32 relative border-t border-white/5 bg-[#0a0a0f] overflow-hidden">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <div class="grid lg:grid-cols-2 gap-16 items-center flex-col-reverse lg:flex-row-reverse">
+                <div data-aos="fade-left">
+                    <div class="inline-block border border-gray-400/50 bg-white/5 px-4 py-1.5 rounded-full text-white font-tech text-xs tracking-widest uppercase mb-6">
+                        Acesso Restrito
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-tech font-bold mb-6">Mentoria TIP & Vibe Coding</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Para donos de negócio, engenheiros e estrategistas que querem internalizar o poder do Vibe Coding. Transformações que levariam meses, resolvidas em encontros semanais, onde arquitetamos processos e sistemas lado a lado.
+                    </p>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-white"></span> Chamadas ao vivo para destravamento tecnológico</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-white"></span> Projetos reais usando AI IDEs (Cursor)</li>
+                        <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-white"></span> Acesso exclusivo ao núcleo estratégico da TIP</li>
+                    </ul>
+                </div>
+                <div class="relative h-[400px] flex items-center justify-center overflow-hidden" data-aos="fade-right">
+                    <div class="w-64 h-64 relative">
+                        <div class="absolute inset-0 border border-white/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <div class="absolute inset-4 border border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div class="absolute inset-8 border border-white/5 rounded-full"></div>
+                        <div class="absolute inset-0 flex items-center justify-center drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">
+                            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solução 5: Ecossistema Completo 360 -->
+    <section class="py-32 relative border-t border-white/5 overflow-hidden">
+        <!-- Background Premium Effects -->
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-r from-neonBlue/10 via-neonPurple/10 to-neonGreen/10 blur-[150px] pointer-events-none rounded-[100%]"></div>
+        
+        <div class="container mx-auto px-6 max-w-7xl relative z-10">
+            <div class="glass-panel border-white/10 rounded-[3rem] p-10 md:p-20 text-center relative overflow-hidden backdrop-blur-2xl bg-black/40 cursor-default transition-all duration-500 hover:shadow-[0_0_80px_rgba(0,207,255,0.1)]" data-aos="zoom-in">
+                <!-- Golden edge -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
                 
-                <!-- Box 1 principal (Ocupa 8 colunas) -->
-                <div class="bento-card glass-panel md:col-span-8 rounded-3xl p-8 md:p-12 border border-white/10" data-aos="fade-up">
-                    <div class="bento-content">
-                        <div class="w-14 h-14 bg-neonBlue/10 border border-neonBlue/30 rounded-2xl flex items-center justify-center mb-8">
-                            <svg class="w-7 h-7 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                        <h3 class="text-3xl font-tech font-bold mb-4">Automação de Alta Frequência</h3>
-                        <p class="text-gray-400 text-lg max-w-2xl leading-relaxed">
-                            Interligamos todas as fontes nervosas do seu negócio. Do Meta Ads ao seu CRM, construímos fluxos invisíveis (n8n, Webhooks) que capturam, qualificam e movem centenas de leads por hora sem envolver nenhum toque humano, até que a venda esteja 90% fechada.
-                        </p>
+                <div class="inline-flex items-center gap-2 border border-yellow-400/30 bg-yellow-400/5 px-4 py-1.5 rounded-full text-yellow-400 font-tech text-xs tracking-widest uppercase mb-8 shadow-[0_0_15px_rgba(250,204,21,0.15)]">
+                    🏆 O Ponto Definitivo da Escala
+                </div>
+                
+                <h2 class="text-5xl md:text-7xl font-tech font-bold mb-8">Ecossistema Completo 360º</h2>
+                
+                <p class="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed mb-12">
+                    Nós assumimos a sua base tecnológica. A equipe TIP consolida todas as frentes acima em um único motor autônomo. Dashboards, Integrações Metas Ads, SDRs IA e Infraestrutura Cloud. Uma solução definitiva e "chave na mão".
+                </p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-4xl mx-auto text-left">
+                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl flex items-center gap-3">
+                        <span class="text-neonBlue">⚡</span>
+                        <span class="text-sm font-medium">Operação As a Service</span>
+                    </div>
+                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl flex items-center gap-3">
+                        <span class="text-neonBlue">⚡</span>
+                        <span class="text-sm font-medium">CRM Avançado Otimizado</span>
+                    </div>
+                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl flex items-center gap-3">
+                        <span class="text-neonBlue">⚡</span>
+                        <span class="text-sm font-medium">Controle de Dados Precisos</span>
+                    </div>
+                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl flex items-center gap-3">
+                        <span class="text-neonBlue">⚡</span>
+                        <span class="text-sm font-medium">Rastreamento Complexo</span>
                     </div>
                 </div>
 
-                <!-- Box 2 secundário (Ocupa 4 colunas) -->
-                <div class="bento-card glass-panel md:col-span-4 rounded-3xl p-8 md:p-12 border border-white/10" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bento-content h-full flex flex-col justify-end relative">
-                        <!-- Abstract Brain Visual -->
-                        <div class="absolute top-0 right-0 opacity-20 w-32 h-32 bg-neonPurple rounded-full blur-[50px]"></div>
-                        
-                        <div class="w-14 h-14 bg-neonPurple/10 border border-neonPurple/30 rounded-2xl flex items-center justify-center mb-8">
-                            <svg class="w-7 h-7 text-neonPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-tech font-bold mb-4">Vibe Coding</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">
-                            A nova escola de engenharia. Utilizamos IDEs baseadas em inteligência artificial (Cursor, Claude) para construir Dashboards, Sistemas Web e Softwares proprietários em dias, não meses.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Box 3 secundário (Ocupa 4 colunas) -->
-                <div class="bento-card glass-panel md:col-span-5 rounded-3xl p-8 md:p-12 border border-white/10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bento-content">
-                        <div class="w-14 h-14 bg-neonGreen/10 border border-neonGreen/30 rounded-2xl flex items-center justify-center mb-8">
-                            <svg class="w-7 h-7 text-neonGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-tech font-bold mb-4">Arquitetura de Conversão</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">
-                            Hospedagem Edge ultrarrápida (Cloudflare Pages), pixels imunes a bloqueios via Server-Side e design neuro-persuasivo. Seus funis pararão de vazar tráfego no primeiro clique.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Box 4 principal (Ocupa 7 colunas) -->
-                <div class="bento-card glass-panel md:col-span-7 rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                    <!-- Particles effect inside card constraint -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface/50 z-0"></div>
-                    <div class="bento-content z-10">
-                        <div class="inline-block border border-white/20 bg-white/5 px-3 py-1 rounded-full text-white font-tech text-xs tracking-widest uppercase mb-8">
-                            Core Technology
-                        </div>
-                        <h3 class="text-3xl font-tech font-bold mb-4">Mentes Sintéticas (I.A. Aplicada)</h3>
-                        <p class="text-gray-400 text-lg max-w-xl leading-relaxed mb-6">
-                            Nós não ensinamos "como usar o ChatGPT". Desenvolvemos e injetamos Agentes de IA customizados diretamente nos seus canais.
-                        </p>
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex items-center gap-3"><span class="text-neonBlue">●</span> Clonagem de Voz para VSLs geradas em massa;</li>
-                            <li class="flex items-center gap-3"><span class="text-neonBlue">●</span> Auditores Autônomos de Meta Ads atuando 24h;</li>
-                            <li class="flex items-center gap-3"><span class="text-neonBlue">●</span> SDRs de Chat equipados com a memória e objeções do seu negócio.</li>
-                        </ul>
-                    </div>
-                </div>
-
+                <a href="#auditoria" class="inline-block relative group mt-4">
+                    <div class="absolute inset-0 bg-gradient-to-r from-neonBlue to-neonPurple rounded-full blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span class="relative block bg-[#0a0a0f] border border-white/20 px-10 py-5 rounded-full font-tech font-bold text-white text-lg transition-transform hover:scale-[0.98]">
+                        Aplicar para o Comitê 360º 
+                    </span>
+                </a>
             </div>
         </div>
     </section>
