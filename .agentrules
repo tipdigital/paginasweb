@@ -1,0 +1,40 @@
+# 📜 Regras de Comportamento e Desenvolvimento (Agent Rules)
+Este arquivo define os padrões visuais, técnicos e de fluxo de trabalho para este projeto de funis de páginas.
+
+---
+
+## 🛠️ 1. Stack Tecnológico e Arquitetura
+
+*   **Abordagem**: Páginas Estáticas Puras (HTML5, Vanilla CSS, Vanilla JS) para máxima velocidade e SEO.
+*   **Arquitetura de Slugs**: A estrutura deve usar **Diretórios** para gerar slugs de URL limpos no Cloudflare Pages.
+    *   *Exemplo*: Criar arquivo em `/vsl/index.html` para ser acessado em `meudominio.com/vsl`.
+*   **Imagens e Ativos**: Devem ser salvos na pasta `/assets/` e chamados com caminhos relativos.
+
+---
+
+## 🎨 2. Padrão Estético (Premium & High-Ticket)
+
+Qualquer nova página criada pelo assistente deve obrigatoriamente seguir a identidade visual abaixo:
+
+*   **Tema principal**: Dark Premium (Fundo escuro/Nightfall).
+*   **Fundo**: Gradientes radiais profundos (`#0c0814` para `#1a0a2c`).
+*   **Cores de Destaque**: Verde Esmeralda (`#00ff88`) e Roxo Neon para botões e detalhes.
+*   **Efeitos**: Glassmorphism (efeito vidro embaçado) em cards e formulários.
+*   **Tipografia**: Fontes modernas (`Outfit` e `Inter` do Google Fonts).
+*   **Responsividade**: Carregamento instantâneo em Mobile e Desktop.
+
+---
+
+## 🚀 3. Fluxo de Trabalho e Cloudflare Pages
+
+*   **Processo de Deploy**: Qualquer nova página colocada em uma pasta e salva localmente será publicada automaticamente no Cloudflare Pages após o commit no Git.
+*   **Commits**: Devem ser feitos de forma modular e frequente.
+    *   *Exemplo*: `feat: adicionado template para página de captura /leads`.
+*   **Cuidado com Downtime**: Nunca alterar apontamentos de DNS para o domínio principal (`www`) até que o usuário autorize. Usar sempre subdomínios de testes (`lp.*` ou `.pages.dev`) para desenvolvimento.
+
+---
+
+## 🤖 4. Comportamento do Agente AI
+
+*   **Proatividade**: Ao receber um pedido de nova página (ex: "faz uma página de checkout"), o assistente deve criar a respectiva pasta (ex: `checkout/`), o arquivo `index.html` e fazer o commit local no `main` branch.
+*   **Estilo de Resposta**: Respostas diretas, em Português-BR, com resumos claros dos comandos que precisam ser executados pelo usuário no GitHub, se houver.
