@@ -81,20 +81,20 @@
 </head>
 <body class="antialiased selection:bg-neonBlue selection:text-base bg-base">
 
-    <!-- HERO SECTION REFACTOR -->
-    <section class="relative min-h-screen flex items-end overflow-hidden">
+    <!-- HERO SECTION MODIFIED FOR LOWER TEXT -->
+    <section class="relative min-h-[140vh] flex items-end overflow-hidden">
         
-        <!-- Absolute Background Video -->
-        <div class="absolute inset-0 z-0">
-            <video src="../assets/Ands IA Holograma.mp4" autoplay muted playsinline class="w-full h-full object-cover opacity-50 lg:opacity-70"></video>
-            <!-- Fade Overlay to Base -->
+        <!-- Absolute Background Video (Sticky behavior simulation) -->
+        <div class="fixed inset-0 z-0 h-screen w-full">
+            <video src="../assets/Ands IA Holograma.mp4" autoplay muted playsinline class="w-full h-full object-cover opacity-60 lg:opacity-75"></video>
+            <!-- Overlays -->
             <div class="absolute inset-0 bg-gradient-to-t from-base via-base/40 to-transparent"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-base/20 to-transparent"></div>
         </div>
 
-        <!-- Content Container -->
-        <div class="container mx-auto px-6 py-16 md:py-24 max-w-7xl relative z-10">
-            <div class="max-w-4xl space-y-6 md:space-y-8">
+        <!-- Content Container - Lowered by the min-h of section -->
+        <div class="container mx-auto px-6 py-20 md:py-32 max-w-7xl relative z-10 w-full">
+            <div class="max-w-4xl space-y-6 md:space-y-8 pb-10">
                 
                 <div class="inline-block border border-neonPurple/30 bg-neonPurple/10 px-4 py-1.5 rounded-full text-neonPurple font-tech text-xs md:text-sm tracking-widest uppercase shadow-[0_0_15px_rgba(123,44,191,0.2)]">
                     Exclusivo para mentores, consultores e infoprodutores que já vendem High Ticket
@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-4 max-w-4xl">
-                    <div class="glass-panel p-5 rounded-2xl">
+                    <div class="glass-panel p-5 rounded-2xl backdrop-blur-md">
                         <ul class="space-y-3">
                             <li class="flex items-start gap-3 text-sm text-gray-300">
                                 <span class="w-1.5 h-1.5 rounded-full bg-neonBlue mt-1.5 flex-shrink-0"></span>
@@ -128,7 +128,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="glass-panel p-5 rounded-2xl">
+                    <div class="glass-panel p-5 rounded-2xl backdrop-blur-md">
                         <ul class="space-y-3">
                             <li class="flex items-start gap-3 text-sm text-gray-300">
                                 <span class="w-1.5 h-1.5 rounded-full bg-neonBlue mt-1.5 flex-shrink-0"></span>
