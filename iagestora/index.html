@@ -53,6 +53,29 @@
         details[open] summary .faq-icon { transform: rotate(45deg); }
         .faq-icon { transition: transform .3s ease; }
         .strike { text-decoration: line-through; opacity:.5; }
+
+        /* ── Ticker ── */
+        .ticker-wrap { overflow:hidden; width:100%; border-top:1px solid rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.04); background:rgba(0,0,0,.4); }
+        .ticker-track { display:flex; width:max-content; animation:tickerScroll 28s linear infinite; }
+        .ticker-track:hover { animation-play-state:paused; }
+        @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        .ticker-item { flex-shrink:0; padding:10px 28px; font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.35); white-space:nowrap; display:flex; align-items:center; gap:16px; }
+        .ticker-item::after { content:''; width:4px; height:4px; border-radius:50%; background:rgba(0,229,255,.4); flex-shrink:0; }
+
+        /* ── Terminal ── */
+        .terminal { background:#0a0a12; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden; box-shadow:0 25px 60px -15px rgba(0,0,0,.6), 0 0 40px rgba(0,229,255,.04); }
+        .terminal-bar { display:flex; align-items:center; gap:6px; padding:10px 16px; background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.06); }
+        .terminal-dot { width:10px; height:10px; border-radius:50%; }
+        .terminal-body { padding:20px; font-family:'Space Grotesk',monospace; font-size:13px; line-height:1.9; min-height:180px; }
+        .terminal-line { opacity:0; transform:translateY(6px); transition:all .4s ease; }
+        .terminal-line.show { opacity:1; transform:translateY(0); }
+        .terminal-prompt { color:#a855f7; }
+        .terminal-cmd { color:#e2e8f0; }
+        .terminal-output { color:rgba(255,255,255,.45); }
+        .terminal-success { color:#22c55e; }
+        .terminal-file { color:#00e5ff; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        .cursor-blink { animation:blink 1s step-end infinite; color:#22c55e; font-weight:700; }
     </style>
 </head>
 <body class="antialiased bg-grid">
@@ -67,38 +90,89 @@
     </div>
 </header>
 
+<!-- ══════════════════════ TICKER ══════════════════════ -->
+<div class="ticker-wrap">
+    <div class="ticker-track" aria-hidden="true">
+        <span class="ticker-item">Meta Ads</span>
+        <span class="ticker-item">Google Ads</span>
+        <span class="ticker-item">Relatórios automáticos</span>
+        <span class="ticker-item">Otimização com IA</span>
+        <span class="ticker-item">Sem agência</span>
+        <span class="ticker-item">Sem gestor</span>
+        <span class="ticker-item">Você no controle</span>
+        <!-- duplicate for seamless loop -->
+        <span class="ticker-item">Meta Ads</span>
+        <span class="ticker-item">Google Ads</span>
+        <span class="ticker-item">Relatórios automáticos</span>
+        <span class="ticker-item">Otimização com IA</span>
+        <span class="ticker-item">Sem agência</span>
+        <span class="ticker-item">Sem gestor</span>
+        <span class="ticker-item">Você no controle</span>
+    </div>
+</div>
+
 <!-- ══════════════════════ HERO ══════════════════════ -->
-<section class="relative min-h-screen flex items-center justify-center py-20 px-6">
+<section class="relative min-h-screen flex items-center justify-center py-24 md:py-28 px-6">
     <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent"></div>
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-neon/5 rounded-full blur-[120px]"></div>
 
-    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
-        <div class="inline-block border border-accent/30 bg-accent/10 px-5 py-1.5 rounded-full text-accent font-tech text-xs tracking-[.2em] uppercase">
-            Conteúdo Gravado · Acesso Imediato
+    <div class="relative z-10 max-w-5xl mx-auto space-y-14">
+
+        <!-- Copy Block -->
+        <div class="text-center space-y-7">
+            <div class="inline-block border border-accent/30 bg-accent/10 px-5 py-1.5 rounded-full text-accent font-tech text-xs tracking-[.2em] uppercase">
+                Conteúdo Gravado · Acesso Imediato
+            </div>
+
+            <h1 class="font-tech font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05]">
+                Demita sua agência.<br>
+                <span class="text-neon glow-neon">Contrate uma IA.</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Configure uma IA em uma tarde e faça ela <strong class="text-white">analisar campanhas, gerar insights</strong> e <strong class="text-white">executar otimizações</strong> no Meta Ads e Google Ads — tudo com um comando.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-5 text-sm text-gray-400 font-medium">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Sem programação</span>
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Resultados em segundos</span>
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Controle total nas suas mãos</span>
+            </div>
         </div>
 
-        <h1 class="font-tech font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
-            Configure uma IA que <br class="hidden md:block">
-            <span class="text-neon glow-neon">analisa, diagnostica</span> e <br class="hidden md:block">
-            <span class="text-accent glow-accent">otimiza campanhas</span>
-        </h1>
-
-        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Aulas gravadas, passo a passo, para você configurar uma <strong class="text-white">Inteligência Artificial</strong> que se conecta ao <strong class="text-white">Meta Ads e Google Ads</strong>, entrega insights em segundos e executa otimizações com um comando.
-        </p>
-
-        <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-400 font-medium">
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Sem programação</span>
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Acesso vitalício</span>
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>7 dias de garantia</span>
+        <!-- Mini Terminal -->
+        <div class="max-w-2xl mx-auto">
+            <div class="terminal" id="heroTerminal">
+                <div class="terminal-bar">
+                    <span class="terminal-dot" style="background:#ff5f56"></span>
+                    <span class="terminal-dot" style="background:#ffbd2e"></span>
+                    <span class="terminal-dot" style="background:#27c93f"></span>
+                    <span style="flex:1"></span>
+                    <span style="font-size:11px;color:rgba(255,255,255,.25);font-family:'Space Grotesk',monospace;">ia-gestora v1.0</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line" data-delay="400">
+                        <span class="terminal-prompt">→ </span><span class="terminal-cmd">analise minhas campanhas de ontem</span>
+                    </div>
+                    <div class="terminal-line" data-delay="1200">
+                        <span class="terminal-output">⠿ Conectando Meta Ads API...</span>
+                    </div>
+                    <div class="terminal-line" data-delay="2000">
+                        <span class="terminal-output">⠿ Conectando Google Ads API...</span>
+                    </div>
+                    <div class="terminal-line" data-delay="3000">
+                        <span class="terminal-success">✓ Relatório gerado — 3 otimizações encontradas</span>
+                    </div>
+                    <div class="terminal-line" data-delay="3800">
+                        <span class="terminal-file">↳ Dashboard atualizado em /reports/hoje.pdf</span>
+                    </div>
+                    <div class="terminal-line" data-delay="4800">
+                        <span class="terminal-success">EXECUTAR OTIMIZAÇÕES?</span><span class="cursor-blink"> █</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="pt-4">
-            <a href="#comprar" class="inline-block bg-neon text-base font-tech font-bold text-lg px-10 py-5 rounded-full hover:scale-105 transition-transform uppercase tracking-wider btn-pulse">
-                🚀 Quero Configurar Minha IA — R$ 47
-            </a>
-            <p class="text-xs text-gray-500 mt-3">Pagamento único · Compra 100% segura</p>
-        </div>
     </div>
 </section>
 
@@ -426,6 +500,25 @@ window.addEventListener('scroll', () => {
     if(window.scrollY > 600) { header.classList.remove('-translate-y-full','opacity-0'); header.classList.add('translate-y-0','opacity-100'); }
     else { header.classList.add('-translate-y-full','opacity-0'); header.classList.remove('translate-y-0','opacity-100'); }
 });
+
+// Terminal typing animation
+(function(){
+    const terminal = document.getElementById('heroTerminal');
+    if(!terminal) return;
+    const lines = terminal.querySelectorAll('.terminal-line');
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                lines.forEach(line => {
+                    const delay = parseInt(line.dataset.delay) || 0;
+                    setTimeout(() => line.classList.add('show'), delay);
+                });
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    io.observe(terminal);
+})();
 </script>
 </body>
 </html>
