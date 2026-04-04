@@ -29,5 +29,18 @@ Com o Cloudflare agora no comando, as seguintes tecnologias serão configuradas:
 2.  **Proxy (Nuvem Laranja):** Esconde o IP real do servidor e protege contra ataques.
 3.  **Edge Caching:** O site será servido a partir dos servidores globais do Cloudflare para maior velocidade.
 
+## ⚙️ Configuração Cloudflare Pages (Custom Domains)
+- **Data/Hora:** 04/04/2026 - 11:08 AM
+- **Status:** Unificado (Apenas 1 aplicação ativa no Cloudflare)
+
+A aplicação foi vinculada aos domínios oficiais utilizando o Cloudflare API Tooling para garantir a persistência das configurações de SSL e Proxy.
+
+### Domínios Vinculados ao Projeto `paginasweb`:
+1.  **Raiz (Apex):** `thetipdigital.com.br` -> `initializing/active`
+2.  **Subdomínio www:** `www.thetipdigital.com.br` -> `initializing/active`
+
+### Automação de Deploy:
+Todo o código foi sincronizado com o repositório **`tipdigital/paginasweb`** no GitHub. Agora, cada atualização no código enviada via `git push` refletirá automaticamente no domínio principal.
+
 ---
-*Documento gerado para histórico técnico na pasta Logs Configuração.*
+*Cópia v2 atualizada com sucesso.*
