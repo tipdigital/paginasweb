@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N5FR84QB');</script>
+<!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Gestora: Configure uma IA que analisa, otimiza e gera relatórios das suas campanhas</title>
+    <meta name="description" content="Configure uma IA em 2 horas que analisa campanhas Meta e Google Ads, identifica desperdício e executa otimizações com um comando. Sem código. Por R$97.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#06060b',
+                        surface: '#0d0d16',
+                        card: '#111119',
+                        neon: '#00e5ff',
+                        neonDim: '#00b8d4',
+                        accent: '#a855f7',
+                        accentDim: '#7c3aed',
+                        success: '#22c55e',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #06060b; color: #e2e8f0; overflow-x: hidden; }
+        .glow-neon { text-shadow: 0 0 30px rgba(0,229,255,.4), 0 0 60px rgba(0,229,255,.15); }
+        .glow-accent { text-shadow: 0 0 30px rgba(168,85,247,.4); }
+        .glass { background: rgba(17,17,25,.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.06); }
+        .gradient-border { position:relative; }
+        .gradient-border::before { content:''; position:absolute; inset:-2px; background:linear-gradient(135deg,#00e5ff,#a855f7,#00e5ff); background-size:300% 300%; border-radius:inherit; z-index:-1; animation:borderSpin 4s ease infinite; }
+        @keyframes borderSpin { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3)} 50%{box-shadow:0 0 40px rgba(0,229,255,.6),0 0 80px rgba(0,229,255,.2)} }
+        .btn-pulse { animation: pulse-glow 2s ease-in-out infinite; }
+        .fade-in { opacity:0; transform:translateY(30px); transition:all .7s ease; }
+        .fade-in.visible { opacity:1; transform:translateY(0); }
+        .bg-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='rgba(255,255,255,0.02)' fill-rule='evenodd'/%3E%3C/svg%3E"); }
+        details summary { cursor:pointer; list-style:none; }
+        details summary::-webkit-details-marker { display:none; }
+        details[open] summary .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform .3s ease; }
+        .strike { text-decoration: line-through; opacity:.5; }
+
+        /* ── Ticker ── */
+        .ticker-wrap { overflow:hidden; width:100%; border-top:1px solid rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.04); background:rgba(0,0,0,.4); }
+        .ticker-track { display:flex; width:max-content; animation:tickerScroll 32s linear infinite; }
+        .ticker-track:hover { animation-play-state:paused; }
+        @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        .ticker-item { flex-shrink:0; padding:10px 28px; font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:#fff; text-shadow: 0 0 10px rgba(0,229,255,0.2); white-space:nowrap; display:flex; align-items:center; gap:16px; }
+        .ticker-item::after { content:''; width:4px; height:4px; border-radius:50%; background:rgba(0,229,255,.4); flex-shrink:0; }
+
+        /* ── Terminal ── */
+        .terminal { background:#0a0a12; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden; box-shadow:0 25px 60px -15px rgba(0,0,0,.6), 0 0 40px rgba(0,229,255,.04); }
+        .terminal-bar { display:flex; align-items:center; gap:6px; padding:10px 16px; background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.06); }
+        .terminal-dot { width:10px; height:10px; border-radius:50%; }
+        .terminal-body { padding:20px; font-family:'Space Grotesk',monospace; font-size:13px; line-height:1.9; min-height:180px; }
+        .terminal-line { opacity:0; transform:translateY(6px); transition:all .4s ease; }
+        .terminal-line.show { opacity:1; transform:translateY(0); }
+        .terminal-prompt { color:#a855f7; }
+        .terminal-cmd { color:#e2e8f0; }
+        .terminal-output { color:rgba(255,255,255,.45); }
+        .terminal-success { color:#22c55e; }
+        .terminal-file { color:#00e5ff; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        .cursor-blink { animation:blink 1s step-end infinite; color:#22c55e; font-weight:700; }
+    </style>
+</head>
+<body class="antialiased bg-grid">
+
+<!-- STICKY HEADER -->
+<header id="stickyHeader" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 -translate-y-full opacity-0">
+    <div class="glass border-b border-white/5 py-3 px-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <span class="font-tech font-bold text-sm text-white">IA Gestora: <span class="text-neon">R$ 97</span> <span class="text-gray-500 text-xs">(preço de lançamento)</span></span>
+            <a href="#comprar" class="bg-neon text-base font-tech font-bold text-xs px-5 py-2 rounded-full hover:scale-105 transition-transform uppercase tracking-wider">Quero controlar meu tráfego</a>
+        </div>
+    </div>
+</header>
+
+<!-- ══════════════════════ TICKER ══════════════════════ -->
+<div class="ticker-wrap">
+    <div class="ticker-track" aria-hidden="true">
+        <span class="ticker-item">Sem agência</span>
+        <span class="ticker-item">Sem mensalidade</span>
+        <span class="ticker-item">Diagnóstico em 60 segundos</span>
+        <span class="ticker-item">Meta Ads + Google Ads</span>
+        <span class="ticker-item">IA que executa, não só recomenda</span>
+        <span class="ticker-item">Você no controle</span>
+        <span class="ticker-item">R$ 97 pagamento único</span>
+        <!-- duplicate for seamless loop -->
+        <span class="ticker-item">Sem agência</span>
+        <span class="ticker-item">Sem mensalidade</span>
+        <span class="ticker-item">Diagnóstico em 60 segundos</span>
+        <span class="ticker-item">Meta Ads + Google Ads</span>
+        <span class="ticker-item">IA que executa, não só recomenda</span>
+        <span class="ticker-item">Você no controle</span>
+        <span class="ticker-item">R$ 97 pagamento único</span>
+    </div>
+</div>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="relative min-h-screen flex items-center justify-center py-24 md:py-28 px-6">
+    <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-neon/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto space-y-14">
+
+        <!-- Copy Block -->
+        <div class="text-center space-y-7">
+            <div class="inline-block border border-red-500/30 bg-red-500/10 px-5 py-1.5 rounded-full text-red-400 font-tech text-xs tracking-[.2em] uppercase">
+                Preço de lançamento · últimas unidades neste valor
+            </div>
+
+            <h1 class="font-tech font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05]">
+                Sua agência cobra R$ 3.000/mês<br>
+                <span class="text-neon glow-neon">e te manda um print do gerenciador.</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Configure uma IA em 2 horas que analisa, otimiza e gera relatórios das suas campanhas Meta e Google Ads. <strong class="text-white">Sem código. Sem mensalidade. Com um comando.</strong>
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-5 text-sm text-gray-400 font-medium">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Diagnóstico completo em 60 segundos</span>
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Zero código, interfaces visuais</span>
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success"></span>Meta Ads + Google Ads via API oficial</span>
+            </div>
+        </div>
+
+        <!-- Mini Terminal -->
+        <div class="max-w-2xl mx-auto">
+            <div class="terminal" id="heroTerminal">
+                <div class="terminal-bar">
+                    <span class="terminal-dot" style="background:#ff5f56"></span>
+                    <span class="terminal-dot" style="background:#ffbd2e"></span>
+                    <span class="terminal-dot" style="background:#27c93f"></span>
+                    <span style="flex:1"></span>
+                    <span style="font-size:11px;color:rgba(255,255,255,.25);font-family:'Space Grotesk',monospace;">ia-gestora v1.0</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line" data-delay="400">
+                        <span class="terminal-prompt">→ </span><span class="terminal-cmd">analise os últimos 7 dias das minhas campanhas</span>
+                    </div>
+                    <div class="terminal-line" data-delay="1200">
+                        <span class="terminal-output">⠿ Conectando Meta Ads API...</span>
+                    </div>
+                    <div class="terminal-line" data-delay="2000">
+                        <span class="terminal-output">⠿ Conectando Google Ads API...</span>
+                    </div>
+                    <div class="terminal-line" data-delay="3000">
+                        <span class="terminal-success">✓ 3 campanhas analisadas: 1 escalável, 1 para pausar, 1 para otimizar</span>
+                    </div>
+                    <div class="terminal-line" data-delay="3800">
+                        <span class="terminal-file">↳ Economia identificada: R$ 1.240/mês em verba desperdiçada</span>
+                    </div>
+                    <div class="terminal-line" data-delay="4800">
+                        <span class="terminal-success">EXECUTAR OTIMIZAÇÕES?</span><span class="cursor-blink"> █</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════ PROBLEMA ══════════════════════ -->
+<section id="problema" class="py-20 md:py-28 px-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-xs font-tech tracking-[.2em] uppercase text-red-400 bg-red-500/10 border border-red-500/20 px-4 py-1.5 rounded-full">A verdade que ninguém te fala</span>
+            <h2 class="font-tech font-bold text-3xl md:text-5xl mt-6 leading-tight">Você paga R$ 3.000/mês pra não saber<br class="hidden md:block"><span class="text-red-400"> o que está acontecendo com seu dinheiro.</span></h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5">
+            <div class="glass rounded-2xl p-7 fade-in hover:border-red-500/20 transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-red-500/15 flex items-center justify-center text-red-400 text-sm font-tech font-bold mb-4">01</div>
+                <h3 class="font-tech font-bold text-lg mb-3 text-white">Dinheiro queimando no escuro</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Suas campanhas rodam 24h e você só descobre que algo deu errado quando o boleto da agência chega.</p>
+                <p class="text-xs text-gray-500 mt-3 italic">Sem visibilidade em tempo real, cada dia é uma aposta.</p>
+            </div>
+
+            <div class="glass rounded-2xl p-7 fade-in hover:border-red-500/20 transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-red-500/15 flex items-center justify-center text-red-400 text-sm font-tech font-bold mb-4">02</div>
+                <h3 class="font-tech font-bold text-lg mb-3 text-white">R$ 3.000/mês por atenção genérica</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Sua conta é uma entre 30 que o gestor da agência cuida. Ele não tem tempo de otimizar. Tem tempo de não perder.</p>
+                <p class="text-xs text-gray-500 mt-3 italic">Você paga preço premium por um estagiário sobrecarregado.</p>
+            </div>
+
+            <div class="glass rounded-2xl p-7 fade-in hover:border-red-500/20 transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-red-500/15 flex items-center justify-center text-red-400 text-sm font-tech font-bold mb-4">03</div>
+                <h3 class="font-tech font-bold text-lg mb-3 text-white">Refém de quem não tem urgência</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Quer pausar uma campanha? Manda mensagem. Espera. Cobra. Espera de novo. Quando respondem, já perdeu R$ 500.</p>
+                <p class="text-xs text-gray-500 mt-3 italic">O tráfego é seu. O controle, não.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ BASTA — SEÇÃO DE CONTRASTE ══════════════════════ -->
+<section class="relative overflow-hidden" style="background:#e63946;">
+    <div class="absolute inset-0 flex items-center justify-end pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        <span class="font-tech font-bold text-[18rem] md:text-[26rem] leading-none tracking-tighter" style="color:rgba(0,0,0,.08); transform:translateX(8%);">BASTA</span>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-20 md:py-28">
+        <div class="fade-in space-y-8">
+            <h2 class="font-tech font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] uppercase" style="color:#1a1a1a;">
+                Não é um problema de tráfego.<br>
+                <span style="color:#1a1a1a;">É um problema de R$ 36.000 por ano<br>saindo da sua conta sem prestação de contas.</span>
+            </h2>
+
+            <div class="max-w-xl space-y-4" style="color:#1a1a1a;">
+                <p class="text-base md:text-lg leading-relaxed" style="opacity:.85;">
+                    A agência não é vilã. O modelo é que não funciona pra você. Ela atende dezenas de clientes ao mesmo tempo. Você é mais um.
+                </p>
+                <p class="text-base md:text-lg leading-relaxed font-bold">
+                    A diferença é que agora existe uma alternativa: uma IA dedicada exclusivamente às suas campanhas, 24h por dia, sem mensalidade, sem fila de atendimento.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ SOLUÇÃO ══════════════════════ -->
+<section id="solucao" class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/[.03] to-transparent"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-xs font-tech tracking-[.2em] uppercase text-neon bg-neon/10 border border-neon/20 px-4 py-1.5 rounded-full">Como funciona</span>
+            <h2 class="font-tech font-bold text-3xl md:text-5xl mt-6">IDE + IA + API oficial = <span class="text-neon glow-neon">piloto automático inteligente.</span></h2>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">Você configura uma vez. A IA trabalha todo dia. Diagnóstico, insights e otimização acontecem com um comando.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5 fade-in">
+            <div class="glass rounded-2xl p-6 text-center hover:border-neon/20 transition-colors">
+                <div class="w-14 h-14 rounded-xl bg-neon/10 flex items-center justify-center mx-auto mb-4 text-2xl">🔍</div>
+                <h3 class="font-tech font-bold text-base mb-2 text-white">Saiba exatamente onde seu dinheiro está indo</h3>
+                <p class="text-gray-400 text-sm">Gasto, leads, CPL, CTR, ROAS (hoje, 7d, 30d). Alertas automáticos quando algo sai do padrão.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:border-neon/20 transition-colors">
+                <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4 text-2xl">📈</div>
+                <h3 class="font-tech font-bold text-base mb-2 text-white">Descubra o que sua agência não te conta</h3>
+                <p class="text-gray-400 text-sm">A IA detecta criativos cansados, público saturado e verba mal distribuída. E te diz exatamente o que fazer.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:border-neon/20 transition-colors">
+                <div class="w-14 h-14 rounded-xl bg-success/10 flex items-center justify-center mx-auto mb-4 text-2xl">⚡</div>
+                <h3 class="font-tech font-bold text-base mb-2 text-white">Pare de recomendar. Execute.</h3>
+                <p class="text-gray-400 text-sm">Pausa campanhas, ajusta orçamento, negativa termos. A IA não sugere, ela faz. Com um comando seu.</p>
+            </div>
+        </div>
+
+        <!-- ── Dashboard Simulado ── -->
+        <div class="mt-16 fade-in">
+            <div class="glass rounded-2xl overflow-hidden border border-white/[.08]">
+
+                <!-- Dashboard Header -->
+                <div class="flex flex-wrap items-center justify-between gap-4 px-5 py-4 border-b border-white/[.06]">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2.5 h-2.5 rounded-full bg-success animate-pulse"></div>
+                        <span class="font-tech text-sm text-white font-semibold tracking-wide">IA Gestora Dashboard</span>
+                        <span class="text-[11px] text-gray-500 font-tech">v1.0</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <!-- Connected accounts -->
+                        <div class="flex items-center gap-2 bg-white/5 rounded-lg px-3 py-1.5">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                            <span class="text-[11px] text-gray-400 font-tech">Google Ads</span>
+                            <span class="text-[10px] text-success font-tech font-bold">Conectado</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/5 rounded-lg px-3 py-1.5">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="url(#metaGrad)"/><path d="M16.5 7.5c-1.5 0-2.7 1.2-3.3 2.4L12 12l-1.2-2.1C10.2 8.7 9 7.5 7.5 7.5 5.6 7.5 4 9.3 4 12s1.6 4.5 3.5 4.5c1.5 0 2.7-1.2 3.3-2.4L12 12l1.2 2.1c.6 1.2 1.8 2.4 3.3 2.4 1.9 0 3.5-1.8 3.5-4.5s-1.6-4.5-3.5-4.5z" fill="#fff"/><defs><linearGradient id="metaGrad" x1="2" y1="22" x2="22" y2="2"><stop stop-color="#0064E0"/><stop offset=".4" stop-color="#0064E0"/><stop offset=".83" stop-color="#0A66C2"/><stop offset="1" stop-color="#0A66C2"/></linearGradient></defs></svg>
+                            <span class="text-[11px] text-gray-400 font-tech">Meta Ads</span>
+                            <span class="text-[10px] text-success font-tech font-bold">Conectado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Body -->
+                <div class="p-5 space-y-5">
+
+                    <!-- Controls + Date -->
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center gap-2">
+                            <button class="bg-success/20 text-success text-[11px] font-tech font-bold px-4 py-1.5 rounded-lg border border-success/30 cursor-default flex items-center gap-1.5">
+                                <svg width="10" height="10" fill="currentColor" viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+                                Ativar campanha
+                            </button>
+                            <button class="bg-yellow-500/15 text-yellow-400 text-[11px] font-tech font-bold px-4 py-1.5 rounded-lg border border-yellow-500/25 cursor-default flex items-center gap-1.5">
+                                <svg width="10" height="10" fill="currentColor" viewBox="0 0 16 16"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+                                Pausar campanha
+                            </button>
+                        </div>
+                        <span class="text-[11px] text-gray-500 font-tech">Últimos 7 dias: 19 mar - 26 mar 2025</span>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="bg-white/[.03] rounded-xl p-4 border border-white/[.06]">
+                            <span class="text-[10px] text-gray-500 font-tech uppercase tracking-wider">Investimento</span>
+                            <div class="font-tech font-bold text-xl text-white mt-1">R$ 4.280</div>
+                            <span class="text-[10px] text-success font-tech">+12% vs semana anterior</span>
+                        </div>
+                        <div class="bg-white/[.03] rounded-xl p-4 border border-white/[.06]">
+                            <span class="text-[10px] text-gray-500 font-tech uppercase tracking-wider">ROAS</span>
+                            <div class="font-tech font-bold text-xl text-neon mt-1">4.7x</div>
+                            <span class="text-[10px] text-success font-tech">+0.8x vs semana anterior</span>
+                        </div>
+                        <div class="bg-white/[.03] rounded-xl p-4 border border-white/[.06]">
+                            <span class="text-[10px] text-gray-500 font-tech uppercase tracking-wider">CPA</span>
+                            <div class="font-tech font-bold text-xl text-white mt-1">R$ 18,40</div>
+                            <span class="text-[10px] text-success font-tech">-22% vs semana anterior</span>
+                        </div>
+                        <div class="bg-white/[.03] rounded-xl p-4 border border-white/[.06]">
+                            <span class="text-[10px] text-gray-500 font-tech uppercase tracking-wider">Conversões</span>
+                            <div class="font-tech font-bold text-xl text-white mt-1">232</div>
+                            <span class="text-[10px] text-success font-tech">+38 vs semana anterior</span>
+                        </div>
+                    </div>
+
+                    <!-- Chart + Insights Row -->
+                    <div class="grid md:grid-cols-5 gap-4">
+
+                        <!-- Rich Performance Chart (3 cols) -->
+                        <div class="md:col-span-3 bg-white/[.03] rounded-xl p-5 border border-white/[.06] flex flex-col">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-tech font-bold uppercase tracking-widest">Performance por Canal</span>
+                                    <div class="text-[10px] text-gray-500 font-tech mt-1">Google Ads vs Meta Ads</div>
+                                </div>
+                                <div class="flex flex-wrap justify-end gap-x-4 gap-y-2 text-[9px] font-tech text-gray-500 max-w-[200px]">
+                                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm" style="background:rgba(0,229,255,0.7)"></span>Meta</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm" style="background:rgba(189,97,255,0.7)"></span>Google</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-3 h-[1px] bg-white"></span>ROAS</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-3 h-[1px] bg-white/40 border-t border-dashed border-white/60"></span>Conv. %</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Chart Area -->
+                            <div class="relative h-40 w-full mt-auto">
+                                <!-- Grid Lines -->
+                                <div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+                                    <div class="w-full border-t border-white"></div>
+                                    <div class="w-full border-t border-white"></div>
+                                    <div class="w-full border-t border-white"></div>
+                                    <div class="w-full border-t border-white"></div>
+                                </div>
+
+                                <!-- Bars Layer -->
+                                <div class="absolute inset-0 flex items-end justify-between px-1 gap-px md:gap-1">
+                                    <!-- Dense Bars simulating canal data -->
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:35%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:45%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:50%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:30%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:45%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:60%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:65%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:40%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:55%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:70%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:80%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:45%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:60%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:30%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:40%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:55%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:70%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:50%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:85%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:60%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:65%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:40%"></div>
+                                    </div>
+                                    <div class="flex-1 flex gap-[2px] items-end h-full">
+                                        <div class="w-full rounded-t bg-neon/40" style="height:45%"></div>
+                                        <div class="w-full rounded-t bg-accent/40" style="height:35%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Line Chart Overlay (SVG) -->
+                                <svg class="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <!-- Smooth Line 1 (ROAS) -->
+                                    <path d="M0,70 C10,65 20,40 30,45 S40,20 50,30 S60,10 70,25 S80,5 90,15 L100,10" fill="none" stroke="white" stroke-width="1" class="drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"></path>
+                                    <!-- Smooth Line 2 (Conversion) -->
+                                    <path d="M0,85 C15,80 25,60 35,65 S50,45 65,55 S85,35 100,40" fill="none" stroke="white" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.4"></path>
+                                    <!-- Glow Area below line 1 -->
+                                    <path d="M0,70 C10,65 20,40 30,45 S40,20 50,30 S60,10 70,25 S80,5 90,15 L100,10 L100,100 L0,100 Z" fill="url(#chartGrad)" opacity="0.1"></path>
+                                    
+                                    <defs>
+                                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0" stop-color="white"></stop>
+                                            <stop offset="1" stop-color="transparent"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+                            
+                            <!-- X Axis Labels -->
+                            <div class="flex justify-between mt-3 px-1 text-[8px] text-gray-600 font-tech">
+                                <span>19 MAR</span>
+                                <span>21 MAR</span>
+                                <span>23 MAR</span>
+                                <span>25 MAR</span>
+                                <span>HOJE</span>
+                            </div>
+                        </div>
+
+                        <!-- AI Insights (2 cols) -->
+                        <div class="md:col-span-2 space-y-3">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs text-gray-400 font-tech font-semibold">Insights da IA</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-neon animate-pulse"></span>
+                            </div>
+
+                            <div class="bg-success/[.06] rounded-xl p-3.5 border border-success/15">
+                                <div class="flex items-start gap-2.5">
+                                    <span class="text-success text-sm mt-0.5">▲</span>
+                                    <div>
+                                        <p class="text-[12px] text-white font-tech font-semibold leading-tight">Campanha "Leads Quentes" com potencial de escala</p>
+                                        <p class="text-[10px] text-gray-400 font-tech mt-1">ROAS acima de 5x nos últimos 3 dias. Recomendo aumentar orçamento em 20%.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-500/[.06] rounded-xl p-3.5 border border-yellow-500/15">
+                                <div class="flex items-start gap-2.5">
+                                    <span class="text-yellow-400 text-sm mt-0.5">⚠</span>
+                                    <div>
+                                        <p class="text-[12px] text-white font-tech font-semibold leading-tight">Reduzir orçamento no conjunto "Lookalike Frio"</p>
+                                        <p class="text-[10px] text-gray-400 font-tech mt-1">CPA subiu 34% em 48h. Público pode estar saturado.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-accent/[.06] rounded-xl p-3.5 border border-accent/15">
+                                <div class="flex items-start gap-2.5">
+                                    <span class="text-accent text-sm mt-0.5">💡</span>
+                                    <div>
+                                        <p class="text-[12px] text-white font-tech font-semibold leading-tight">Novo criativo recomendado</p>
+                                        <p class="text-[10px] text-gray-400 font-tech mt-1">O criativo principal tem 14 dias. A taxa de clique caiu 18%. Hora de renovar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Dashboard Footer -->
+                <div class="px-5 py-3 border-t border-white/[.06] flex items-center justify-between">
+                    <span class="text-[10px] text-gray-600 font-tech">Última atualização: há 2 minutos</span>
+                    <span class="text-[10px] text-neon font-tech font-bold flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-neon animate-pulse"></span>
+                        IA ativa e monitorando
+                    </span>
+                </div>
+            </div>
+
+            <p class="text-center text-sm text-gray-500 mt-5 font-tech">Isso é o que a agência faz. Só que agora é <strong class="text-white">seu</strong>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ COMO FUNCIONA — 4 PASSOS ══════════════════════ -->
+<section id="conteudo" class="py-20 md:py-28 px-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-xs font-tech tracking-[.2em] uppercase text-accent bg-accent/10 border border-accent/20 px-4 py-1.5 rounded-full">Da compra à primeira otimização</span>
+            <h2 class="font-tech font-bold text-3xl md:text-5xl mt-6">Da compra à primeira otimização<br><span class="text-accent glow-accent">em menos de 2 horas.</span></h2>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">Sem teoria. Sem enrolação. Cada etapa termina com algo funcionando.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 fade-in">
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent group-hover:bg-accent group-hover:text-black transition-colors">01</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Monte sua IA do zero</h3>
+                    <p class="text-gray-400 text-sm mt-1">Configuração guiada em vídeo. Sem código. Funciona no Windows, Mac ou Linux.</p>
+                    <p class="text-xs text-neon mt-2 font-tech">→ No final: IA instalada e pronta pra usar</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent group-hover:bg-accent group-hover:text-black transition-colors">02</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Conecte Meta e Google em 15 minutos</h3>
+                    <p class="text-gray-400 text-sm mt-1">Integração via API oficial. Segue o passo a passo, cola os tokens, pronto.</p>
+                    <p class="text-xs text-neon mt-2 font-tech">→ No final: dados reais puxando em tempo real</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent group-hover:bg-accent group-hover:text-black transition-colors">03</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Rode seu primeiro diagnóstico</h3>
+                    <p class="text-gray-400 text-sm mt-1">Um comando: a IA analisa 7 dias de campanhas e te entrega um plano de ação priorizado.</p>
+                    <p class="text-xs text-neon mt-2 font-tech">→ No final: você sabe o que pausar, escalar e otimizar</p>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-6 flex items-start gap-5 hover:border-accent/20 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 font-tech font-bold text-accent group-hover:bg-accent group-hover:text-black transition-colors">04</div>
+                <div>
+                    <h3 class="font-tech font-bold text-lg text-white">Execute e automatize</h3>
+                    <p class="text-gray-400 text-sm mt-1">A IA pausa, ajusta e otimiza. Depois disso, o ciclo é diário e leva 5 minutos.</p>
+                    <p class="text-xs text-neon mt-2 font-tech">→ No final: campanhas rodando com supervisão inteligente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ ANTES vs DEPOIS ══════════════════════ -->
+<section class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[.03] to-transparent"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="font-tech font-bold text-3xl md:text-5xl">Quem já tem a IA <span class="text-neon glow-neon">nunca mais volta pro manual.</span></h2>
+        </div>
+        
+        <div class="space-y-6 fade-in">
+            <!-- Cenário 1 -->
+            <div class="glass rounded-2xl p-6 md:p-8">
+                <p class="text-xs font-tech text-accent uppercase tracking-widest mb-4">Cenário 1: Infoprodutor com R$ 15k/mês em ads</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <p class="text-sm font-tech font-semibold text-red-400">❌ Antes</p>
+                        <p class="text-sm text-gray-400">Abria o gerenciador todo dia, olhava os números, não entendia, fechava. Pagava R$ 3.500/mês de agência e recebia um PDF genérico no dia 10.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-sm font-tech font-semibold text-neon">✅ Depois</p>
+                        <p class="text-sm text-gray-300">Digita "analise os últimos 7 dias" e recebe: qual campanha escalar, qual pausar, e quanto está desperdiçando. Diagnostica sozinho em 60 segundos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cenário 2 -->
+            <div class="glass rounded-2xl p-6 md:p-8">
+                <p class="text-xs font-tech text-accent uppercase tracking-widest mb-4">Cenário 2: E-commerce com 12 campanhas rodando</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <p class="text-sm font-tech font-semibold text-red-400">❌ Antes</p>
+                        <p class="text-sm text-gray-400">3 horas por semana exportando CSVs, montando planilhas, tentando cruzar Meta com Google manualmente. Descobria que um criativo estava morto 2 semanas depois.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-sm font-tech font-semibold text-neon">✅ Depois</p>
+                        <p class="text-sm text-gray-300">Um comando puxa tudo junto: CPL, CPA, ROAS por canal, por campanha, por dia. A IA alerta no mesmo dia: "CTR caiu 18% no criativo X, hora de trocar".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cenário 3 -->
+            <div class="glass rounded-2xl p-6 md:p-8">
+                <p class="text-xs font-tech text-accent uppercase tracking-widest mb-4">Cenário 3: Gestor de tráfego com 8 clientes</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <p class="text-sm font-tech font-semibold text-red-400">❌ Antes</p>
+                        <p class="text-sm text-gray-400">Pulava de conta em conta gerando relatórios manuais. Sexta-feira era dia de pânico. Perdia clientes por falta de transparência e velocidade.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-sm font-tech font-semibold text-neon">✅ Depois</p>
+                        <p class="text-sm text-gray-300">Roda o diagnóstico de todos os clientes em 15 minutos, com relatório pronto pra enviar. Manda o relatório pro cliente antes dele pedir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ PARA QUEM É ══════════════════════ -->
+<section class="py-20 md:py-28 px-6">
+    <div class="max-w-4xl mx-auto text-center fade-in">
+        <h2 class="font-tech font-bold text-3xl md:text-5xl mb-10">Para quem é <span class="text-accent">isso?</span></h2>
+        <div class="space-y-4 text-left">
+            <!-- Destaque principal: Infoprodutores -->
+            <div class="glass rounded-2xl p-6 md:p-7 flex items-start gap-5 border border-accent/20 bg-accent/[.03]">
+                <span class="text-3xl">🚀</span>
+                <div>
+                    <span class="text-base md:text-lg text-white font-tech font-bold">Infoprodutores e donos de negócio digital</span>
+                    <p class="text-sm text-gray-400 mt-1">Você investe R$ 5k, 10k, 20k por mês em anúncios e não sabe dizer com certeza se está lucrando ou sangrando. Essa IA te dá a resposta em 60 segundos.</p>
+                </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="glass rounded-xl p-5 flex items-start gap-4"><span class="text-2xl">💎</span><span class="text-sm text-gray-300"><strong class="text-white">Consultores, mentores e profissionais high-ticket</strong> que precisam de dados concretos pra tomar decisões rápidas, não de PDFs bonitos que chegam 10 dias atrasados.</span></div>
+                <div class="glass rounded-xl p-5 flex items-start gap-4"><span class="text-2xl">🎯</span><span class="text-sm text-gray-300"><strong class="text-white">Gestores de tráfego e agências</strong> que perdem horas gerando relatórios e pulando de conta em conta. Essa IA faz em minutos o que leva o dia inteiro.</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ CUSTO DE NÃO TER ══════════════════════ -->
+<section class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/[.03] to-transparent"></div>
+    <div class="max-w-5xl mx-auto relative z-10 fade-in">
+        <div class="text-center mb-6">
+            <h2 class="font-tech font-bold text-3xl md:text-5xl">Cada mês sem controle te custa<br><span class="text-red-400">mais do que 10x o preço desse produto.</span></h2>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">Faça a conta. Depois me diz se R$ 97 é caro.</p>
+        </div>
+
+        <!-- Provocative Questions -->
+        <div class="grid sm:grid-cols-3 gap-4 mb-8 text-center">
+            <div class="glass rounded-xl p-5 border border-red-500/10">
+                <p class="text-red-400 text-sm font-tech font-semibold">Quanto você paga por mês para alguém que não te mostra resultados em tempo real?</p>
+            </div>
+            <div class="glass rounded-xl p-5 border border-red-500/10">
+                <p class="text-red-400 text-sm font-tech font-semibold">Quantas campanhas estão queimando verba agora sem você saber?</p>
+            </div>
+            <div class="glass rounded-xl p-5 border border-red-500/10">
+                <p class="text-red-400 text-sm font-tech font-semibold">Quanto você já perdeu por não pausar um anúncio ruim a tempo?</p>
+            </div>
+        </div>
+
+        <!-- Cost Cards -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">R$ 2k-5k/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Agência de tráfego sem controle real</p>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">R$ 300-500/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Ferramentas de BI que você não usa</p>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">R$ 500-2k/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Verba desperdiçada em campanhas não otimizadas</p>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <p class="text-red-400 font-tech font-bold text-xl">30-40h/mês</p>
+                <p class="text-xs text-gray-500 mt-1">Horas perdidas fazendo tudo manual</p>
+            </div>
+        </div>
+
+        <!-- Annual Waste -->
+        <div class="glass rounded-xl p-5 text-center mb-6 border border-red-500/15">
+            <p class="text-sm text-gray-400">Total anual de desperdício estimado:</p>
+            <p class="text-red-400 font-tech font-bold text-2xl md:text-3xl mt-1">R$ 33.600 a R$ 90.000</p>
+        </div>
+
+        <!-- Price Contrast -->
+        <div class="glass rounded-2xl p-8 text-center border-neon/20">
+            <p class="font-tech text-lg text-gray-300">Ou resolver tudo com…</p>
+            <p class="font-tech font-bold text-4xl md:text-5xl text-neon glow-neon mt-3">R$ 97</p>
+            <p class="text-sm text-gray-400 mt-2">Pagamento único. Sem mensalidade. <strong class="text-white">Menos de R$ 0,27 por dia no primeiro ano.</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ PREÇO / CTA ══════════════════════ -->
+<section id="comprar" class="py-20 md:py-28 px-6">
+    <div class="max-w-2xl mx-auto fade-in">
+        <div class="gradient-border rounded-3xl">
+            <div class="bg-surface rounded-3xl p-8 md:p-12 text-center space-y-6">
+                <span class="inline-block bg-neon/10 text-neon text-xs font-tech tracking-[.15em] uppercase px-4 py-1.5 rounded-full border border-neon/20">Oferta de Lançamento</span>
+
+                <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Pare de pagar R$ 3.000/mês<br><span class="text-neon glow-neon">por menos controle.</span></h2>
+
+                <ul class="text-left space-y-3 text-sm text-gray-300 max-w-md mx-auto">
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>IA completa configurada do zero <span class="text-gray-600 text-xs">(vale R$ 2.000)</span></li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Integração Meta + Google via API <span class="text-gray-600 text-xs">(vale R$ 500)</span></li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Diagnóstico automático com plano de ação <span class="text-gray-600 text-xs">(vale R$ 2.000)</span></li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Otimização de campanhas com um comando <span class="text-gray-600 text-xs">(vale R$ 1.500)</span></li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Dashboards e relatórios profissionais <span class="text-gray-600 text-xs">(vale R$ 500/mês)</span></li>
+                    <li class="flex items-center gap-3"><span class="text-neon">✓</span>Atualizações futuras inclusas <span class="text-gray-600 text-xs">(sem cobrança extra)</span></li>
+                </ul>
+
+                <div class="pt-2">
+                    <p class="text-gray-600 text-xs">Valor real: +R$ 6.500</p>
+                    <p class="text-gray-500 text-sm"><span class="strike">Preço normal: R$ 197,00</span></p>
+                    <p class="font-tech font-bold text-5xl md:text-6xl text-white mt-1">R$ 97<span class="text-xl text-gray-400">,00</span></p>
+                    <p class="text-xs text-gray-500 mt-1">pagamento único · liberação imediata · 7 dias de garantia</p>
+                </div>
+
+                <a href="#" class="inline-block w-full bg-neon text-base font-tech font-bold text-lg py-5 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse">
+                    🚀 QUERO CONTROLAR MEU TRÁFEGO AGORA
+                </a>
+
+                <p class="text-xs text-gray-500">Menos de R$ 0,27 por dia. Menos que um café. Mais que uma agência.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ GARANTIA ══════════════════════ -->
+<section class="py-20 px-6 relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/10 blur-[120px] rounded-full pointer-events-none"></div>
+    
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-8 md:p-16 relative z-10 fade-in">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <!-- Badge Column -->
+            <div class="flex justify-center md:justify-end">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-neon/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <img src="/Users/andersonbotelho/.gemini/antigravity/brain/667ade53-7422-450d-971e-3ad9108a16b8/guarantee_badge_premium_1774535223582.png" 
+                         alt="Garantia Incondicional 7 Dias" 
+                         class="w-64 h-64 md:w-80 md:h-80 object-contain float drop-shadow-[0_0_30px_rgba(0,229,255,0.2)]">
+                </div>
+            </div>
+
+            <!-- Content Column -->
+            <div class="text-center md:text-left space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-tech uppercase tracking-widest text-gray-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-success"></span> Risco Zero Garantido
+                </div>
+                
+                <h3 class="font-tech font-bold text-3xl md:text-4xl text-white leading-tight">
+                    Se não funcionar pra você,<br><span class="text-neon glow-neon">devolvo cada centavo.</span>
+                </h3>
+
+                <div class="space-y-4 text-gray-400 leading-relaxed text-sm md:text-base">
+                    <p>Você tem <strong class="text-white">7 dias</strong> pra testar tudo. Configurar a IA, rodar seu primeiro diagnóstico, executar suas primeiras otimizações.</p>
+                    <p>Se por qualquer motivo achar que não valeu, me manda uma mensagem e eu devolvo 100%. <strong class="text-white">Sem formulário, sem justificativa, sem constrangimento.</strong></p>
+                    <p class="text-white font-medium">Eu ofereço essa garantia porque sei o que esse sistema entrega. Quem configura, não cancela.</p>
+                </div>
+
+                <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-crosshair">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-crosshair">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-crosshair">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ FAQ ══════════════════════ -->
+<section id="faq" class="py-20 md:py-28 px-6">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="font-tech font-bold text-3xl md:text-4xl">Perguntas <span class="text-accent">frequentes</span></h2>
+        </div>
+
+        <div class="space-y-3 fade-in">
+            <details open class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    Preciso saber programar?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Não. Zero código. Tudo funciona com interface visual e comandos em português.</div>
+            </details>
+            <details open class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    E se eu já pago uma agência?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Melhor ainda. Você vai finalmente saber se ela está entregando resultado ou só gastando sua verba.</div>
+            </details>
+            <details open class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    Funciona no Meta, Google ou nos dois?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">Nos dois. A IA conecta via API oficial nas duas plataformas.</div>
+            </details>
+            <details open class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    Em quanto tempo roda minha primeira análise?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">No mesmo dia. Setup completo leva 1 a 2 horas. Depois disso, cada análise leva 60 segundos.</div>
+            </details>
+            <details open class="glass rounded-xl group">
+                <summary class="p-5 flex items-center justify-between font-tech font-medium text-white text-sm">
+                    E se não funcionar pra mim?
+                    <span class="faq-icon text-accent text-xl font-light">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-sm text-gray-400 leading-relaxed">7 dias de garantia. Devolvemos 100% sem perguntas.</div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ CTA FINAL ══════════════════════ -->
+<section class="py-20 md:py-28 px-6 relative">
+    <div class="absolute inset-0 bg-gradient-to-t from-neon/[.05] to-transparent"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10 fade-in">
+        <h2 class="font-tech font-bold text-3xl md:text-5xl mb-6">Cada dia sem essa IA é um dia de<br><span class="text-neon glow-neon">campanha queimando verba sem você saber.</span></h2>
+        <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">O preço de lançamento de R$ 97 está disponível agora. Quando fechar, volta pra R$ 197 e não tem negociação.</p>
+        <a href="#comprar" class="inline-block bg-neon text-base font-tech font-bold text-lg px-10 py-5 rounded-full hover:scale-105 transition-transform uppercase tracking-wider btn-pulse">
+            🚀 QUERO CONTROLAR MEU TRÁFEGO AGORA · R$ 97
+        </a>
+        <p class="text-xs text-gray-500 mt-4">Pagamento único · 7 dias de garantia · Liberação imediata</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 border-t border-white/5 text-center px-6">
+    <p class="text-xs text-gray-600">© 2025 IA Gestora. Todos os direitos reservados.</p>
+    <p class="text-xs text-gray-700 mt-2">Este produto não garante resultados. Resultados dependem da aplicação individual.</p>
+</footer>
+
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Sticky header
+const header = document.getElementById('stickyHeader');
+window.addEventListener('scroll', () => {
+    if(window.scrollY > 600) { header.classList.remove('-translate-y-full','opacity-0'); header.classList.add('translate-y-0','opacity-100'); }
+    else { header.classList.add('-translate-y-full','opacity-0'); header.classList.remove('translate-y-0','opacity-100'); }
+});
+
+// Terminal typing animation
+(function(){
+    const terminal = document.getElementById('heroTerminal');
+    if(!terminal) return;
+    const lines = terminal.querySelectorAll('.terminal-line');
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                lines.forEach(line => {
+                    const delay = parseInt(line.dataset.delay) || 0;
+                    setTimeout(() => line.classList.add('show'), delay);
+                });
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    io.observe(terminal);
+})();
+</script>
+</body>
+</html>
