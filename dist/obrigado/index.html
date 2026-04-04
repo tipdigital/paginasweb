@@ -8,6 +8,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-N5FR84QB');</script>
 <!-- End Google Tag Manager -->
+
+<!-- ===== CAKTO PURCHASE TRACKING ===== -->
+<!-- Dispara evento Purchase SOMENTE quando a Cakto redireciona com parâmetros de compra -->
+<script>
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+
+    // Lê os parâmetros que a Cakto envia na URL de obrigado
+    // Configure na Cakto: ?order_id={{transaction_id}}&value={{transaction_amount}}&email={{customer_email}}&name={{customer_name}}
+    var orderId   = params.get('order_id')   || params.get('transaction_id') || params.get('pedido')    || null;
+    var rawValue  = params.get('value')      || params.get('transaction_amount') || params.get('valor') || null;
+    var email     = params.get('email')      || params.get('customer_email')  || '';
+    var name      = params.get('name')       || params.get('customer_name')   || '';
+    var value     = rawValue ? parseFloat(rawValue.replace(',', '.')) : 0;
+
+    // Só dispara se vier parâmetro de pedido (vindo do checkout Cakto)
+    if (!orderId) return;
+
+    window.dataLayer = window.dataLayer || [];
+
+    // Limpa camada de ecommerce anterior (boa prática GA4)
+    window.dataLayer.push({ ecommerce: null });
+
+    // Evento Purchase — capturado pelo GTM para GA4 e Meta Pixel
+    window.dataLayer.push({
+      event: 'purchase',
+      ecommerce: {
+        transaction_id: orderId,
+        value: value,
+        currency: 'BRL',
+        items: [{
+          item_id: 'ia-gestora-001',
+          item_name: 'IA Gestora - Plano Completo',
+          price: value,
+          quantity: 1
+        }]
+      },
+      // Campos extras para Meta Pixel (CAPI futuramente)
+      purchase_value:    value,
+      purchase_currency: 'BRL',
+      order_id:          orderId,
+      customer_email:    email,
+      customer_name:     name
+    });
+  })();
+</script>
+<!-- ===== FIM CAKTO PURCHASE TRACKING ===== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
