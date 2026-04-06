@@ -61,5 +61,57 @@ As tags do ecossistema Meta Ads foram implementadas para garantir a rastreabilid
 - **Correspondência Avançada Automática:** Ativada no Painel do Meta.
 - **Access Token CAPI:** Gerado e armazenado no arquivo `.env` para futura implementação de Conversão via Servidor.
 
+## ⚙️ Configurações Realizadas no Painel GTM (v3)
+- **Data/Hora:** 06/04/2026 - 07:05 PM
+- **Responsável:** Antigravity (IA Assitente)
+
+Implementação do rastreamento de vendas (E-commerce) e configuração de parâmetros avançados para a IA Gestora.
+
+### 1. Rastreamento de Vendas (E-commerce GA4)
+- **Nome do Evento:** `purchase`
+- **Modelo de Tag:** Google Analytics: Evento do GA4
+- **Configurações E-commerce:** Ativado (Uso de Camada de Dados/DataLayer)
+- **Parâmetros Capturados:** `transaction_id`, `value`, `currency`, `items[]`
+- **Acionador:** `Evento Personalizado - purchase`
+- **URL de Destino:** `/obrigado2/` (Processamento de dados via URL params da Cakto)
+
+### 2. Rastreamento de Vendas (Meta Purchase)
+- **ID do Pixel:** `867360219693005`
+- **Tipo de Evento:** `Purchase` (Conversão Padrão)
+- **Propriedades (Object Properties):** `value`, `currency`, `order_id`
+- **Correspondência Avançada (Advanced Matching):** Mapeamento de `customer_email` e `customer_name`
+- **Acionador:** `Evento Personalizado - purchase`
+
+### 3. Variáveis de Camada de Dados (v2)
+Para possibilitar o Advanced Matching e a análise da IA, foram criadas as seguintes variáveis no GTM:
+- `dlv - customer_email` -> `customer_email`
+- `dlv - customer_name` -> `customer_name`
+- `dlv - purchase_value` -> `purchase_value`
+- `dlv - order_id` -> `order_id`
+
 ---
-*Cópia v2 atualizada com sucesso.*
+*Log V3 atualizado e validado via GTM Preview Mode.*
+
+## ⚙️ Configuração de Análise via Terminal (v4)
+- **Data/Hora:** 06/04/2026 - 07:25 PM
+- **Responsável:** Antigravity (IA Assitente)
+
+Habilita a capacidade da IA de ler métricas diretamente via terminal para gerar relatórios de performance de funil (Meta vs GA4).
+
+### 1. Integração Google Cloud (GA4)
+- **Método:** Google Service Account (Conta de Serviço)
+- **Arquivo de Chave:** `credentials-GA4.json`
+- **Permissão:** Leitor de Propriedade (Property Viewer) no GA4
+- **Objetivo:** Consultar eventos de `purchase` e `generate_lead` programaticamente.
+
+### 2. Integração Meta Ads API
+- **Token:** Access Token Validado (System User)
+- **Conta de Anúncios:** `META_AD_ACCOUNT_ID` (Pendente inserção do ID final no .env)
+- **Objetivo:** Consultar gastos (`spend`), impressões e cliques para cálculo de ROAS e CPC.
+
+### 3. Próximos Passos
+- Criação do script `analytics_report.py` para automação de fechamento diário/semanal.
+- Cruzamento de dados de checkout (Cakto) com dados de tráfego (Meta/Google).
+
+---
+*Log V4 atualizado. Infraestrutura de dados pronta para análise automatizada.*

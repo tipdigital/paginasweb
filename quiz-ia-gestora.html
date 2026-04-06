@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico IA Gestora — Descubra quanto você está desperdiçando</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060608;
+  --surface: #0c0c10;
+  --card: #111118;
+  --border: #1e1e2e;
+  --accent: #00ff88;
+  --accent-dim: rgba(0,255,136,0.10);
+  --accent-glow: rgba(0,255,136,0.22);
+  --red: #ff4444;
+  --red-dim: rgba(255,68,68,0.10);
+  --yellow: #ffd60a;
+  --text: #f0f0f8;
+  --muted: #5a5a7a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);pointer-events:none;z-index:9998;}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.glow-orb{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,0.05) 0%,transparent 70%);top:-200px;right:-200px;pointer-events:none;z-index:0;animation:orbFloat 8s ease-in-out infinite;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,40px)}}
+
+/* PROGRESS BAR TOP */
+#progress-container{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,6,8,0.96);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(10px);opacity:0;transition:opacity 0.4s;pointer-events:none;}
+#progress-container.visible{opacity:1;pointer-events:all;}
+.progress-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);letter-spacing:0.1em;white-space:nowrap;}
+.progress-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),#00ccff);border-radius:2px;transition:width 0.6s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--accent-glow);width:0%;}
+.progress-text{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap;}
+.progress-text span{color:var(--accent);}
+
+/* APP WRAPPER */
+#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px 40px;}
+
+/* SCREENS */
+.screen{display:none;max-width:660px;width:100%;animation:screenIn 0.45s cubic-bezier(.4,0,.2,1) forwards;}
+.screen.active{display:block;}
+.screen.result-screen{max-width:720px;}
+@keyframes screenIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* HOOK SCREEN */
+.hook-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.hook-eyebrow::before{content:'';width:28px;height:1px;background:var(--accent);}
+.hook-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,96px);line-height:0.9;letter-spacing:0.01em;margin-bottom:24px;}
+.hook-title .tw{color:var(--text)}.hook-title .tg{color:var(--accent)}.hook-title .tr{color:var(--red);}
+.hook-sub{font-size:17px;color:#8888aa;line-height:1.6;margin-bottom:36px;max-width:500px;font-weight:400;}
+.hook-sub strong{color:var(--text);}
+.hook-stats{display:flex;gap:16px;margin-bottom:36px;flex-wrap:wrap;}
+.hook-stat{background:var(--card);border:1px solid var(--border);padding:16px 18px;flex:1;min-width:130px;}
+.hook-stat-num{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;margin-bottom:4px;}
+.hook-stat-label{font-size:11px;color:var(--muted);line-height:1.4;font-family:'JetBrains Mono',monospace;}
+.btn-start{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#000;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.08em;padding:18px 40px;border:none;cursor:pointer;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);}
+.btn-arrow{animation:arrowPulse 1.5s ease-in-out infinite;}
+@keyframes arrowPulse{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.hook-note{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+
+/* QUESTION */
+.q-header{margin-bottom:28px;}
+.q-step-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
+.q-title{font-family:'Syne',sans-serif;font-size:clamp(20px,4vw,28px);font-weight:700;line-height:1.25;color:var(--text);}
+.options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.option{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);padding:16px 18px;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden;}
+.option::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);transform:scaleY(0);transition:transform 0.2s;}
+.option:hover{border-color:rgba(0,255,136,0.4);background:rgba(0,255,136,0.03);}
+.option:hover::before{transform:scaleY(1);}
+.option.selected{border-color:var(--accent);background:var(--accent-dim);transform:translateX(3px);}
+.option.selected::before{transform:scaleY(1);}
+.option-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0;}
+.option-content{flex:1;}
+.option-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.option-desc{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.option-check{width:20px;height:20px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all 0.2s;}
+.option.selected .option-check{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
+
+/* FEEDBACK */
+.feedback-flash{background:var(--card);border:1px solid var(--accent);border-left:4px solid var(--accent);padding:14px 18px;margin-bottom:20px;display:none;animation:flashIn 0.35s ease;}
+.feedback-flash.visible{display:block;}
+@keyframes flashIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
+.fb-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.15em;margin-bottom:5px;}
+.fb-text{font-size:13px;color:#9999bb;line-height:1.55;}
+.fb-text strong{color:var(--accent);}
+
+/* NEXT BTN */
+.btn-next{background:var(--accent);color:#000;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;padding:14px 36px;border:none;cursor:pointer;transition:all 0.2s;opacity:0;transform:translateY(8px);pointer-events:none;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+.btn-next.ready{opacity:1;transform:translateY(0);pointer-events:all;}
+.btn-next:hover{box-shadow:0 4px 20px var(--accent-glow);}
+
+/* EMAIL SCREEN */
+.email-screen{text-align:center;}
+.email-icon{font-size:48px;margin-bottom:18px;animation:iconBounce 2s ease-in-out infinite;}
+@keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.email-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,64px);line-height:0.95;margin-bottom:12px;}
+.email-title span{color:var(--accent);}
+.email-sub{font-size:15px;color:var(--muted);margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.55;}
+.email-form{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto 14px;}
+.form-input{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:15px;padding:15px 18px;outline:none;transition:border-color 0.2s;width:100%;}
+.form-input:focus{border-color:var(--accent);}
+.form-input::placeholder{color:var(--muted);}
+.btn-diagnose{background:var(--accent);color:#000;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.08em;padding:18px;border:none;cursor:pointer;transition:all 0.2s;width:100%;}
+.btn-diagnose:hover{box-shadow:0 6px 28px var(--accent-glow);}
+.email-privacy{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-align:center;}
+
+/* LOADING SCREEN */
+.loading-screen{text-align:center;}
+.loading-terminal{background:#070710;border:1px solid var(--border);border-top:2px solid var(--accent);max-width:500px;margin:0 auto 28px;text-align:left;}
+.t-bar{background:#0c0c18;padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57}.dot-y{background:#ffbd2e}.dot-g{background:#28ca41}
+.t-bar-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-left:8px;}
+.t-body{padding:22px;}
+.t-line{font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:9px;display:flex;align-items:center;gap:10px;opacity:0;transform:translateX(-6px);transition:opacity 0.4s,transform 0.4s;}
+.t-line.show{opacity:1;transform:translateX(0);}
+.t-ico{width:16px;text-align:center;}
+.t-ico.pending{color:var(--muted);}
+.t-ico.done{color:var(--accent);}
+.t-ico.spin{animation:spin 0.8s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.t-msg{color:#7777aa;}
+.t-msg.done{color:#aaaacc;}
+.t-counter{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);opacity:0.6;margin-top:4px;}
+.big-prog-wrap{max-width:500px;margin:0 auto 20px;}
+.big-prog-label{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:8px;}
+.big-prog-label span{color:var(--accent);}
+.big-prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.big-prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#00ccff,var(--accent));background-size:200% 100%;border-radius:4px;width:0%;transition:width 0.25s ease;animation:shimmer 2s linear infinite;box-shadow:0 0 10px var(--accent-glow);}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.loading-title{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--text);margin-bottom:6px;}
+.loading-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+
+/* RESULT SCREEN */
+.urgency-bar{background:var(--red);color:#fff;text-align:center;padding:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.04em;margin-bottom:20px;}
+.result-header{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--accent);padding:28px 32px;margin-bottom:20px;}
+.result-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.18em;margin-bottom:10px;}
+.result-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5vw,50px);line-height:1;margin-bottom:14px;}
+.result-title span{color:var(--accent);}
+.result-title .tr{color:var(--red);}
+.result-subtitle{font-size:15px;color:#8888aa;line-height:1.6;}
+.result-subtitle strong{color:var(--text);}
+
+/* WASTE CALC */
+.waste-calc{background:var(--card);border:1px solid var(--red);padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.waste-calc::before{content:'ANÁLISE';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(255,68,68,0.04);pointer-events:none;}
+.waste-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);letter-spacing:0.15em;margin-bottom:16px;}
+.waste-bars{display:flex;flex-direction:column;gap:12px;margin-bottom:18px;}
+.wb-item{display:flex;flex-direction:column;gap:5px;}
+.wb-header{display:flex;justify-content:space-between;font-size:12px;}
+.wb-name{color:#8888aa;font-family:'JetBrains Mono',monospace;}
+.wb-val{color:var(--text);font-weight:600;}
+.wb-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.wb-fill{height:100%;border-radius:3px;width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.wbf-g{background:var(--accent);}
+.wbf-y{background:var(--yellow);}
+.wbf-r{background:var(--red);box-shadow:0 0 8px rgba(255,68,68,0.35);}
+.waste-total{border-top:1px solid var(--border);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.wt-label{font-size:13px;color:var(--muted);}
+.wt-period{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+.wt-val{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--red);}
+
+/* DIAG POINTS */
+.diag-points{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.diag-pt{background:var(--card);border:1px solid var(--border);padding:18px 22px;display:flex;gap:14px;align-items:flex-start;opacity:0;transform:translateX(-10px);transition:opacity 0.45s,transform 0.45s;}
+.diag-pt.show{opacity:1;transform:translateX(0);}
+.dp-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.dp-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.dp-text{font-size:12px;color:var(--muted);line-height:1.5;font-family:'JetBrains Mono',monospace;}
+
+/* SOLUTION BRIDGE */
+.sol-bridge{background:var(--accent-dim);border:1px solid var(--accent);padding:24px 28px;margin-bottom:20px;}
+.sb-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.15em;margin-bottom:10px;}
+.sb-title{font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:10px;}
+.sb-text{font-size:14px;color:#aaaacc;line-height:1.6;}
+.sb-text strong{color:var(--text);}
+
+/* CTA BLOCK */
+.cta-block{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--accent);padding:32px;text-align:center;}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,5vw,48px);line-height:0.95;margin-bottom:8px;}
+.cta-title span{color:var(--accent);}
+.cta-sub{font-size:13px;color:var(--muted);margin-bottom:22px;font-family:'JetBrains Mono',monospace;}
+.cta-price{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
+.cta-old{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--muted);text-decoration:line-through;}
+.cta-new{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--yellow);line-height:1;}
+.cta-new span{font-size:28px;}
+.cta-plabel{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-align:left;}
+.btn-cta{display:block;width:100%;background:var(--accent);color:#000;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.08em;padding:20px;border:none;cursor:pointer;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));margin-bottom:12px;text-decoration:none;}
+.btn-cta:hover{box-shadow:0 8px 36px var(--accent-glow);transform:translateY(-2px);}
+.cta-guar{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+.cta-guar span{color:var(--accent);}
+
+@media(max-width:580px){
+  .hook-stats{flex-direction:column;}
+  .hook-stat{min-width:unset;}
+  .waste-total{flex-direction:column;align-items:flex-start;}
+  .result-header,.waste-calc,.sol-bridge,.cta-block{padding:20px;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow-orb"></div>
+
+<!-- PROGRESS BAR -->
+<div id="progress-container">
+  <div class="progress-logo">IA GESTORA</div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+  <div class="progress-text">Pergunta <span id="prog-cur">1</span> de 6</div>
+</div>
+
+<div id="app">
+
+<!-- S0: HOOK -->
+<div class="screen active" id="screen-0">
+  <div class="hook-eyebrow">Diagnóstico Gratuito · 60 segundos</div>
+  <h1 class="hook-title">
+    <span class="tw">Descubra quanto</span><br>
+    <span class="tr">você desperdiça</span><br>
+    <span class="tw">sem </span><span class="tg">IA.</span>
+  </h1>
+  <p class="hook-sub">Responda <strong>6 perguntas rápidas</strong> sobre como você gerencia seus anúncios hoje e receba um diagnóstico personalizado do seu potencial de economia.</p>
+  <div class="hook-stats">
+    <div class="hook-stat"><div class="hook-stat-num">25%</div><div class="hook-stat-label">do orçamento<br>desperdiçado em média</div></div>
+    <div class="hook-stat"><div class="hook-stat-num">40h</div><div class="hook-stat-label">por mês perdidas<br>em relatórios manuais</div></div>
+    <div class="hook-stat"><div class="hook-stat-num">1 tarde</div><div class="hook-stat-label">pra configurar<br>e resolver tudo</div></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">INICIAR DIAGNÓSTICO <span class="btn-arrow">→</span></button>
+  <div class="hook-note">⚡ Gratuito · Sem cadastro obrigatório · Resultado imediato</div>
+</div>
+
+<!-- S1: Q1 -->
+<div class="screen" id="screen-1">
+  <div class="q-header">
+    <div class="q-step-label">// PERGUNTA 01 — PERFIL</div>
+    <h2 class="q-title">Como você gerencia seus anúncios hoje?</h2>
+  </div>
+  <div class="options" id="opts-1">
+    <div class="option" onclick="pick(1,'agency',this)"><div class="option-icon">🏢</div><div class="option-content"><div class="option-title">Tenho agência ou gestor</div><div class="option-desc">Terceirizo a gestão das campanhas</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(1,'solo',this)"><div class="option-icon">👤</div><div class="option-content"><div class="option-title">Gerencio eu mesmo</div><div class="option-desc">Faço tudo diretamente nas plataformas</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(1,'hybrid',this)"><div class="option-icon">🤝</div><div class="option-content"><div class="option-title">Metade eu, metade terceiro</div><div class="option-desc">Gestão compartilhada ou supervisiono o gestor</div></div><div class="option-check">✓</div></div>
+  </div>
+  <div class="feedback-flash" id="fb-1"><div class="fb-label">// DADO RELEVANTE</div><div class="fb-text" id="fb-1-t"></div></div>
+  <button class="btn-next" id="nx-1" onclick="go(2)">PRÓXIMA PERGUNTA →</button>
+</div>
+
+<!-- S2: Q2 -->
+<div class="screen" id="screen-2">
+  <div class="q-header">
+    <div class="q-step-label">// PERGUNTA 02 — INVESTIMENTO</div>
+    <h2 class="q-title">Quanto você investe por mês em tráfego pago?</h2>
+  </div>
+  <div class="options" id="opts-2">
+    <div class="option" onclick="pick(2,'low',this)"><div class="option-icon">💰</div><div class="option-content"><div class="option-title">Menos de R$1.000</div><div class="option-desc">Ainda validando e testando</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(2,'mid',this)"><div class="option-icon">💰</div><div class="option-content"><div class="option-title">R$1.000 a R$5.000</div><div class="option-desc">Já com campanhas consistentes rodando</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(2,'high',this)"><div class="option-icon">💰</div><div class="option-content"><div class="option-title">R$5.000 a R$20.000</div><div class="option-desc">Escala real, preciso de controle total</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(2,'whale',this)"><div class="option-icon">🐋</div><div class="option-content"><div class="option-title">Acima de R$20.000</div><div class="option-desc">Operação grande, cada % importa muito</div></div><div class="option-check">✓</div></div>
+  </div>
+  <div class="feedback-flash" id="fb-2"><div class="fb-label">// DADO RELEVANTE</div><div class="fb-text" id="fb-2-t"></div></div>
+  <button class="btn-next" id="nx-2" onclick="go(3)">PRÓXIMA PERGUNTA →</button>
+</div>
+
+<!-- S3: Q3 -->
+<div class="screen" id="screen-3">
+  <div class="q-header">
+    <div class="q-step-label">// PERGUNTA 03 — DOR PRINCIPAL</div>
+    <h2 class="q-title">Qual é o seu maior problema com campanhas hoje?</h2>
+  </div>
+  <div class="options" id="opts-3">
+    <div class="option" onclick="pick(3,'visibility',this)"><div class="option-icon">📊</div><div class="option-content"><div class="option-title">Não sei o que está funcionando</div><div class="option-desc">Falta visibilidade real dos resultados</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(3,'waste',this)"><div class="option-icon">💸</div><div class="option-content"><div class="option-title">Suspeito que estou desperdiçando</div><div class="option-desc">Sei que tem verba indo pro lixo mas não acho onde</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(3,'time',this)"><div class="option-icon">⏰</div><div class="option-content"><div class="option-title">Perco horas gerando relatórios</div><div class="option-desc">Processo manual, lento e chato demais</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(3,'dependency',this)"><div class="option-icon">🔗</div><div class="option-content"><div class="option-title">Dependo de alguém pra qualquer mudança</div><div class="option-desc">Sem autonomia, tudo passa por terceiros</div></div><div class="option-check">✓</div></div>
+  </div>
+  <div class="feedback-flash" id="fb-3"><div class="fb-label">// DADO RELEVANTE</div><div class="fb-text" id="fb-3-t"></div></div>
+  <button class="btn-next" id="nx-3" onclick="go(4)">PRÓXIMA PERGUNTA →</button>
+</div>
+
+<!-- S4: Q4 -->
+<div class="screen" id="screen-4">
+  <div class="q-header">
+    <div class="q-step-label">// PERGUNTA 04 — EXPERIÊNCIA COM IA</div>
+    <h2 class="q-title">Você já usou alguma IA para analisar campanhas?</h2>
+  </div>
+  <div class="options" id="opts-4">
+    <div class="option" onclick="pick(4,'never',this)"><div class="option-icon">🚫</div><div class="option-content"><div class="option-title">Nunca tentei</div><div class="option-desc">Não sei por onde começar</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(4,'tried',this)"><div class="option-icon">😤</div><div class="option-content"><div class="option-title">Tentei mas é complicado demais</div><div class="option-desc">Vi o ChatGPT mas não integra com nada</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(4,'tools',this)"><div class="option-icon">🛠️</div><div class="option-content"><div class="option-title">Uso ferramentas mas não integram direito</div><div class="option-desc">Sempre tem algo faltando ou quebrando</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(4,'running',this)"><div class="option-icon">✅</div><div class="option-content"><div class="option-title">Já tenho algo rodando</div><div class="option-desc">Mas quero otimizar e ir mais fundo</div></div><div class="option-check">✓</div></div>
+  </div>
+  <div class="feedback-flash" id="fb-4"><div class="fb-label">// DADO RELEVANTE</div><div class="fb-text" id="fb-4-t"></div></div>
+  <button class="btn-next" id="nx-4" onclick="go(5)">PRÓXIMA PERGUNTA →</button>
+</div>
+
+<!-- S5: Q5 -->
+<div class="screen" id="screen-5">
+  <div class="q-header">
+    <div class="q-step-label">// PERGUNTA 05 — OBJETIVO</div>
+    <h2 class="q-title">O que você mais quer resolver agora?</h2>
+  </div>
+  <div class="options" id="opts-5">
+    <div class="option" onclick="pick(5,'autonomy',this)"><div class="option-icon">💪</div><div class="option-content"><div class="option-title">Parar de depender de agência</div><div class="option-desc">Quero operar com independência total</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(5,'data',this)"><div class="option-icon">📈</div><div class="option-content"><div class="option-title">Ter visibilidade real dos meus dados</div><div class="option-desc">Saber exatamente o que está acontecendo</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(5,'automate',this)"><div class="option-icon">🤖</div><div class="option-content"><div class="option-title">Automatizar relatórios e otimizações</div><div class="option-desc">Quero que aconteça sozinho, sem meu esforço</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(5,'scale',this)"><div class="option-icon">🚀</div><div class="option-content"><div class="option-title">Escalar sem aumentar custo operacional</div><div class="option-desc">Crescer sem precisar contratar mais gente</div></div><div class="option-check">✓</div></div>
+  </div>
+  <div class="feedback-flash" id="fb-5"><div class="fb-label">// DADO RELEVANTE</div><div class="fb-text" id="fb-5-t"></div></div>
+  <button class="btn-next" id="nx-5" onclick="go(6)">PRÓXIMA PERGUNTA →</button>
+</div>
+
+<!-- S6: Q6 -->
+<div class="screen" id="screen-6">
+  <div class="q-header">
+    <div class="q-step-label">// PERGUNTA 06 — PLATAFORMAS</div>
+    <h2 class="q-title">Quais plataformas você usa para anunciar?</h2>
+  </div>
+  <div class="options" id="opts-6">
+    <div class="option" onclick="pick(6,'meta',this)"><div class="option-icon">📘</div><div class="option-content"><div class="option-title">Só Meta Ads</div><div class="option-desc">Facebook e Instagram</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(6,'google',this)"><div class="option-icon">🔍</div><div class="option-content"><div class="option-title">Só Google Ads</div><div class="option-desc">Search, Display, YouTube</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(6,'both',this)"><div class="option-icon">⚡</div><div class="option-content"><div class="option-title">Meta + Google</div><div class="option-desc">Operação multi-plataforma</div></div><div class="option-check">✓</div></div>
+    <div class="option" onclick="pick(6,'other',this)"><div class="option-icon">🌐</div><div class="option-content"><div class="option-title">Outras plataformas também</div><div class="option-desc">TikTok, LinkedIn, YouTube e etc</div></div><div class="option-check">✓</div></div>
+  </div>
+  <div class="feedback-flash" id="fb-6"><div class="fb-label">// DADO RELEVANTE</div><div class="fb-text" id="fb-6-t"></div></div>
+  <button class="btn-next" id="nx-6" onclick="go(7)">VER MEU DIAGNÓSTICO →</button>
+</div>
+
+<!-- S7: EMAIL -->
+<div class="screen" id="screen-7">
+  <div class="email-screen">
+    <div class="email-icon">🔍</div>
+    <h2 class="email-title">Seu diagnóstico<br><span>está pronto.</span></h2>
+    <p class="email-sub">Digite seu nome e e-mail para desbloquear sua análise personalizada — com o potencial exato de economia das suas campanhas.</p>
+    <div class="email-form">
+      <input type="text" class="form-input" id="user-name" placeholder="Seu primeiro nome" />
+      <input type="email" class="form-input" id="user-email" placeholder="Seu melhor e-mail" />
+      <button class="btn-diagnose" onclick="goLoad()">🚀 VER MEU DIAGNÓSTICO GRATUITO</button>
+    </div>
+    <div class="email-privacy">🔒 Seus dados são privados. Zero spam. Cancelamento com 1 clique.</div>
+  </div>
+</div>
+
+<!-- S8: LOADING -->
+<div class="screen" id="screen-8">
+  <div class="loading-screen">
+    <div class="loading-terminal">
+      <div class="t-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="t-bar-title">ia-gestora ~ analise.diagnostico</span>
+      </div>
+      <div class="t-body">
+        <div class="t-line" id="tl1"><span class="t-ico spin" id="ti1">⟳</span><span class="t-msg" id="tm1">Conectando ao perfil de campanhas...</span></div>
+        <div class="t-line" id="tl2"><span class="t-ico pending" id="ti2">○</span><span class="t-msg" id="tm2">Calculando índice de desperdício...</span></div>
+        <div class="t-line" id="tl3"><span class="t-ico pending" id="ti3">○</span><span class="t-msg" id="tm3">Comparando com 1.247 perfis similares...</span></div>
+        <div class="t-line" id="tl4"><span class="t-ico pending" id="ti4">○</span><span class="t-msg" id="tm4">Identificando pontos de vazamento...</span></div>
+        <div class="t-line" id="tl5"><span class="t-ico pending" id="ti5">○</span><span class="t-msg" id="tm5">Gerando recomendações personalizadas...</span></div>
+        <div class="t-line" id="tl6"><span class="t-ico pending" id="ti6">○</span><span class="t-msg" id="tm6">Compilando diagnóstico final...</span></div>
+        <div class="t-counter" id="tcounter">Analisando 0 campanhas...</div>
+      </div>
+    </div>
+    <div class="big-prog-wrap">
+      <div class="big-prog-label"><span>Processando análise</span><span id="bpct">0%</span></div>
+      <div class="big-prog-track"><div class="big-prog-fill" id="bpfill"></div></div>
+    </div>
+    <div class="loading-title" id="load-msg">Analisando seu perfil...</div>
+    <div class="loading-sub" id="load-sub">Isso pode levar alguns segundos</div>
+  </div>
+</div>
+
+<!-- S9: RESULT -->
+<div class="screen result-screen" id="screen-9">
+  <div class="urgency-bar">⚡ Oferta de lançamento — preço sobe a qualquer momento sem aviso</div>
+  <div class="result-header">
+    <div class="result-tag">// DIAGNÓSTICO PERSONALIZADO</div>
+    <h2 class="result-title" id="r-title">—</h2>
+    <p class="result-subtitle" id="r-sub"></p>
+  </div>
+  <div class="waste-calc">
+    <div class="waste-label">// ESTIMATIVA DE DESPERDÍCIO MENSAL</div>
+    <div class="waste-bars" id="r-bars"></div>
+    <div class="waste-total">
+      <div><div class="wt-label">Desperdício estimado</div><div class="wt-period" id="r-period">por mês</div></div>
+      <div class="wt-val" id="r-waste">—</div>
+    </div>
+  </div>
+  <div class="diag-points" id="r-diag"></div>
+  <div class="sol-bridge">
+    <div class="sb-label">// A SOLUÇÃO</div>
+    <div class="sb-title" id="r-sbtitle"></div>
+    <div class="sb-text" id="r-sbtext"></div>
+  </div>
+  <div class="cta-block">
+    <h3 class="cta-title" id="r-ctatitle">Resolva isso<br><span>por R$97.</span></h3>
+    <div class="cta-sub">Acesso imediato · Sem mensalidade · Funciona em 1 tarde</div>
+    <div class="cta-price">
+      <span class="cta-old">R$197</span>
+      <div class="cta-new"><span>R$</span>97</div>
+      <span class="cta-plabel">pagamento único<br>acesso vitalício</span>
+    </div>
+    <a href="#" class="btn-cta">🚀 QUERO RESOLVER ISSO AGORA</a>
+    <div class="cta-guar">🛡️ <span>7 dias de garantia incondicional</span> — não gostou, 100% devolvido sem perguntas</div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<script>
+const A = {}; // answers
+let uName = '';
+
+// FB data
+const FB = {
+  1: {
+    agency: 'Quem tem agência gasta em média <strong>R$2.000–R$5.000/mês</strong> de mensalidade além da mídia — sem garantia de resultado e sem visibilidade real do que está funcionando.',
+    solo:   'Quem gerencia sozinho sem IA perde em média <strong>40h/mês</strong> em tarefas repetitivas que um sistema bem configurado faria em segundos.',
+    hybrid: 'Gestão híbrida costuma ser o pior dos dois mundos: você paga por alguém <strong>e</strong> ainda perde tempo supervisionando — sem controle total de nenhum dos lados.'
+  },
+  2: {
+    low:   'Com R$800/mês de média, <strong>25% desperdiçado representa R$200/mês</strong> indo pro lixo. Em 12 meses: R$2.400 evaporados em campanhas que não convertiam.',
+    mid:   'Com R$3.000/mês de média, <strong>R$750 provavelmente estão sendo desperdiçados</strong> em campanhas sem performance. Isso é 7x o preço do produto — todo mês.',
+    high:  'Com R$10.000/mês, <strong>R$2.500 desperdiçados mensalmente</strong> é uma estimativa conservadora. Uma IA teria detectado e corrigido automaticamente.',
+    whale: 'Acima de R$20.000/mês, <strong>cada 1% de eficiência vale R$200+/mês</strong>. Uma IA que otimiza 15–20% paga a si mesma em menos de 1 dia.'
+  },
+  3: {
+    visibility:  'Operar sem visibilidade é como dirigir no escuro. <strong>Você gasta o mesmo mas não sabe o que funciona</strong> — então repete os mesmos erros mês após mês.',
+    waste:       'Campanhas com CPA alto continuam rodando porque ninguém detecta em tempo real. <strong>A IA identifica isso em segundos e pode pausar automaticamente.</strong>',
+    time:        'Exportar CSV, montar planilha, formatar relatório. <strong>Isso é trabalho que um sistema com IA faz em 8 segundos.</strong> Você está gastando 4+ horas por semana nisso.',
+    dependency:  'Pausar uma campanha que está sangrando não deveria depender de mandar mensagem pra alguém. <strong>Dependência operacional é o maior inimigo da escala.</strong>'
+  },
+  4: {
+    never:   'Você está igual a <strong>67% dos anunciantes brasileiros</strong> — sem IA, sem vantagem competitiva. Quem configurar isso primeiro vai ganhar mercado dos que não configuraram.',
+    tried:   'O problema não é o ChatGPT — é que ele não tem acesso às suas contas. <strong>A IA Gestora conecta direto via API e lê seus dados reais em tempo real.</strong>',
+    tools:   'Ferramentas genéricas têm limitações por design. <strong>A IA Gestora é configurada especificamente para o seu negócio</strong>, sem teto artificial de funcionalidade.',
+    running: 'Perfeito — você já está à frente. Agora é ir de "IA básica" para <strong>automação completa com execução de otimizações</strong>, não só análise passiva.'
+  },
+  5: {
+    autonomy: 'Autonomia real significa: você dá o comando, a IA executa. <strong>Sem intermediários, sem esperar resposta, sem pedir permissão.</strong> Esse é o padrão que você merece.',
+    data:     'Dados em tempo real mudam a qualidade das suas decisões completamente. <strong>ROAS, CPA, CTR, saturação — tudo consolidado com um comando</strong>, sem abrir 5 abas.',
+    automate: 'Quando as otimizações acontecem automaticamente, <strong>você para de apagar incêndio e começa a escalar com intenção.</strong> É isso que separa quem cresce de quem estagna.',
+    scale:    'Escalar sem contratar mais gente é a maior vantagem operacional que existe. <strong>A IA acompanha qualquer volume de campanha</strong> sem custo marginal crescente.'
+  },
+  6: {
+    meta:   'Meta Ads integrado via API oficial. <strong>A IA lê seus conjuntos, criativos, públicos e métricas em tempo real</strong> — e sugere ou executa otimizações sob comando.',
+    google: 'Google Ads integrado via API oficial. <strong>Search, Display, Performance Max</strong> — tudo analisado e otimizável por texto, sem precisar abrir o painel.',
+    both:   'Operação multi-plataforma é exatamente onde a IA Gestora brilha. <strong>Você cruza dados do Meta e Google em uma visão unificada</strong>, sem abrir nenhum dos dois.',
+    other:  'Múltiplas plataformas aumentam a complexidade exponencialmente. <strong>Centralizar análise via IA é a única forma de escalar isso sem perder controle.</strong>'
+  }
+};
+
+function startQuiz() {
+  document.getElementById('progress-container').classList.add('visible');
+  showScreen(1);
+  updateProg(1);
+}
+
+function showScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + n);
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function go(n) {
+  showScreen(n);
+  if (n >= 1 && n <= 6) updateProg(n);
+  if (n === 8) runLoading();
+  if (n === 9) buildResult();
+}
+
+function updateProg(q) {
+  const pct = ((q - 1) / 6) * 100;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-cur').textContent = Math.min(q, 6);
+}
+
+function pick(q, val, el) {
+  A[q] = val;
+  document.querySelectorAll('#opts-' + q + ' .option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const fbEl = document.getElementById('fb-' + q);
+  const fbTEl = document.getElementById('fb-' + q + '-t');
+  const txt = FB[q] && FB[q][val];
+  if (txt && fbEl && fbTEl) {
+    fbTEl.innerHTML = txt;
+    fbEl.classList.add('visible');
+  } else if (fbEl) {
+    fbEl.classList.remove('visible');
+  }
+  const nx = document.getElementById('nx-' + q);
+  if (nx) nx.classList.add('ready');
+}
+
+function goLoad() {
+  const n = document.getElementById('user-name');
+  uName = (n && n.value.trim()) ? n.value.trim().split(' ')[0] : 'Você';
+  showScreen(8);
+  runLoading();
+}
+
+function runLoading() {
+  const steps = [
+    { show: 200, done: 900 },
+    { show: 900, done: 1600 },
+    { show: 1600, done: 2300 },
+    { show: 2300, done: 2900 },
+    { show: 2900, done: 3600 },
+    { show: 3600, done: 4300 }
+  ];
+  steps.forEach((s, i) => {
+    const n = i + 1;
+    setTimeout(() => {
+      const tl = document.getElementById('tl' + n);
+      const ti = document.getElementById('ti' + n);
+      if (tl) tl.classList.add('show');
+      if (ti) { ti.textContent = '⟳'; ti.className = 't-ico spin'; }
+    }, s.show);
+    setTimeout(() => {
+      const ti = document.getElementById('ti' + n);
+      if (ti) { ti.textContent = '✓'; ti.className = 't-ico done'; }
+    }, s.done);
+  });
+
+  let count = 0;
+  const cEl = document.getElementById('tcounter');
+  const cInt = setInterval(() => {
+    count += Math.floor(Math.random() * 35 + 15);
+    if (count >= 1247) { count = 1247; clearInterval(cInt); }
+    if (cEl) cEl.textContent = 'Analisando ' + count + ' campanhas...';
+  }, 120);
+
+  const fillEl = document.getElementById('bpfill');
+  const pctEl = document.getElementById('bpct');
+  const msgEl = document.getElementById('load-msg');
+  const subEl = document.getElementById('load-sub');
+  const msgs = ['Analisando seu perfil...','Cruzando dados de campanhas...','Calculando potencial de economia...','Quase pronto...','Finalizando diagnóstico...'];
+  let pct = 0;
+  const pInt = setInterval(() => {
+    pct += Math.random() * 2.5 + 0.8;
+    if (pct >= 100) {
+      pct = 100; clearInterval(pInt);
+      if (msgEl) msgEl.textContent = '✓ Diagnóstico pronto!';
+      if (subEl) subEl.textContent = 'Redirecionando para sua análise...';
+      setTimeout(() => go(9), 700);
+    }
+    if (fillEl) fillEl.style.width = Math.min(pct, 100) + '%';
+    if (pctEl) pctEl.textContent = Math.floor(pct) + '%';
+    const mi = Math.min(Math.floor(pct / 20), msgs.length - 1);
+    if (msgEl && msgs[mi]) msgEl.textContent = msgs[mi];
+  }, 75);
+}
+
+function fmt(n) { return n.toLocaleString('pt-BR'); }
+
+function buildResult() {
+  const profile = A[1] || 'solo';
+  const budget  = A[2] || 'mid';
+  const pain    = A[3] || 'visibility';
+  const goal    = A[5] || 'data';
+
+  const bmap = { low: 800, mid: 3000, high: 10000, whale: 25000 };
+  const base = bmap[budget];
+  const waste = Math.round(base * 0.25);
+
+  // Title
+  const titles = {
+    agency: `<span>${uName}</span>, você está <span class="tr">pagando duplo</span> sem saber.`,
+    solo:   `<span>${uName}</span>, você está <span class="tr">operando no escuro</span>.`,
+    hybrid: `<span>${uName}</span>, você tem <span class="tr">controle pela metade</span>.`
+  };
+  const subs = {
+    agency: `Você paga a agência <strong>e</strong> ainda perde ~25% do orçamento de mídia sem saber. Dois vazamentos simultâneos consumindo seu resultado todo mês.`,
+    solo:   `Gerenciar sozinho sem IA é pilotar às cegas. Você trabalha mais, ganha menos, e ainda não sabe exatamente onde está perdendo.`,
+    hybrid: `Você sabe que tem problema mas não tem o instrumento certo pra localizar. A IA faz isso em segundos — você levaria dias tentando manualmente.`
+  };
+  document.getElementById('r-title').innerHTML = titles[profile] || titles.solo;
+  document.getElementById('r-sub').innerHTML = subs[profile] || subs.solo;
+
+  // Bars
+  const barsData = [
+    { name: 'Campanhas sem conversão real',   pct: 31, cls: 'wbf-r' },
+    { name: 'Público saturado / irrelevante', pct: 19, cls: 'wbf-y' },
+    { name: 'Criativos fadigados',            pct: 12, cls: 'wbf-y' },
+    { name: 'Campanhas performando bem',      pct: 38, cls: 'wbf-g' }
+  ];
+  document.getElementById('r-bars').innerHTML = barsData.map(b => `
+    <div class="wb-item">
+      <div class="wb-header"><span class="wb-name">${b.name}</span><span class="wb-val">${b.pct}% · R$${fmt(Math.round(base * b.pct / 100))}/mês</span></div>
+      <div class="wb-track"><div class="wb-fill ${b.cls}" data-w="${b.pct}"></div></div>
+    </div>
+  `).join('');
+  setTimeout(() => {
+    document.querySelectorAll('.wb-fill').forEach(el => { el.style.width = el.dataset.w + '%'; });
+  }, 250);
+  document.getElementById('r-waste').textContent = 'R$ ' + fmt(waste);
+
+  // Diag points
+  const ptMap = {
+    visibility: { icon:'📊', title:'Falta de visibilidade total', text:'Você não sabe qual campanha trouxe resultado real hoje. Isso é gerenciar com 1 olho fechado — você gasta igual mas não aprende nada.' },
+    waste:      { icon:'💸', title:'Verba vazando em silêncio', text:'Campanhas com CPA alto continuam rodando porque ninguém detecta em tempo real. A IA identifica e alerta — ou pausa automaticamente.' },
+    time:       { icon:'⏰', title:'Horas perdidas em tarefas mecânicas', text:'Exportar CSV, montar planilha, formatar relatório — isso é trabalho que uma IA faz em 8 segundos. Você está fazendo em 4 horas.' },
+    dependency: { icon:'🔗', title:'Dependência operacional total', text:'Pausar uma campanha sangrando não deveria depender de mandar mensagem pra alguém e esperar resposta. Você precisa de autonomia.' }
+  };
+  const goalMap = {
+    autonomy: { icon:'💪', title:'Autonomia operacional real', text:'Você dá o comando. A IA executa. Sem intermediários, sem esperar, sem pedir permissão para qualquer ação nas suas campanhas.' },
+    data:     { icon:'📈', title:'Dados reais em tempo real', text:'ROAS, CPA, CTR, frequência, saturação — tudo consolidado com um comando, sem abrir 5 abas diferentes no navegador.' },
+    automate: { icon:'🤖', title:'Automação de ponta a ponta', text:'Relatórios, alertas, pausas, ajustes de orçamento — tudo acontece automaticamente enquanto você foca no que realmente importa.' },
+    scale:    { icon:'🚀', title:'Escala sem custo operacional extra', text:'Dobrar o orçamento não precisa dobrar o trabalho. A IA acompanha qualquer volume sem você precisar contratar mais ninguém.' }
+  };
+  const pts = [
+    ptMap[pain] || ptMap.visibility,
+    goalMap[goal] || goalMap.data,
+    { icon:'⚡', title:'Configuração em 1 tarde', text:'Sem precisar saber programar. O passo a passo é em vídeo, direto ao ponto. Você termina o setup no mesmo dia e já começa a usar.' }
+  ];
+  document.getElementById('r-diag').innerHTML = pts.map(p => `
+    <div class="diag-pt"><div class="dp-icon">${p.icon}</div><div><div class="dp-title">${p.title}</div><div class="dp-text">${p.text}</div></div></div>
+  `).join('');
+  setTimeout(() => {
+    document.querySelectorAll('.diag-pt').forEach((el, i) => setTimeout(() => el.classList.add('show'), i * 130));
+  }, 200);
+
+  // Bridge
+  const bridges = {
+    agency: { t:'Demita a agência. Configure uma IA.', x:`Você não precisa continuar pagando mensalidade pra ter menos controle do que merece. <strong>A IA Gestora conecta direto nas suas contas e faz o que a agência faz — em tempo real, sem mensalidade, sem espera.</strong>` },
+    solo:   { t:'Pare de operar no escuro.', x:`Gerenciar sozinho é uma vantagem — mas só quando você tem as ferramentas certas. <strong>A IA Gestora transforma o que leva 4 horas em 4 segundos, e detecta o que você não conseguiria ver sozinho.</strong>` },
+    hybrid: { t:'Assuma o controle de verdade.', x:`Você já está no caminho certo. Agora precisa do instrumento certo. <strong>A IA Gestora te dá diagnóstico completo, alertas automáticos e execução de otimizações — você finalmente lidera sua operação de verdade.</strong>` }
+  };
+  const br = bridges[profile] || bridges.solo;
+  document.getElementById('r-sbtitle').textContent = br.t;
+  document.getElementById('r-sbtext').innerHTML = br.x;
+
+  // CTA title
+  document.getElementById('r-ctatitle').innerHTML = `Resolva os <span>R$${fmt(waste)}/mês</span><br>por R$97 uma vez.`;
+}
+</script>
+</body>
+</html>
