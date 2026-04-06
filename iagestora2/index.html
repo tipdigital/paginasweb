@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N5FR84QB');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/assets/1 - Tip Digital - Logo Versão 2.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Gestora - Diagnóstico Gratuito</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#06060b',
+                        surface: '#0d0d16',
+                        card: '#111119',
+                        neon: '#00e5ff',
+                        neonDim: '#00b8d4',
+                        accent: '#a855f7',
+                        success: '#22c55e',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #06060b; color: #e2e8f0; overflow-x: hidden; }
+        .glow-neon { text-shadow: 0 0 30px rgba(0,229,255,.4), 0 0 60px rgba(0,229,255,.15); }
+        .glow-accent { text-shadow: 0 0 30px rgba(168,85,247,.4); }
+        .glass { background: rgba(17,17,25,.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.06); }
+        .bg-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='rgba(255,255,255,0.02)' fill-rule='evenodd'/%3E%3C/svg%3E"); }
+        
+        .quiz-step { display: none; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; }
+        .quiz-step.active { display: block; opacity: 1; transform: translateY(0); }
+        .quiz-step.fade-out { opacity: 0; transform: translateY(-20px); }
+
+        .option-btn { 
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid rgba(255,255,255,0.08); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            cursor: pointer;
+        }
+        .option-btn:hover { 
+            background: rgba(0,229,255,0.05); 
+            border-color: rgba(0,229,255,0.3); 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,229,255,0.08);
+        }
+        .option-btn.selected {
+            background: rgba(0,229,255,0.1); 
+            border-color: #00e5ff;
+            box-shadow: 0 0 25px rgba(0,229,255,0.15);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        /* Terminal Loading animation */
+        .terminal { background:#0a0a12; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden; box-shadow:0 25px 60px -15px rgba(0,0,0,.6), 0 0 40px rgba(0,229,255,.04); }
+        .terminal-bar { display:flex; align-items:center; gap:6px; padding:10px 16px; background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.06); }
+        .terminal-dot { width:10px; height:10px; border-radius:50%; }
+        .terminal-body { padding:20px; font-family:'Space Grotesk',monospace; font-size:13px; line-height:1.9; min-height:180px; }
+        .terminal-line { display: none; }
+        .terminal-prompt { color:#a855f7; }
+        .terminal-cmd { color:#e2e8f0; }
+        .terminal-output { color:rgba(255,255,255,.45); }
+        .terminal-success { color:#22c55e; }
+        .cursor-blink { animation:blink 1s step-end infinite; color:#22c55e; font-weight:700; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3)} 50%{box-shadow:0 0 40px rgba(0,229,255,.6),0 0 80px rgba(0,229,255,.2)} }
+        .btn-pulse { animation: pulse-glow 2s ease-in-out infinite; }
+        
+        /* Progress Bar */
+        .progress-bar-bg { background: rgba(255,255,255,0.05); border-radius: 99px; height: 6px; overflow: hidden; width: 100%; margin-bottom: 2rem; }
+        .progress-bar-fill { background: linear-gradient(90deg, #a855f7, #00e5ff); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 99px; }
+    </style>
+</head>
+<body class="antialiased bg-grid min-h-screen flex flex-col items-center justify-center relative py-12 px-6">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5FR84QB"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-neon/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="w-full max-w-2xl relative z-10 glass rounded-3xl p-8 md:p-12">
+        
+        <!-- HEADER / BRANDING -->
+        <div class="text-center mb-8 pb-8 border-b border-white/5">
+            <span class="inline-block bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-[10px] font-tech text-gray-400 tracking-widest uppercase mb-4">
+                Análise de Tráfego por Inteligência Artificial
+            </span>
+            <h1 class="font-tech font-bold text-2xl md:text-3xl">IA GESTORA: DIAGNÓSTICO</h1>
+        </div>
+
+        <div id="quiz-container">
+            <!-- PROGRESS -->
+            <div id="progress-container" class="progress-bar-bg">
+                <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+
+            <!-- STEP 1: HOOK / START -->
+            <div class="quiz-step active" id="step-0">
+                <div class="text-center space-y-6">
+                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Sua agência cobra R$ 3.000/mês <span class="text-neon glow-neon">e não te dá controle.</span></h2>
+                    <p class="text-gray-400 text-base md:text-lg">Descubra em 60 segundos se o seu perfil de negócios está perdendo dinheiro por falta de automação e inteligência nas campanhas.</p>
+                    
+                    <button onclick="nextStep()" class="mt-8 bg-neon text-base font-tech font-bold text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform uppercase tracking-wider text-black btn-pulse w-full md:w-auto">
+                        INICIAR DIAGNÓSTICO
+                    </button>
+                    <p class="text-xs text-gray-500 mt-4 100% gratuito">É 100% gratuito e não exige e-mail.</p>
+                </div>
+            </div>
+
+            <!-- STEP 2: Q1 -->
+            <div class="quiz-step" id="step-1">
+                <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual a sua maior fonte de tráfego atual?</h3>
+                <p class="text-gray-400 text-sm mb-6">A IA analisa plataformas específicas. Precisamos saber onde está seu dinheiro.</p>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Meta Ads (Facebook/Instagram)</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Google Ads</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Meta e Google juntos</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>TikTok ou Outros</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Q2 -->
+            <div class="quiz-step" id="step-2">
+                <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual o seu investimento mensal em anúncios?</h3>
+                <p class="text-gray-400 text-sm mb-6">Projetos maiores tendem a ter desperdícios milionários mais difíceis de enxergar.</p>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Até R$ 2.000</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>R$ 2.000 a R$ 10.000</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>R$ 10.000 a R$ 30.000</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Mais de R$ 30.000</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Q3 -->
+            <div class="quiz-step" id="step-3">
+                <h3 class="font-tech font-bold text-2xl text-white mb-2">Como você acompanha suas métricas hoje?</h3>
+                <p class="text-gray-400 text-sm mb-6">A velocidade da reação é o que define o tamanho do seu lucro.</p>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Agência/Gestor manda um relatório no fim do mês</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Eu mesmo olho o Gerenciador (me perco nos dados)</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Não acompanho, só vejo se entrou dinheiro na conta</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Uso PowerBI / Dashboards complexos</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 5: Q4 -->
+            <div class="quiz-step" id="step-4">
+                <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual seu maior problema com o tráfego hoje?</h3>
+                <p class="text-gray-400 text-sm mb-6">Toda operação tem um gargalo oculto.</p>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Custo muito alto, lucro muito baixo</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>A agência demora pra agir, campanhas morrem rápido</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Falta de controle: não sei o que tá funcionando</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                        <span>Tenho dinheiro pra escalar, mas não sei como</span>
+                        <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 6: ANALYZING (Terminal Phase) -->
+            <div class="quiz-step" id="step-5">
+                <div class="text-center mb-6">
+                    <h3 class="font-tech font-bold text-2xl text-white">Processando cruzamento de dados...</h3>
+                    <p class="text-gray-400 text-sm mt-2">A IA está comparando as limitações do seu modelo atual contra o potencial de automação avançada.</p>
+                </div>
+
+                <div class="terminal mt-8">
+                    <div class="terminal-bar">
+                        <span class="terminal-dot" style="background:#ff5f56"></span>
+                        <span class="terminal-dot" style="background:#ffbd2e"></span>
+                        <span class="terminal-dot" style="background:#27c93f"></span>
+                        <span style="flex:1"></span>
+                        <span style="font-size:11px;color:rgba(255,255,255,.25);font-family:'Space Grotesk',monospace;">ia-gestora-diagnostico.exe</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-content">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 7: FINAL (Result Phase) -->
+            <div class="quiz-step" id="step-6">
+                <div class="text-center space-y-6">
+                    <div class="inline-block bg-success/10 border border-success/20 px-4 py-1.5 rounded-full text-success font-tech text-xs font-bold tracking-widest uppercase">
+                        Diagnóstico Concluído com Sucesso
+                    </div>
+                    
+                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Você está <span class="text-red-400">queimando verba</span> sem prestação de contas.</h2>
+                    
+                    <div class="glass rounded-xl p-6 text-left border-red-500/15 bg-red-500/5 mt-6 mb-6">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                            <strong>O veredito é brutal:</strong> O seu tráfego atualmente sofre com a falta de otimização em tempo real. Depender de análises humanas lentas ou painéis complexos está custando milhares de reais em campanhas que deveriam ser pausadas horas atrás.
+                        </p>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            A diferença é que agora existe uma alternativa: <strong class="text-white">a IA Gestora.</strong> Uma IA conectada via API na sua conta de anúncios que trabalha 24h por dia, monitorando métricas invisíveis a olho nu e enviando alertas automáticos.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 text-left mb-8">
+                        <div class="bg-white/5 rounded-lg p-4 border border-white/5">
+                            <span class="text-neon text-xl block mb-2">⚡</span>
+                            <h4 class="font-tech font-bold text-white text-sm">O que não funciona:</h4>
+                            <p class="text-xs text-gray-400 mt-1">Exportar CSV, cruzar planilhas, implorar por resposta da agência para parar um anúncio ruim.</p>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-4 border border-white/5">
+                            <span class="text-accent text-xl block mb-2">🤖</span>
+                            <h4 class="font-tech font-bold text-white text-sm">O novo modelo:</h4>
+                            <p class="text-xs text-gray-400 mt-1">A IA detecta criativos cansados, alerta sobre queda de ROAS e aplica as mudanças com apenas um comando seu.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface rounded-2xl p-6 md:p-8 gradient-border">
+                        <p class="text-gray-400 text-sm mb-2 uppercase tracking-widest font-tech font-bold">Oferta de lançamento</p>
+                        <p class="font-tech font-bold text-4xl md:text-5xl text-white mb-1"><span class="text-neon">R$ 47</span></p>
+                        <p class="text-xs text-gray-500 mb-6">Pagamento único · Sem IA ou ferramentas de terceiros a pagar · Zero código</p>
+                        
+                        <a href="https://pay.cakto.com.br/idtae9h_820539" class="block w-full bg-neon text-black font-tech font-bold text-lg py-4 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse">
+                            Quero a IA nas Minhas Campanhas
+                        </a>
+                        <p class="text-xs text-gray-500 mt-4">7 Dias de Garantia Incondicional 🛡️</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalQuestions = 4; // Step 1 to 4 are questions
+        
+        function updateProgress() {
+            if(currentStep === 0 || currentStep > totalQuestions) {
+                document.getElementById('progress-container').style.opacity = '0';
+            } else {
+                document.getElementById('progress-container').style.opacity = '1';
+                let progress = ((currentStep) / totalQuestions) * 100;
+                document.getElementById('progress-fill').style.width = progress + '%';
+            }
+        }
+
+        function nextStep() {
+            const currentEl = document.getElementById(`step-${currentStep}`);
+            let nextEl = document.getElementById(`step-${currentStep + 1}`);
+            
+            if(!nextEl) return;
+
+            // Fade out current
+            currentEl.classList.remove('active');
+            currentEl.classList.add('fade-out');
+
+            setTimeout(() => {
+                currentEl.style.display = 'none';
+                currentEl.classList.remove('fade-out');
+                
+                // Show next
+                currentStep++;
+                nextEl.style.display = 'block';
+                // Trigger reflow
+                void nextEl.offsetWidth;
+                nextEl.classList.add('active');
+                
+                updateProgress();
+
+                // If it's the analyzing step
+                if (currentStep === 5) {
+                    runTerminalAnimation();
+                }
+
+            }, 400); // Wait for transition
+        }
+
+        function selectOption(btn) {
+            // Unselect siblings
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('.option-btn');
+            buttons.forEach(b => {
+                b.classList.remove('selected');
+                const indicator = b.querySelector('div');
+                indicator.style.background = 'transparent';
+                indicator.style.borderColor = '#4b5563'; // gray-600
+                indicator.style.boxShadow = 'none';
+            });
+
+            // Select this
+            btn.classList.add('selected');
+            const indicator = btn.querySelector('div');
+            indicator.style.background = '#00e5ff';
+            indicator.style.borderColor = '#00e5ff';
+            indicator.style.boxShadow = '0 0 10px rgba(0,229,255,0.8)';
+
+            // Auto advance
+            setTimeout(() => {
+                nextStep();
+            }, 500);
+        }
+
+        function runTerminalAnimation() {
+            const lines = [
+                '<span class="terminal-prompt">→ </span><span class="terminal-cmd">iniciar_diagnostico --auto</span>',
+                '<span class="terminal-output">⠿ Mapeando entradas e dados do funil...</span>',
+                '<span class="terminal-output">⠿ Cruzando com benchmark de mercado de alta performance...</span>',
+                '<span class="terminal-success">✓ 14 gargalos operacionais encontrados no modelo tradicional</span>',
+                '<span class="terminal-file">↳ Padrão detectado: Perda de 25% da verba em janela de desatenção humana</span>',
+                '<span class="terminal-output">⠿ Compilando solução ideal baseada em API...</span>',
+                '<span class="terminal-success">GERANDO RELATÓRIO FINAL</span><span class="cursor-blink"> █</span>'
+            ];
+
+            const container = document.getElementById('terminal-content');
+            container.innerHTML = '';
+            
+            let delay = 0;
+            lines.forEach((lineHTML, index) => {
+                let div = document.createElement('div');
+                div.className = 'terminal-line';
+                div.innerHTML = lineHTML;
+                container.appendChild(div);
+
+                setTimeout(() => {
+                    div.style.display = 'block';
+                    // Trigger reflow
+                    void div.offsetWidth;
+                    div.style.opacity = 0;
+                    div.style.transform = 'translateY(6px)';
+                    div.style.transition = 'all 0.4s ease';
+                    
+                    requestAnimationFrame(() => {
+                        div.style.opacity = 1;
+                        div.style.transform = 'translateY(0)';
+                    });
+
+                    // Remove blinker from previous line if it had one
+                    if(index > 0) {
+                        let prevText = document.querySelectorAll('.cursor-blink');
+                        if (prevText.length > 0 && index < lines.length - 1) {
+                            prevText[0].remove();
+                        }
+                    }
+
+                    // On the last line, transition to result page after a moment
+                    if (index === lines.length - 1) {
+                        setTimeout(() => {
+                            nextStep();
+                        }, 2500);
+                    }
+                }, delay);
+                
+                // Add staggered delays depending on the line output feeling
+                if (index === 0) delay += 600;
+                else if (index === 1) delay += 1000;
+                else if (index === 2) delay += 1500;
+                else if (index === 3) delay += 1200;
+                else if (index === 4) delay += 800;
+                else if (index === 5) delay += 1400;
+            });
+        }
+
+        // Initialize progress bar correctly on load
+        updateProgress();
+    </script>
+</body>
+</html>
