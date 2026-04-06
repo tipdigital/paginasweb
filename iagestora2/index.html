@@ -68,6 +68,78 @@
             transform: translateY(-2px) scale(1.01);
         }
 
+        /* Feedback and Next Button styles */
+        .feedback-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 229, 255, 0.05);
+            border-left: 3px solid #00e5ff;
+            border-radius: 0 0.5rem 0.5rem 0;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s ease;
+        }
+        .feedback-box.show {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+            animation: flashIn 0.4s ease forwards;
+        }
+        @keyframes flashIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .feedback-label {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            color: #00e5ff;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .feedback-text {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .feedback-text strong {
+            color: #00e5ff;
+            font-weight: 600;
+        }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            background: #00e5ff;
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1.1rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.2s;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .next-btn.show {
+            display: block;
+            opacity: 1;
+            animation: fadeInBtn 0.4s ease forwards;
+        }
+        @keyframes fadeInBtn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .next-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0,229,255,0.3);
+        }
+
         /* Terminal Loading animation */
         .terminal { background:#0a0a12; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden; box-shadow:0 25px 60px -15px rgba(0,0,0,.6), 0 0 40px rgba(0,229,255,.04); }
         .terminal-bar { display:flex; align-items:center; gap:6px; padding:10px 16px; background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.06); }
@@ -117,12 +189,12 @@
             <div class="quiz-step active" id="step-0">
                 <div class="text-center space-y-6">
                     <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Sua agência cobra R$ 3.000/mês <span class="text-neon glow-neon">e não te dá controle.</span></h2>
-                    <p class="text-gray-400 text-base md:text-lg">Descubra em 60 segundos se o seu perfil de negócios está perdendo dinheiro por falta de automação e inteligência nas campanhas.</p>
+                    <p class="text-gray-400 text-base md:text-lg">Descubra em 60 segundos se o seu perfil de negócios está perdendo dinheiro por falta de automação corporativa nas campanhas.</p>
                     
                     <button onclick="nextStep()" class="mt-8 bg-neon text-base font-tech font-bold text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform uppercase tracking-wider text-black btn-pulse w-full md:w-auto">
                         INICIAR DIAGNÓSTICO
                     </button>
-                    <p class="text-xs text-gray-500 mt-4 100% gratuito">É 100% gratuito e não exige e-mail.</p>
+                    <p class="text-xs text-gray-500 mt-4">É 100% gratuito e não exige e-mail.</p>
                 </div>
             </div>
 
@@ -132,105 +204,129 @@
                 <p class="text-gray-400 text-sm mb-6">A IA analisa plataformas específicas. Precisamos saber onde está seu dinheiro.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'meta', this)">
                         <span>Meta Ads (Facebook/Instagram)</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'google', this)">
                         <span>Google Ads</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'both', this)">
                         <span>Meta e Google juntos</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'other', this)">
                         <span>TikTok ou Outros</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
                 </div>
+                
+                <div id="feedback-1" class="feedback-box">
+                    <div class="feedback-label">// Dado Relevante Encontrado</div>
+                    <div id="feedback-text-1" class="feedback-text"></div>
+                </div>
+                <button id="next-1" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
             </div>
 
             <!-- STEP 3: Q2 -->
             <div class="quiz-step" id="step-2">
                 <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual o seu investimento mensal em anúncios?</h3>
-                <p class="text-gray-400 text-sm mb-6">Projetos maiores tendem a ter desperdícios milionários mais difíceis de enxergar.</p>
+                <p class="text-gray-400 text-sm mb-6">Projetos maiores tendem ter desperdícios milionários mais difíceis de enxergar a olho nu.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'low', this)">
                         <span>Até R$ 2.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'mid', this)">
                         <span>R$ 2.000 a R$ 10.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'high', this)">
                         <span>R$ 10.000 a R$ 30.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'whale', this)">
                         <span>Mais de R$ 30.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
                 </div>
+
+                <div id="feedback-2" class="feedback-box">
+                    <div class="feedback-label">// Dado Relevante Encontrado</div>
+                    <div id="feedback-text-2" class="feedback-text"></div>
+                </div>
+                <button id="next-2" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
             </div>
 
             <!-- STEP 4: Q3 -->
             <div class="quiz-step" id="step-3">
                 <h3 class="font-tech font-bold text-2xl text-white mb-2">Como você acompanha suas métricas hoje?</h3>
-                <p class="text-gray-400 text-sm mb-6">A velocidade da reação é o que define o tamanho do seu lucro.</p>
+                <p class="text-gray-400 text-sm mb-6">A velocidade de resposta à falha do anúncio é o que dita a vida financeira de uma campanha.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'report', this)">
                         <span>Agência/Gestor manda um relatório no fim do mês</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
-                        <span>Eu mesmo olho o Gerenciador (me perco nos dados)</span>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'manual', this)">
+                        <span>Eu mesmo olho o Gerenciador e planilhas</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
-                        <span>Não acompanho, só vejo se entrou dinheiro na conta</span>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'none', this)">
+                        <span>Não acompanho de perto, só vejo as vendas caírem</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
-                        <span>Uso PowerBI / Dashboards complexos</span>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'bi', this)">
+                        <span>Uso PowerBI / Dashboards estáticos complexos</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
                 </div>
+
+                <div id="feedback-3" class="feedback-box">
+                    <div class="feedback-label">// Dado Relevante Encontrado</div>
+                    <div id="feedback-text-3" class="feedback-text"></div>
+                </div>
+                <button id="next-3" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
             </div>
 
             <!-- STEP 5: Q4 -->
             <div class="quiz-step" id="step-4">
-                <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual seu maior problema com o tráfego hoje?</h3>
-                <p class="text-gray-400 text-sm mb-6">Toda operação tem um gargalo oculto.</p>
+                <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual seu maior problema na operação?</h3>
+                <p class="text-gray-400 text-sm mb-6">Em operações de tráfego, o pior vazamento nem sempre é onde se olha.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'cost', this)">
                         <span>Custo muito alto, lucro muito baixo</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'slow', this)">
                         <span>A agência demora pra agir, campanhas morrem rápido</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
-                        <span>Falta de controle: não sei o que tá funcionando</span>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'control', this)">
+                        <span>Falta de controle: não vejo o que tá funcionando</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(this)">
-                        <span>Tenho dinheiro pra escalar, mas não sei como</span>
+                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'scale', this)">
+                        <span>Tenho dinheiro pra escalar, mas roi despenca</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
                     </button>
                 </div>
+
+                <div id="feedback-4" class="feedback-box">
+                    <div class="feedback-label">// Dado Relevante Encontrado</div>
+                    <div id="feedback-text-4" class="feedback-text"></div>
+                </div>
+                <button id="next-4" class="next-btn btn-pulse" onclick="nextStep()">Gerar Meu Diagnóstico →</button>
             </div>
 
             <!-- STEP 6: ANALYZING (Terminal Phase) -->
             <div class="quiz-step" id="step-5">
                 <div class="text-center mb-6">
                     <h3 class="font-tech font-bold text-2xl text-white">Processando cruzamento de dados...</h3>
-                    <p class="text-gray-400 text-sm mt-2">A IA está comparando as limitações do seu modelo atual contra o potencial de automação avançada.</p>
+                    <p class="text-gray-400 text-sm mt-2">A IA está comparando as limitações do seu modelo atual contra nosso Benchmark de Alta Performance.</p>
                 </div>
 
                 <div class="terminal mt-8">
@@ -254,37 +350,37 @@
                         Diagnóstico Concluído com Sucesso
                     </div>
                     
-                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Você está <span class="text-red-400">queimando verba</span> sem prestação de contas.</h2>
+                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Você está <span class="text-red-400">queimando verba</span> por depender de humanos.</h2>
                     
                     <div class="glass rounded-xl p-6 text-left border-red-500/15 bg-red-500/5 mt-6 mb-6">
                         <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                            <strong>O veredito é brutal:</strong> O seu tráfego atualmente sofre com a falta de otimização em tempo real. Depender de análises humanas lentas ou painéis complexos está custando milhares de reais em campanhas que deveriam ser pausadas horas atrás.
+                            <strong>O veredito é brutal:</strong> O seu tráfego atualmente sofre com a falta de otimização automatizada em tempo real. Depender de análises esporádicas está custando milhares de reais mensais em campanhas que deveriam ser pausadas ou alavancadas em minutos, não dias.
                         </p>
                         <p class="text-gray-300 text-sm leading-relaxed">
-                            A diferença é que agora existe uma alternativa: <strong class="text-white">a IA Gestora.</strong> Uma IA conectada via API na sua conta de anúncios que trabalha 24h por dia, monitorando métricas invisíveis a olho nu e enviando alertas automáticos.
+                            A diferença é que agora você pode estancar isso imediatamente usando a <strong class="text-white">IA Gestora.</strong> Uma IA conectada via API na sua conta de anúncios que trabalha 24h por dia diagnosticando e otimizando pra você, operada via único comando.
                         </p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4 text-left mb-8">
                         <div class="bg-white/5 rounded-lg p-4 border border-white/5">
                             <span class="text-neon text-xl block mb-2">⚡</span>
-                            <h4 class="font-tech font-bold text-white text-sm">O que não funciona:</h4>
-                            <p class="text-xs text-gray-400 mt-1">Exportar CSV, cruzar planilhas, implorar por resposta da agência para parar um anúncio ruim.</p>
+                            <h4 class="font-tech font-bold text-white text-sm">O mundo antigo:</h4>
+                            <p class="text-xs text-gray-400 mt-1">Exportar arquivo, cruzar planilhas e tentar achar o conjunto de anúncios ruim tarde demais.</p>
                         </div>
                         <div class="bg-white/5 rounded-lg p-4 border border-white/5">
                             <span class="text-accent text-xl block mb-2">🤖</span>
-                            <h4 class="font-tech font-bold text-white text-sm">O novo modelo:</h4>
-                            <p class="text-xs text-gray-400 mt-1">A IA detecta criativos cansados, alerta sobre queda de ROAS e aplica as mudanças com apenas um comando seu.</p>
+                            <h4 class="font-tech font-bold text-white text-sm">A nova revolução:</h4>
+                            <p class="text-xs text-gray-400 mt-1">A Inteligência Artificial lê seus métricas e aplica otimizações instantaneamente sobre o comando.</p>
                         </div>
                     </div>
 
                     <div class="bg-surface rounded-2xl p-6 md:p-8 gradient-border">
-                        <p class="text-gray-400 text-sm mb-2 uppercase tracking-widest font-tech font-bold">Oferta de lançamento</p>
+                        <p class="text-gray-400 text-sm mb-2 uppercase tracking-widest font-tech font-bold">Oferta de lançamento (Liberado)</p>
                         <p class="font-tech font-bold text-4xl md:text-5xl text-white mb-1"><span class="text-neon">R$ 47</span></p>
-                        <p class="text-xs text-gray-500 mb-6">Pagamento único · Sem IA ou ferramentas de terceiros a pagar · Zero código</p>
+                        <p class="text-xs text-gray-500 mb-6">Pagamento único · Sem mensalidade · Zero código</p>
                         
-                        <a href="https://pay.cakto.com.br/idtae9h_820539" class="block w-full bg-neon text-black font-tech font-bold text-lg py-4 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse">
-                            Quero a IA nas Minhas Campanhas
+                        <a href="https://pay.cakto.com.br/idtae9h_820539" class="block w-full bg-neon text-black font-tech font-bold text-lg py-4 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse text-center">
+                            Assumir Controle Agora
                         </a>
                         <p class="text-xs text-gray-500 mt-4">7 Dias de Garantia Incondicional 🛡️</p>
                     </div>
@@ -298,6 +394,33 @@
         let currentStep = 0;
         const totalQuestions = 4; // Step 1 to 4 are questions
         
+        const feedbackData = {
+            1: {
+                'meta': 'O Meta Ads pode torrar seu limite diário numa campanha ruim em minutos. Sem uma <strong>IA vigiando em tempo real</strong>, o dinheiro evapora rápido.',
+                'google': 'No Google Ads, a verba some em palavras-chave ocultas e amplas. <strong>Geralmente de 20% a 35% de desperdício garantido</strong> se depender de análise humana quinzenal.',
+                'both': 'Cruzar dados do Meta e Google requer horas, senão dias nas constatações em planilhas manuais. <strong>Atraso de análise no multicanal custa muito caro.</strong>',
+                'other': 'Redes diversificadas são complexas de compilar. <strong>Essa é a receita básica para as campanhas caírem na invisibilidade de gestão.</strong>'
+            },
+            2: {
+                'low': 'Mesmo um pequeno investimento sangra. <strong>Na verdade 25% indo para o lixo é como investir só R$ 750 dos R$ 1.000 que saíram do seu banco!</strong>',
+                'mid': 'Com essa base, <strong>até R$ 2.500/mês</strong> estão fluindo direto para campanhas estagnadas sem cliques convertidos. Você perde tração.',
+                'high': 'Isso é escala sensível. A automação passou de "bônus" para "sobrevivência". <strong>Desperdícios minúsculos perfuram o saldo financeiro drasticamente todo dia.</strong>',
+                'whale': 'Você já sabe escalar. Mas onde o tráfego aumenta drástico, os buracos ocultos ampliam. <strong>Apenas "repor" criativos num clique de IA te traria milhares de lucro sobressalente.</strong>'
+            },
+            3: {
+                'report': 'Relatórios de fim de período não geram performance; <strong>eles apenas contam como seu dinheiro já morreu.</strong> Você quer reagir, não ler obituário.',
+                'manual': 'A fadiga em cruzar CSV destrói sua eficiência como líder. <strong>Para onde vai sua prioridade quando gasta 4h abrindo Gerenciador de Anúncios lento?</strong>',
+                'none': 'Cegueira total não sustenta nenhuma empresa hoje. <strong>Em poucos dias a queda abrupta do ROAS pode congelar todo o giro financeiro do negócio.</strong>',
+                'bi': 'Dashboard apenas mostra o passado brilhante. <strong>Otimização em um clique na hora e momento da crise, isso sim corta custos e turbina os lucros!</strong>'
+            },
+            4: {
+                'cost': 'Geralmente 15% das piores campanhas puxam o CPA global para cima, e desligar rápido resolve 80% do problema. <strong>Apenas uma automação apura o problema isolado e rápido.</strong>',
+                'slow': 'Falta de celeridade custa clientes qualificados. <strong>Quando o gestor entra na conta para analisar, o dinheiro premium do público já se foi.</strong>',
+                'control': 'Se a tela central do negócio oculta as causas raízes dos gastos, não tem gestão real. <strong>Centralizar esses alertas tira um peso imenso das suas decisões!</strong>',
+                'scale': 'Colocar verba sem amarrar a eficiência só enriquece a rede de anúncios. <strong>Primeiro crie seu ecossistema otimizado, depois coloque escala trilionária. A IA alavanca as duas coisas.</strong>'
+            }
+        };
+
         function updateProgress() {
             if(currentStep === 0 || currentStep > totalQuestions) {
                 document.getElementById('progress-container').style.opacity = '0';
@@ -339,7 +462,7 @@
             }, 400); // Wait for transition
         }
 
-        function selectOption(btn) {
+        function selectOption(step, value, btn) {
             // Unselect siblings
             const parent = btn.parentElement;
             const buttons = parent.querySelectorAll('.option-btn');
@@ -347,7 +470,7 @@
                 b.classList.remove('selected');
                 const indicator = b.querySelector('div');
                 indicator.style.background = 'transparent';
-                indicator.style.borderColor = '#4b5563'; // gray-600
+                indicator.style.borderColor = '#4b5563'; 
                 indicator.style.boxShadow = 'none';
             });
 
@@ -358,21 +481,30 @@
             indicator.style.borderColor = '#00e5ff';
             indicator.style.boxShadow = '0 0 10px rgba(0,229,255,0.8)';
 
-            // Auto advance
-            setTimeout(() => {
-                nextStep();
-            }, 500);
+            // Set Feedback
+            const fbText = document.getElementById(`feedback-text-${step}`);
+            const fbBox = document.getElementById(`feedback-${step}`);
+            const nextBtn = document.getElementById(`next-${step}`);
+
+            if(fbText && feedbackData[step][value]) {
+                fbText.innerHTML = feedbackData[step][value];
+                fbBox.classList.add('show');
+            }
+
+            if(nextBtn) {
+                nextBtn.classList.add('show');
+            }
         }
 
         function runTerminalAnimation() {
             const lines = [
                 '<span class="terminal-prompt">→ </span><span class="terminal-cmd">iniciar_diagnostico --auto</span>',
-                '<span class="terminal-output">⠿ Mapeando entradas e dados do funil...</span>',
-                '<span class="terminal-output">⠿ Cruzando com benchmark de mercado de alta performance...</span>',
-                '<span class="terminal-success">✓ 14 gargalos operacionais encontrados no modelo tradicional</span>',
-                '<span class="terminal-file">↳ Padrão detectado: Perda de 25% da verba em janela de desatenção humana</span>',
-                '<span class="terminal-output">⠿ Compilando solução ideal baseada em API...</span>',
-                '<span class="terminal-success">GERANDO RELATÓRIO FINAL</span><span class="cursor-blink"> █</span>'
+                '<span class="terminal-output">⠿ Mapeando entradas e varredura do modelo atual...</span>',
+                '<span class="terminal-output">⠿ Cruzando com benchmark de inteligência de alta performance...</span>',
+                '<span class="terminal-success">✓ Múltiplos gargalos operacionais detectados...</span>',
+                '<span class="terminal-file">↳ Padrão severo detectado: Constante vazamento financeiro diário...</span>',
+                '<span class="terminal-output">⠿ Compilando mitigação de solução automatizada via API...</span>',
+                '<span class="terminal-success">GERANDO RELATÓRIO IMEDIATO</span><span class="cursor-blink"> █</span>'
             ];
 
             const container = document.getElementById('terminal-content');
@@ -410,7 +542,7 @@
                     if (index === lines.length - 1) {
                         setTimeout(() => {
                             nextStep();
-                        }, 2500);
+                        }, 2800);
                     }
                 }, delay);
                 
