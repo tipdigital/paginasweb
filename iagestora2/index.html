@@ -488,7 +488,7 @@
                             <p class="text-xs text-gray-500 mt-2">pagamento único · liberação imediata · sem taxas atreladas de tráfego</p>
                         </div>
                         
-                        <a href="https://pay.cakto.com.br/idtae9h_820539" class="block w-full bg-neon text-black font-tech font-bold text-lg py-5 mt-6 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse text-center">
+                        <a href="https://pay.cakto.com.br/idtae9h_820539" onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'checkout_from_quiz'});" class="block w-full bg-neon text-black font-tech font-bold text-lg py-5 mt-6 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse text-center">
                             Desbloquear IA Gestora Agora
                         </a>
                         <p class="text-xs text-gray-500 mt-4">7 Dias de Garantia Incondicional 🛡️ Risco totalmente nosso.</p>
@@ -562,6 +562,13 @@
                 
                 updateProgress();
 
+                // Disparo no GTM indicando evolução no funil
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'quiz_progress',
+                    'step_reached': currentStep
+                });
+
                 if (currentStep === 5) {
                     runTerminalAnimation();
                 }
@@ -602,6 +609,14 @@
             if(nextBtn) {
                 nextBtn.classList.add('show');
             }
+
+            // Disparo GTM quando escolhe uma opção
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'quiz_answer',
+                'quiz_step': step,
+                'quiz_answer_value': value
+            });
         }
 
         function runTerminalAnimation() {
