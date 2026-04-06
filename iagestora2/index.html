@@ -199,9 +199,9 @@
                 <div class="text-center space-y-6">
                     <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Sua agência cobra R$ 3.000/mês <span class="text-neon glow-neon">e não te dá controle.</span></h2>
                     <p class="text-gray-400 text-base md:text-lg">Descubra em 60 segundos se o seu perfil de negócios está perdendo dinheiro por falta de automação corporativa nas campanhas.</p>
-                    <button onclick="nextStep()" class="mt-8 bg-neon text-base font-tech font-bold text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform uppercase tracking-wider text-black btn-pulse w-full md:w-auto cursor-pointer">
+                    <div onclick="nextStep()" class="mt-8 bg-neon text-base font-tech font-bold text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform uppercase tracking-wider text-black btn-pulse w-full md:w-auto cursor-pointer inline-block">
                         INICIAR DIAGNÓSTICO
-                    </button>
+                    </div>
                     <p class="text-xs text-gray-500 mt-4">É 100% gratuito e não exige e-mail.</p>
                 </div>
             </div>
@@ -212,29 +212,29 @@
                 <p class="text-gray-400 text-sm mb-6">A IA analisa plataformas específicas. Precisamos saber onde está seu dinheiro.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'meta', this)">
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'meta', this)">
                         <span>Meta Ads (Facebook/Instagram)</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'google', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'google', this)">
                         <span>Google Ads</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'both', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'both', this)">
                         <span>Meta e Google juntos</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'other', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(1, 'other', this)">
                         <span>TikTok ou Outros</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
+                    </div>
                 </div>
                 
                 <div id="feedback-1" class="feedback-box">
                     <div class="feedback-label">// Dado Relevante Encontrado</div>
                     <div id="feedback-text-1" class="feedback-text"></div>
                 </div>
-                <button id="next-1" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
+                <div id="next-1" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</div>
             </div>
 
             <!-- STEP 2: Q2 -->
@@ -243,29 +243,29 @@
                 <p class="text-gray-400 text-sm mb-6">Projetos maiores tendem ter desperdícios milionários mais difíceis de enxergar a olho nu.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'low', this)">
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'low', this)">
                         <span>Até R$ 2.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'mid', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'mid', this)">
                         <span>R$ 2.000 a R$ 10.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'high', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'high', this)">
                         <span>R$ 10.000 a R$ 30.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'whale', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(2, 'whale', this)">
                         <span>Mais de R$ 30.000</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
+                    </div>
                 </div>
 
                 <div id="feedback-2" class="feedback-box">
                     <div class="feedback-label">// Dado Relevante Encontrado</div>
                     <div id="feedback-text-2" class="feedback-text"></div>
                 </div>
-                <button id="next-2" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
+                <div id="next-2" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</div>
             </div>
 
             <!-- STEP 3: Q3 -->
@@ -274,29 +274,29 @@
                 <p class="text-gray-400 text-sm mb-6">A velocidade de resposta à falha do anúncio é o que dita a vida financeira de uma campanha.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'report', this)">
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'report', this)">
                         <span>Agência/Gestor manda um relatório no fim do mês</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'manual', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'manual', this)">
                         <span>Eu mesmo olho o Gerenciador e planilhas</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'none', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'none', this)">
                         <span>Não acompanho de perto, só vejo as vendas caírem</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'bi', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(3, 'bi', this)">
                         <span>Uso PowerBI / Dashboards estáticos complexos</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
+                    </div>
                 </div>
 
                 <div id="feedback-3" class="feedback-box">
                     <div class="feedback-label">// Dado Relevante Encontrado</div>
                     <div id="feedback-text-3" class="feedback-text"></div>
                 </div>
-                <button id="next-3" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
+                <div id="next-3" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</div>
             </div>
 
             <!-- STEP 4: Q4 -->
@@ -305,29 +305,29 @@
                 <p class="text-gray-400 text-sm mb-6">Em operações de tráfego, o pior vazamento nem sempre é onde se olha.</p>
                 
                 <div class="grid grid-cols-1 gap-3">
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'cost', this)">
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'cost', this)">
                         <span>Custo muito alto, lucro muito baixo</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'slow', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'slow', this)">
                         <span>A agência demora pra agir, campanhas morrem rápido</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'control', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'control', this)">
                         <span>Falta de controle: não vejo o que tá funcionando</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
-                    <button class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'scale', this)">
+                    </div>
+                    <div class="option-btn text-left p-4 rounded-xl font-tech font-semibold text-white flex items-center justify-between" onclick="selectOption(4, 'scale', this)">
                         <span>Tenho dinheiro pra escalar, mas roi despenca</span>
                         <div class="w-4 h-4 rounded-full border border-gray-600 flex-shrink-0"></div>
-                    </button>
+                    </div>
                 </div>
 
                 <div id="feedback-4" class="feedback-box">
                     <div class="feedback-label">// Dado Relevante Encontrado</div>
                     <div id="feedback-text-4" class="feedback-text"></div>
                 </div>
-                <button id="next-4" class="next-btn btn-pulse" onclick="nextStep()">Gerar Meu Diagnóstico →</button>
+                <div id="next-4" class="next-btn btn-pulse" onclick="nextStep()">Gerar Meu Diagnóstico →</div>
             </div>
 
             <!-- STEP 5: ANALYZING (Terminal Phase) -->
@@ -378,7 +378,7 @@
                         </ul>
                     </div>
                     
-                    <button class="next-btn-always btn-pulse" onclick="nextStep()">SIM, QUERO VER O COMPARATIVO →</button>
+                    <div class="next-btn-always btn-pulse text-center" onclick="nextStep()">SIM, QUERO VER O COMPARATIVO →</div>
                 </div>
             </div>
 
@@ -445,7 +445,7 @@
                     </div>
                 </div>
 
-                <button class="next-btn-always btn-pulse" onclick="nextStep()">COMO FUNCIONA NA PRÁTICA? →</button>
+                <div class="next-btn-always btn-pulse text-center" onclick="nextStep()">COMO FUNCIONA NA PRÁTICA? →</div>
             </div>
 
             <!-- STEP 8: HOW IT WORKS (MINI TERMINAL) -->
@@ -468,7 +468,7 @@
                     </div>
                 </div>
 
-                <button class="next-btn-always" onclick="nextStep()">CUSTA CARO? VER OFERTA DE LANÇAMENTO</button>
+                <div class="next-btn-always text-center" onclick="nextStep()">CUSTA CARO? VER OFERTA DE LANÇAMENTO</div>
             </div>
 
             <!-- STEP 9: THE PITCH / OFFER -->
@@ -501,7 +501,7 @@
 
     <script>
         let currentStep = 0;
-        const totalQuestions = 4; // Step 1 to 4 are questions to fill progress bar
+        const totalQuestions = 4;
         
         const feedbackData = {
             1: {
@@ -562,12 +562,10 @@
                 
                 updateProgress();
 
-                // Terminal Analyzing step
                 if (currentStep === 5) {
                     runTerminalAnimation();
                 }
 
-                // How it works terminal
                 if (currentStep === 8) {
                     runHowItWorksAnimation();
                 }
