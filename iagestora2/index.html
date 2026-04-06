@@ -68,7 +68,6 @@
             transform: translateY(-2px) scale(1.01);
         }
 
-        /* Feedback and Next Button styles */
         .feedback-box {
             display: none;
             margin-top: 1.5rem;
@@ -131,16 +130,32 @@
             opacity: 1;
             animation: fadeInBtn 0.4s ease forwards;
         }
+        .next-btn-always {
+            display: block;
+            width: 100%;
+            background: #00e5ff;
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1.1rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin-top: 2rem;
+            opacity: 1;
+        }
         @keyframes fadeInBtn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .next-btn:hover {
+        .next-btn:hover, .next-btn-always:hover {
             transform: scale(1.02);
             box-shadow: 0 8px 30px rgba(0,229,255,0.3);
         }
 
-        /* Terminal Loading animation */
         .terminal { background:#0a0a12; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden; box-shadow:0 25px 60px -15px rgba(0,0,0,.6), 0 0 40px rgba(0,229,255,.04); }
         .terminal-bar { display:flex; align-items:center; gap:6px; padding:10px 16px; background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.06); }
         .terminal-dot { width:10px; height:10px; border-radius:50%; }
@@ -155,23 +170,18 @@
         @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3)} 50%{box-shadow:0 0 40px rgba(0,229,255,.6),0 0 80px rgba(0,229,255,.2)} }
         .btn-pulse { animation: pulse-glow 2s ease-in-out infinite; }
         
-        /* Progress Bar */
         .progress-bar-bg { background: rgba(255,255,255,0.05); border-radius: 99px; height: 6px; overflow: hidden; width: 100%; margin-bottom: 2rem; }
         .progress-bar-fill { background: linear-gradient(90deg, #a855f7, #00e5ff); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 99px; }
     </style>
 </head>
 <body class="antialiased bg-grid min-h-screen flex flex-col items-center justify-center relative py-12 px-6">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5FR84QB"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5FR84QB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent pointer-events-none"></div>
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-neon/5 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="w-full max-w-2xl relative z-10 glass rounded-3xl p-8 md:p-12">
         
-        <!-- HEADER / BRANDING -->
         <div class="text-center mb-8 pb-8 border-b border-white/5">
             <span class="inline-block bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-[10px] font-tech text-gray-400 tracking-widest uppercase mb-4">
                 Análise de Tráfego por Inteligência Artificial
@@ -180,25 +190,23 @@
         </div>
 
         <div id="quiz-container">
-            <!-- PROGRESS -->
             <div id="progress-container" class="progress-bar-bg">
                 <div id="progress-fill" class="progress-bar-fill"></div>
             </div>
 
-            <!-- STEP 1: HOOK / START -->
+            <!-- STEP 0: HOOK -->
             <div class="quiz-step active" id="step-0">
                 <div class="text-center space-y-6">
                     <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Sua agência cobra R$ 3.000/mês <span class="text-neon glow-neon">e não te dá controle.</span></h2>
                     <p class="text-gray-400 text-base md:text-lg">Descubra em 60 segundos se o seu perfil de negócios está perdendo dinheiro por falta de automação corporativa nas campanhas.</p>
-                    
-                    <button onclick="nextStep()" class="mt-8 bg-neon text-base font-tech font-bold text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform uppercase tracking-wider text-black btn-pulse w-full md:w-auto">
+                    <button onclick="nextStep()" class="mt-8 bg-neon text-base font-tech font-bold text-lg px-8 py-4 rounded-full hover:scale-105 transition-transform uppercase tracking-wider text-black btn-pulse w-full md:w-auto cursor-pointer">
                         INICIAR DIAGNÓSTICO
                     </button>
                     <p class="text-xs text-gray-500 mt-4">É 100% gratuito e não exige e-mail.</p>
                 </div>
             </div>
 
-            <!-- STEP 2: Q1 -->
+            <!-- STEP 1: Q1 -->
             <div class="quiz-step" id="step-1">
                 <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual a sua maior fonte de tráfego atual?</h3>
                 <p class="text-gray-400 text-sm mb-6">A IA analisa plataformas específicas. Precisamos saber onde está seu dinheiro.</p>
@@ -229,7 +237,7 @@
                 <button id="next-1" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
             </div>
 
-            <!-- STEP 3: Q2 -->
+            <!-- STEP 2: Q2 -->
             <div class="quiz-step" id="step-2">
                 <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual o seu investimento mensal em anúncios?</h3>
                 <p class="text-gray-400 text-sm mb-6">Projetos maiores tendem ter desperdícios milionários mais difíceis de enxergar a olho nu.</p>
@@ -260,7 +268,7 @@
                 <button id="next-2" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
             </div>
 
-            <!-- STEP 4: Q3 -->
+            <!-- STEP 3: Q3 -->
             <div class="quiz-step" id="step-3">
                 <h3 class="font-tech font-bold text-2xl text-white mb-2">Como você acompanha suas métricas hoje?</h3>
                 <p class="text-gray-400 text-sm mb-6">A velocidade de resposta à falha do anúncio é o que dita a vida financeira de uma campanha.</p>
@@ -291,7 +299,7 @@
                 <button id="next-3" class="next-btn btn-pulse" onclick="nextStep()">Próxima Pergunta →</button>
             </div>
 
-            <!-- STEP 5: Q4 -->
+            <!-- STEP 4: Q4 -->
             <div class="quiz-step" id="step-4">
                 <h3 class="font-tech font-bold text-2xl text-white mb-2">Qual seu maior problema na operação?</h3>
                 <p class="text-gray-400 text-sm mb-6">Em operações de tráfego, o pior vazamento nem sempre é onde se olha.</p>
@@ -322,7 +330,7 @@
                 <button id="next-4" class="next-btn btn-pulse" onclick="nextStep()">Gerar Meu Diagnóstico →</button>
             </div>
 
-            <!-- STEP 6: ANALYZING (Terminal Phase) -->
+            <!-- STEP 5: ANALYZING (Terminal Phase) -->
             <div class="quiz-step" id="step-5">
                 <div class="text-center mb-6">
                     <h3 class="font-tech font-bold text-2xl text-white">Processando cruzamento de dados...</h3>
@@ -343,46 +351,147 @@
                 </div>
             </div>
 
-            <!-- STEP 7: FINAL (Result Phase) -->
+            <!-- STEP 6: ELEVATOR OF INTEREST -->
             <div class="quiz-step" id="step-6">
                 <div class="text-center space-y-6">
                     <div class="inline-block bg-success/10 border border-success/20 px-4 py-1.5 rounded-full text-success font-tech text-xs font-bold tracking-widest uppercase">
                         Diagnóstico Concluído com Sucesso
                     </div>
                     
-                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Você está <span class="text-red-400">queimando verba</span> por depender de humanos.</h2>
+                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white mt-4">Você está <span class="text-red-400">queimando verba</span> por depender de análise humana.</h2>
                     
                     <div class="glass rounded-xl p-6 text-left border-red-500/15 bg-red-500/5 mt-6 mb-6">
                         <p class="text-gray-300 text-sm leading-relaxed mb-4">
                             <strong>O veredito é brutal:</strong> O seu tráfego atualmente sofre com a falta de otimização automatizada em tempo real. Depender de análises esporádicas está custando milhares de reais mensais em campanhas que deveriam ser pausadas ou alavancadas em minutos, não dias.
                         </p>
-                        <p class="text-gray-300 text-sm leading-relaxed">
-                            A diferença é que agora você pode estancar isso imediatamente usando a <strong class="text-white">IA Gestora.</strong> Uma IA conectada via API na sua conta de anúncios que trabalha 24h por dia diagnosticando e otimizando pra você, operada via único comando.
-                        </p>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-4 text-left mb-8">
-                        <div class="bg-white/5 rounded-lg p-4 border border-white/5">
-                            <span class="text-neon text-xl block mb-2">⚡</span>
-                            <h4 class="font-tech font-bold text-white text-sm">O mundo antigo:</h4>
-                            <p class="text-xs text-gray-400 mt-1">Exportar arquivo, cruzar planilhas e tentar achar o conjunto de anúncios ruim tarde demais.</p>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-4 border border-white/5">
-                            <span class="text-accent text-xl block mb-2">🤖</span>
-                            <h4 class="font-tech font-bold text-white text-sm">A nova revolução:</h4>
-                            <p class="text-xs text-gray-400 mt-1">A Inteligência Artificial lê seus métricas e aplica otimizações instantaneamente sobre o comando.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-surface rounded-2xl p-6 md:p-8 gradient-border">
-                        <p class="text-gray-400 text-sm mb-2 uppercase tracking-widest font-tech font-bold">Oferta de lançamento (Liberado)</p>
-                        <p class="font-tech font-bold text-4xl md:text-5xl text-white mb-1"><span class="text-neon">R$ 47</span></p>
-                        <p class="text-xs text-gray-500 mb-6">Pagamento único · Sem mensalidade · Zero código</p>
+                    <div class="text-left mt-8">
+                        <h3 class="font-tech font-bold text-2xl text-white mb-4">Quer economizar e faturar mais com uma IA vigiando sua conta?</h3>
+                        <p class="text-gray-400 text-sm mb-6">Criamos a <span class="text-white">IA Gestora</span>, um sistema 100% plug & play para que você recupere o dinheiro deixado na mesa sem precisar de programadores.</p>
                         
-                        <a href="https://pay.cakto.com.br/idtae9h_820539" class="block w-full bg-neon text-black font-tech font-bold text-lg py-4 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse text-center">
-                            Assumir Controle Agora
+                        <ul class="space-y-4 text-sm text-gray-300 mb-8">
+                            <li class="flex gap-3 items-start"><span class="text-neon text-lg mt-[-2px]">✓</span> <div><strong>Detecção de Fadiga Diária:</strong> Identifica criativos que param de converter antes de você perder margem.</div></li>
+                            <li class="flex gap-3 items-start"><span class="text-neon text-lg mt-[-2px]">✓</span> <div><strong>Zero Mensalidade Extra:</strong> Uma vez rodando, você não paga renovações sazonais para o software.</div></li>
+                            <li class="flex gap-3 items-start"><span class="text-neon text-lg mt-[-2px]">✓</span> <div><strong>Integração Direta Oficial:</strong> Conecta nas contas do Meta Ads e Google Ads simultaneamente via API.</div></li>
+                            <li class="flex gap-3 items-start"><span class="text-neon text-lg mt-[-2px]">✓</span> <div><strong>Alertas de Segurança de Capital:</strong> Receba o aviso em cliques assim que o seu CPA flutuar.</div></li>
+                        </ul>
+                    </div>
+                    
+                    <button class="next-btn-always btn-pulse" onclick="nextStep()">SIM, QUERO VER O COMPARATIVO →</button>
+                </div>
+            </div>
+
+            <!-- STEP 7: COMPARATIVE CHART -->
+            <div class="quiz-step" id="step-7">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-tech tracking-[.2em] uppercase text-neon border border-neon/20 px-4 py-1.5 rounded-full mb-4 inline-block">O Jogo Virou</span>
+                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Manual <span class="text-gray-500">vs</span> Inteligência Artificial</h2>
+                    <p class="text-gray-400 text-sm mt-3">Veja a diferença real de desempenho quando a precisão matemática assume a gestão repetitiva.</p>
+                </div>
+
+                <div class="bg-white/[.03] rounded-xl p-5 border border-white/[.06] flex flex-col mt-4">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <span class="text-xs text-gray-400 font-tech font-bold uppercase tracking-widest">Escala Média de Retorno (ROAS)</span>
+                        </div>
+                        <div class="flex flex-wrap justify-end gap-x-4 gap-y-2 text-[9px] font-tech text-gray-500 max-w-[200px]">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm" style="background:rgba(255,68,68,0.7)"></span>Sem IA (Manual)</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm" style="background:rgba(0,229,255,0.7)"></span>Com IA Gestora</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Chart Area -->
+                    <div class="relative h-40 w-full mt-auto">
+                        <!-- Grid Lines -->
+                        <div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+                            <div class="w-full border-t border-white"></div>
+                            <div class="w-full border-t border-white"></div>
+                            <div class="w-full border-t border-white"></div>
+                            <div class="w-full border-t border-white"></div>
+                        </div>
+
+                        <!-- Bars Layer -->
+                        <div class="absolute inset-0 flex items-end justify-between px-2 gap-2 md:gap-4 max-w-lg mx-auto">
+                            <!-- Week 1 -->
+                            <div class="flex-1 flex gap-1 items-end h-full">
+                                <div class="w-full rounded-t bg-red-500/40" style="height:35%"></div>
+                                <div class="w-full rounded-t bg-neon/40" style="height:45%"></div>
+                            </div>
+                            <!-- Week 2 -->
+                            <div class="flex-1 flex gap-1 items-end h-full">
+                                <div class="w-full rounded-t bg-red-500/40" style="height:32%"></div>
+                                <div class="w-full rounded-t bg-neon/40" style="height:60%"></div>
+                            </div>
+                            <!-- Week 3 -->
+                            <div class="flex-1 flex gap-1 items-end h-full">
+                                <div class="w-full rounded-t bg-red-500/40" style="height:28%"></div>
+                                <div class="w-full rounded-t bg-neon/40" style="height:75%"></div>
+                            </div>
+                            <!-- Week 4 -->
+                            <div class="flex-1 flex gap-1 items-end h-full">
+                                <div class="w-full rounded-t bg-red-500/40" style="height:25%"></div>
+                                <div class="w-full rounded-t bg-neon/40" style="height:90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- X Axis Labels -->
+                    <div class="flex justify-between mt-3 px-2 text-[10px] text-gray-500 font-tech font-bold uppercase max-w-lg mx-auto w-full">
+                        <span>Semana 1</span>
+                        <span>Semana 2</span>
+                        <span>Semana 3</span>
+                        <span>Semana 4</span>
+                    </div>
+                </div>
+
+                <button class="next-btn-always btn-pulse" onclick="nextStep()">COMO FUNCIONA NA PRÁTICA? →</button>
+            </div>
+
+            <!-- STEP 8: HOW IT WORKS (MINI TERMINAL) -->
+            <div class="quiz-step" id="step-8">
+                <div class="text-center mb-8">
+                    <h2 class="font-tech font-bold text-3xl md:text-4xl text-white">Você no controle, com apenas um comando.</h2>
+                    <p class="text-gray-400 text-sm mt-3">Você configura uma vez e depois interage assim com a sua operação de Meta ou Google Ads.</p>
+                </div>
+
+                <div class="terminal mt-8">
+                    <div class="terminal-bar">
+                        <span class="terminal-dot" style="background:#ff5f56"></span>
+                        <span class="terminal-dot" style="background:#ffbd2e"></span>
+                        <span class="terminal-dot" style="background:#27c93f"></span>
+                        <span style="flex:1"></span>
+                        <span style="font-size:11px;color:rgba(255,255,255,.25);font-family:'Space Grotesk',monospace;">ia-gestora v1.0</span>
+                    </div>
+                    <div class="terminal-body" id="howitworks-terminal">
+                        <!-- Filled dynamically when step 8 is active -->
+                    </div>
+                </div>
+
+                <button class="next-btn-always" onclick="nextStep()">CUSTA CARO? VER OFERTA DE LANÇAMENTO</button>
+            </div>
+
+            <!-- STEP 9: THE PITCH / OFFER -->
+            <div class="quiz-step" id="step-9">
+                <div class="text-center space-y-6">
+                    <div class="bg-surface rounded-2xl p-6 md:p-10 gradient-border mt-2">
+                        <span class="inline-block bg-neon/10 text-neon text-[10px] font-tech tracking-[.15em] uppercase px-4 py-1.5 rounded-full border border-neon/20 mb-4">Acesso Limitado</span>
+
+                        <h2 class="font-tech font-bold text-3xl md:text-4xl text-white mb-6">Sua agência custa R$3.000 mensais.<br>A sua IA custará <span class="text-neon">menos de 50 reais.</span></h2>
+                        
+                        <p class="text-gray-400 text-sm mb-4">Você recebe acesso vitalício a esse painel, integração completa sem código que ensinamos em vídeo e licença de uso comercial (se for agência e for monitorar seus clientes em lote).</p>
+                        
+                        <div class="pt-6 border-t border-white/[.05] mt-6">
+                            <p class="text-gray-600 text-xs">Valor isolado das integrações: +R$ 6.500</p>
+                            <p class="text-gray-500 text-sm mt-1"><span style="text-decoration: line-through;">Preço normal padrão: R$ 197,00</span></p>
+                            <p class="font-tech font-bold text-5xl md:text-6xl text-white mt-2">R$ 47<span class="text-xl text-gray-400">,00</span></p>
+                            <p class="text-xs text-gray-500 mt-2">pagamento único · liberação imediata · sem taxas atreladas de tráfego</p>
+                        </div>
+                        
+                        <a href="https://pay.cakto.com.br/idtae9h_820539" class="block w-full bg-neon text-black font-tech font-bold text-lg py-5 mt-6 rounded-full hover:scale-[1.02] transition-transform uppercase tracking-wider btn-pulse text-center">
+                            Desbloquear IA Gestora Agora
                         </a>
-                        <p class="text-xs text-gray-500 mt-4">7 Dias de Garantia Incondicional 🛡️</p>
+                        <p class="text-xs text-gray-500 mt-4">7 Dias de Garantia Incondicional 🛡️ Risco totalmente nosso.</p>
                     </div>
                 </div>
             </div>
@@ -392,7 +501,7 @@
 
     <script>
         let currentStep = 0;
-        const totalQuestions = 4; // Step 1 to 4 are questions
+        const totalQuestions = 4; // Step 1 to 4 are questions to fill progress bar
         
         const feedbackData = {
             1: {
@@ -424,7 +533,9 @@
         function updateProgress() {
             if(currentStep === 0 || currentStep > totalQuestions) {
                 document.getElementById('progress-container').style.opacity = '0';
+                document.getElementById('progress-container').style.display = 'none';
             } else {
+                document.getElementById('progress-container').style.display = 'block';
                 document.getElementById('progress-container').style.opacity = '1';
                 let progress = ((currentStep) / totalQuestions) * 100;
                 document.getElementById('progress-fill').style.width = progress + '%';
@@ -437,7 +548,6 @@
             
             if(!nextEl) return;
 
-            // Fade out current
             currentEl.classList.remove('active');
             currentEl.classList.add('fade-out');
 
@@ -445,25 +555,27 @@
                 currentEl.style.display = 'none';
                 currentEl.classList.remove('fade-out');
                 
-                // Show next
                 currentStep++;
                 nextEl.style.display = 'block';
-                // Trigger reflow
                 void nextEl.offsetWidth;
                 nextEl.classList.add('active');
                 
                 updateProgress();
 
-                // If it's the analyzing step
+                // Terminal Analyzing step
                 if (currentStep === 5) {
                     runTerminalAnimation();
                 }
 
-            }, 400); // Wait for transition
+                // How it works terminal
+                if (currentStep === 8) {
+                    runHowItWorksAnimation();
+                }
+
+            }, 400); 
         }
 
         function selectOption(step, value, btn) {
-            // Unselect siblings
             const parent = btn.parentElement;
             const buttons = parent.querySelectorAll('.option-btn');
             buttons.forEach(b => {
@@ -474,14 +586,12 @@
                 indicator.style.boxShadow = 'none';
             });
 
-            // Select this
             btn.classList.add('selected');
             const indicator = btn.querySelector('div');
             indicator.style.background = '#00e5ff';
             indicator.style.borderColor = '#00e5ff';
             indicator.style.boxShadow = '0 0 10px rgba(0,229,255,0.8)';
 
-            // Set Feedback
             const fbText = document.getElementById(`feedback-text-${step}`);
             const fbBox = document.getElementById(`feedback-${step}`);
             const nextBtn = document.getElementById(`next-${step}`);
@@ -519,7 +629,6 @@
 
                 setTimeout(() => {
                     div.style.display = 'block';
-                    // Trigger reflow
                     void div.offsetWidth;
                     div.style.opacity = 0;
                     div.style.transform = 'translateY(6px)';
@@ -530,15 +639,13 @@
                         div.style.transform = 'translateY(0)';
                     });
 
-                    // Remove blinker from previous line if it had one
                     if(index > 0) {
-                        let prevText = document.querySelectorAll('.cursor-blink');
+                        let prevText = document.querySelectorAll('#terminal-content .cursor-blink');
                         if (prevText.length > 0 && index < lines.length - 1) {
                             prevText[0].remove();
                         }
                     }
 
-                    // On the last line, transition to result page after a moment
                     if (index === lines.length - 1) {
                         setTimeout(() => {
                             nextStep();
@@ -546,7 +653,6 @@
                     }
                 }, delay);
                 
-                // Add staggered delays depending on the line output feeling
                 if (index === 0) delay += 600;
                 else if (index === 1) delay += 1000;
                 else if (index === 2) delay += 1500;
@@ -556,7 +662,54 @@
             });
         }
 
-        // Initialize progress bar correctly on load
+        function runHowItWorksAnimation() {
+            const lines = [
+                '<span class="terminal-prompt">→ </span><span class="terminal-cmd">analise os últimos 7 dias das minhas campanhas</span>',
+                '<span class="terminal-output">⠿ Conectando Meta Ads API...</span>',
+                '<span class="terminal-output">⠿ Conectando Google Ads API...</span>',
+                '<span class="terminal-success">✓ 3 campanhas analisadas: 1 escalável, 1 para pausar, 1 para otimizar</span>',
+                '<span class="terminal-file">↳ Economia identificada: R$ 1.240/mês em verba desperdiçada</span>',
+                '<span class="terminal-success">EXECUTAR OTIMIZAÇÕES AUTO?</span><span class="cursor-blink"> █</span>'
+            ];
+
+            const container = document.getElementById('howitworks-terminal');
+            container.innerHTML = '';
+            
+            let delay = 0;
+            lines.forEach((lineHTML, index) => {
+                let div = document.createElement('div');
+                div.className = 'terminal-line';
+                div.innerHTML = lineHTML;
+                container.appendChild(div);
+
+                setTimeout(() => {
+                    div.style.display = 'block';
+                    void div.offsetWidth;
+                    div.style.opacity = 0;
+                    div.style.transform = 'translateY(6px)';
+                    div.style.transition = 'all 0.4s ease';
+                    
+                    requestAnimationFrame(() => {
+                        div.style.opacity = 1;
+                        div.style.transform = 'translateY(0)';
+                    });
+
+                    if(index > 0) {
+                        let prevText = document.querySelectorAll('#howitworks-terminal .cursor-blink');
+                        if (prevText.length > 0 && index < lines.length - 1) {
+                            prevText[0].remove();
+                        }
+                    }
+                }, delay);
+                
+                if (index === 0) delay += 500;
+                else if (index === 1) delay += 900;
+                else if (index === 2) delay += 1200;
+                else if (index === 3) delay += 1100;
+                else if (index === 4) delay += 1000;
+            });
+        }
+
         updateProgress();
     </script>
 </body>
