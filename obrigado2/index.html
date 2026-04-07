@@ -15,14 +15,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var params = new URLSearchParams(window.location.search);
     var orderId  = params.get('order_id')   || params.get('transaction_id') || params.get('pedido')           || null;
     var rawValue = params.get('value')      || params.get('transaction_amount') || params.get('valor')        || null;
+    var status   = params.get('status')     || params.get('payment_status') || 'approved'; // Default para approved se não vier nada (para compatibilidade)
     var email    = params.get('email')      || params.get('customer_email')  || '';
     var name     = params.get('name')       || params.get('customer_name')   || '';
     var value    = rawValue ? parseFloat(rawValue.replace(',', '.')) : 0;
 
     if (!orderId) return;
 
+    // FILTRO DE SEGURANÇA: Se o pagamento estiver pendente (PIX/Boleto gerado mas não pago), não conta como Purchase
+    var isPending = (status === 'waiting_payment' || status === 'pending' || status === 'processing');
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ ecommerce: null });
+
+    if (isPending) {
+        // Dispara apenas um evento de Lead/Aguardando Pagamento
+        window.dataLayer.push({
+            event: 'pix_generated_pending',
+            order_id: orderId,
+            value: value,
+            customer_email: email
+        });
+        console.log("IA GESTORA: PIX Detectado. Evento de compra suprimido até o pagamento real.");
+        return; 
+    }
+
+    // Se chegou aqui, o status é aprovado/paid ou não veio status (assume-se cartão/pago)
     window.dataLayer.push({
       event: 'purchase',
       ecommerce: {
