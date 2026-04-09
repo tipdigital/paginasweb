@@ -570,10 +570,10 @@
         const nextMap = { q1: 2, q2: 3, q3: 4, q4: 5 };
         const nextStep = nextMap[question];
 
-        // Avança automaticamente após 750ms
+        // Avança automaticamente após 2s (tempo de leitura do feedback)
         autoAdvanceTimer = setTimeout(() => {
             goTo(nextStep);
-        }, 750);
+        }, 2000);
     }
 
     // ── Navigation ─────────────────────────────────────────────
