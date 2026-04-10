@@ -353,13 +353,11 @@
                 <h2 class="headline">Assista o vídeo abaixo <span class="hl">(é super curto)</span></h2>
                 <p class="subhead">Vi suas respostas. Você está no grupo de quem está perdendo ROI por falta de supervisão 24h.</p>
 
-                <div class="video-placeholder" id="video-box">
-                    <div class="video-scanline"></div>
-                    <div class="play-icon">
-                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </div>
-                    <p class="video-label">Clique para assistir · ~90 segundos</p>
-                    <p style="font-family:'Space Grotesk',monospace;font-size:10px;color:rgba(255,255,255,0.15);margin-top:4px;">[ Faça upload do seu vídeo aqui ]</p>
+                <div class="video-container" style="margin: 24px 0; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #000;">
+                    <video id="main-video" controls playsinline style="width: 100%; display: block; aspect-ratio: 16/9; background: #000;">
+                        <source src="/assets/copy_A6A869C9-8318-4531-B419-35BA0FAB8C9C.mov" type="video/quicktime">
+                        Seu navegador não suporta a exibição de vídeos.
+                    </video>
                 </div>
 
                 <button class="cta-btn" onclick="goTo(7)">Vamos lá! →</button>
