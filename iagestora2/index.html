@@ -594,6 +594,13 @@
 
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({ event: 'quiz_progress', step_reached: next });
+            
+            if (currentStep === 0 && next === 1) {
+                window.dataLayer.push({ event: 'quiz_start' });
+            }
+            if (next === 10) {
+                window.dataLayer.push({ event: 'generate_lead' });
+            }
 
             if (next === 7) triggerChart();
             if (next === 8) runMecTerminal();
