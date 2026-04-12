@@ -22,6 +22,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     if (!orderId) return;
 
+    // PREVENÇÃO DE DUPLICIDADE: Verifica se este pedido já foi trackeado neste navegador
+    var storageKey = 'tracked_' + orderId;
+    if (localStorage.getItem(storageKey)) {
+        console.log("IA GESTORA: Pedido " + orderId + " já trackeado anteriormente. Ignorando duplicata.");
+        return;
+    }
+
     // FILTRO DE SEGURANÇA: Se o pagamento estiver pendente (PIX/Boleto gerado mas não pago), não conta como Purchase
     var isPending = (status === 'waiting_payment' || status === 'pending' || status === 'processing');
 
@@ -60,6 +67,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       customer_email:    email,
       customer_name:     name
     });
+
+    // Marca como trackeado para evitar re-disparos em refresh de página
+    localStorage.setItem(storageKey, 'true');
   })();
 </script>
 <!-- ===== FIM CAKTO PURCHASE TRACKING ===== -->

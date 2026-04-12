@@ -26,6 +26,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     // Só dispara se vier parâmetro de pedido (vindo do checkout Cakto)
     if (!orderId) return;
 
+    // PREVENÇÃO DE DUPLICIDADE: Verifica se este pedido já foi trackeado neste navegador
+    var storageKey = 'tracked_' + orderId;
+    if (localStorage.getItem(storageKey)) {
+      console.log("IA GESTORA: Pedido " + orderId + " já trackeado anteriormente. Ignorando duplicata.");
+      return;
+    }
+
     window.dataLayer = window.dataLayer || [];
 
     // Limpa camada de ecommerce anterior (boa prática GA4)
@@ -52,6 +59,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       customer_email:    email,
       customer_name:     name
     });
+
+    // Marca como trackeado para evitar re-disparos em refresh de página
+    localStorage.setItem(storageKey, 'true');
   })();
 </script>
 <!-- ===== FIM CAKTO PURCHASE TRACKING ===== -->
