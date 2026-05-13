@@ -18,7 +18,7 @@ Foi realizada a injeção global dos scripts do GTM em todas as páginas do proj
 1.  `404.html`
 2.  `captura/index.html`
 3.  `iagestora/index.html`
-4.  `iagestoradetrafego/index.html`
+4.  `consultor10x/index.html` *(renomeado de `iagestoradetrafego` em 13/05/2026)*
 5.  `institucional/index.html`
 6.  `obrigado/index.html`
 7.  `vsl/index.html`

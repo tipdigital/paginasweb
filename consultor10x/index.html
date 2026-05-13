@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth bg-[#050508]">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N5FR84QB');</script>
+<!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/assets/1 - Tip Digital - Logo Versão 2.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultor10x — Método Stark · Aula Gratuita Ao Vivo</title>
+    <meta name="description" content="Descubra como consultores fitness que já faturam estão usando IA para fazer a mesma equipe entregar 10 vezes mais. Aula ao vivo, gratuita, sem gravação.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#050508',
+                        surface: '#0d0d14',
+                        neonBlue: '#00CFFF',
+                        neonPurple: '#7B2CBF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            color: #E2E8F0;
+            overflow-x: hidden;
+            background-color: #050508;
+        }
+
+        /* FOMO Bar */
+        .fomo-bar {
+            background: linear-gradient(90deg, #7B2CBF, #00CFFF, #7B2CBF);
+            background-size: 200% 100%;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .glass-panel {
+            background: rgba(13, 13, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.01);
+        }
+
+        .text-glow-blue {
+            text-shadow: 0 0 20px rgba(0, 207, 255, 0.4);
+        }
+
+        .animated-border {
+            position: relative;
+            background: #050508;
+            border-radius: 9999px;
+            z-index: 1;
+        }
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #00CFFF, #7B2CBF, #00CFFF);
+            background-size: 200% 200%;
+            z-index: -1;
+            border-radius: 9999px;
+            animation: moveGradient 3s ease infinite;
+        }
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .contrast-card {
+            border-left: 3px solid;
+            padding-left: 1rem;
+        }
+        .contrast-before { border-color: #ef4444; }
+        .contrast-after { border-color: #00CFFF; }
+
+        .topic-card {
+            border: 1px solid rgba(0,207,255,0.12);
+            background: rgba(13,13,20,0.5);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .topic-card:hover {
+            border-color: rgba(0,207,255,0.35);
+            box-shadow: 0 0 20px rgba(0,207,255,0.08);
+        }
+
+        .pain-item::before {
+            content: '"';
+            color: #7B2CBF;
+            font-size: 2rem;
+            line-height: 0;
+            vertical-align: -0.5rem;
+            margin-right: 4px;
+        }
+
+        .roi-card {
+            background: linear-gradient(135deg, rgba(123,44,191,0.1), rgba(0,207,255,0.05));
+            border: 1px solid rgba(123,44,191,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .roi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(123,44,191,0.15);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        .checklist-item .check {
+            color: #00CFFF;
+            font-weight: 700;
+        }
+
+        .scarcity-box {
+            border: 1px solid rgba(239,68,68,0.25);
+            background: rgba(239,68,68,0.04);
+            box-shadow: 0 0 30px rgba(239,68,68,0.06);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-neonBlue selection:text-base bg-base">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5FR84QB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ═══════════════════════════════════════════════
+     FOMO BAR
+════════════════════════════════════════════════ -->
+<div class="fomo-bar w-full py-2.5 text-center text-xs md:text-sm font-tech font-semibold text-white tracking-widest uppercase">
+    Aula ao vivo &nbsp;·&nbsp; Terça-feira 12h &nbsp;·&nbsp; Sem gravação &nbsp;·&nbsp; Sem segunda chance
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════════ -->
+<section class="relative min-h-[100vh] flex flex-col justify-end pb-16 md:pb-24 pt-[65vh] md:pt-[70vh]">
+
+    <!-- Background Video -->
+    <div class="absolute top-0 left-0 z-0 w-full h-[100vh] md:h-[85vh]">
+        <video src="../assets/Ands IA Holograma.mp4" autoplay muted playsinline class="w-full h-full object-cover object-[60%_center] md:object-center opacity-70 lg:opacity-80"></video>
+        <div class="absolute inset-0 bg-gradient-to-t from-base via-base/60 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-[40vh] md:h-[50vh] bg-gradient-to-t from-base to-transparent"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-6 max-w-7xl relative z-10 w-full mt-auto">
+        <div class="max-w-4xl space-y-6 md:space-y-8">
+
+            <!-- Eyebrow -->
+            <div class="inline-block border border-neonPurple/30 bg-neonPurple/10 px-4 py-1.5 rounded-full text-neonPurple font-tech text-xs md:text-sm tracking-widest uppercase shadow-[0_0_15px_rgba(123,44,191,0.2)]">
+                Aula gratuita ao vivo &nbsp;·&nbsp; Método Stark &nbsp;·&nbsp; Consultoria fitness online
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-tech font-bold leading-tight">
+                Seu negócio fitness está no teto.<br class="hidden md:block">
+                Não porque você trabalha pouco —<br class="hidden md:block">
+                porque você ainda não colocou <span class="text-neonBlue text-glow-blue italic">IA para trabalhar</span> por você.
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="text-base md:text-xl text-gray-300 font-medium border-l-4 border-neonBlue pl-4 py-1 max-w-3xl leading-relaxed">
+                Você já fatura. Já tem clientes. Já tem operação. Mas cada novo aluno aumenta o caos, não a liberdade. Você sabe que dá para escalar — só não sabe como fazer isso sem contratar mais gente, sem virar técnico e sem depender de dev para qualquer coisa.
+            </p>
+
+            <!-- Frase de Impacto -->
+            <div class="glass-panel p-5 md:p-6 rounded-2xl max-w-3xl">
+                <p class="text-sm md:text-base text-gray-200 leading-relaxed">
+                    Nessa aula eu vou te mostrar como consultores fitness que já faturam estão usando IA para fazer <strong class="text-neonBlue">a mesma equipe entregar 10 vezes mais</strong> — e saindo do modelo onde se eles param, o dinheiro para.
+                </p>
+            </div>
+
+            <!-- CTA -->
+            <div class="pt-2 md:pt-4">
+                <a href="https://chat.whatsapp.com/K8zZF9yUNeGJq4OghCPDlI?mode=gi_t" target="_blank" class="animated-border inline-block group w-full md:w-auto text-center">
+                    <span class="block bg-surface px-6 md:px-10 py-4 md:py-5 rounded-full font-tech font-bold text-white text-base md:text-lg transition-all group-hover:bg-transparent uppercase tracking-wider">
+                        Quero participar — entrar no grupo agora
+                    </span>
+                </a>
+                <p class="mt-3 text-xs text-gray-500 font-tech">Você entra no grupo do WhatsApp e recebe o link da aula por lá. Gratuito. Sem formulário. Sem enrolação.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     BLOCO DE DOR
+════════════════════════════════════════════════ -->
+<section class="py-20 md:py-28 bg-surface">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <h2 class="text-2xl md:text-4xl font-tech font-bold mb-10 text-center">
+            Você vai se reconhecer aqui
+        </h2>
+        <div class="space-y-5 max-w-3xl mx-auto">
+            <p class="pain-item text-gray-300 text-base md:text-lg leading-relaxed pl-6">Se eu parar de atender, o dinheiro para junto.</p>
+            <p class="pain-item text-gray-300 text-base md:text-lg leading-relaxed pl-6">Contratei alguém para me ajudar — e virei gerente de colaborador.</p>
+            <p class="pain-item text-gray-300 text-base md:text-lg leading-relaxed pl-6">Pago dev ou agência para qualquer coisa técnica. Caro, lento e ainda fico refém.</p>
+            <p class="pain-item text-gray-300 text-base md:text-lg leading-relaxed pl-6">Sei que IA pode ajudar. Mas toda vez que vou aprender, parece complexo demais.</p>
+            <p class="pain-item text-gray-300 text-base md:text-lg leading-relaxed pl-6">Crescer virou dor de cabeça. Cada novo cliente é mais trabalho, não mais liberdade.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CONTRASTE ANTES / DEPOIS
+════════════════════════════════════════════════ -->
+<section class="py-20 md:py-28">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <h2 class="text-2xl md:text-4xl font-tech font-bold mb-12 text-center">A diferença na prática</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Antes -->
+            <div class="glass-panel rounded-2xl p-7 md:p-8">
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                    <span class="font-tech font-bold text-red-400 uppercase tracking-widest text-xs">Hoje</span>
+                </div>
+                <ul class="space-y-3">
+                    <li class="contrast-card contrast-before text-gray-300 text-sm md:text-base">1 colaborador entrega 1x</li>
+                    <li class="contrast-card contrast-before text-gray-300 text-sm md:text-base">Operação para quando você para</li>
+                    <li class="contrast-card contrast-before text-gray-300 text-sm md:text-base">Cada mudança técnica depende de dev</li>
+                    <li class="contrast-card contrast-before text-gray-300 text-sm md:text-base">Crescer = contratar mais</li>
+                    <li class="contrast-card contrast-before text-gray-300 text-sm md:text-base">IA no chat que não resolve nada</li>
+                </ul>
+            </div>
+            <!-- Depois -->
+            <div class="glass-panel rounded-2xl p-7 md:p-8 border border-neonBlue/15 shadow-[0_0_30px_rgba(0,207,255,0.05)]">
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse"></span>
+                    <span class="font-tech font-bold text-neonBlue uppercase tracking-widest text-xs">Depois do Método Stark</span>
+                </div>
+                <ul class="space-y-3">
+                    <li class="contrast-card contrast-after text-gray-200 text-sm md:text-base">1 colaborador + IA entrega 10x</li>
+                    <li class="contrast-card contrast-after text-gray-200 text-sm md:text-base">Operação roda com ou sem você</li>
+                    <li class="contrast-card contrast-after text-gray-200 text-sm md:text-base">Você mesmo constrói e altera tudo</li>
+                    <li class="contrast-card contrast-after text-gray-200 text-sm md:text-base">Crescer = escalar o sistema</li>
+                    <li class="contrast-card contrast-after text-gray-200 text-sm md:text-base">IA integrada na operação do negócio</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     5 TÓPICOS DA AULA
+════════════════════════════════════════════════ -->
+<section class="py-20 md:py-28 bg-surface">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <h2 class="text-2xl md:text-4xl font-tech font-bold mb-12 text-center">O que você vai aprender na aula</h2>
+        <div class="space-y-5">
+
+            <div class="topic-card rounded-2xl p-6 md:p-8">
+                <div class="flex gap-5 items-start">
+                    <span class="font-tech font-bold text-neonBlue text-2xl md:text-3xl leading-none flex-shrink-0">01</span>
+                    <div>
+                        <h3 class="font-tech font-bold text-white text-base md:text-lg mb-2">Por que seu negócio não escala — e não é culpa sua</h3>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed">O teto que você encostou não é problema de esforço. É problema de infraestrutura. E a solução não é contratar melhor — é fazer quem você já tem entregar 10 vezes mais usando IA.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic-card rounded-2xl p-6 md:p-8">
+                <div class="flex gap-5 items-start">
+                    <span class="font-tech font-bold text-neonBlue text-2xl md:text-3xl leading-none flex-shrink-0">02</span>
+                    <div>
+                        <h3 class="font-tech font-bold text-white text-base md:text-lg mb-2">A diferença entre usar IA no chat e operar IA no negócio</h3>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed">ChatGPT no chat é uma ferramenta isolada. O Método Stark é um ambiente integrado onde a IA conhece seu negócio, seus alunos e sua operação — e executa sem precisar ser microgerenciada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic-card rounded-2xl p-6 md:p-8">
+                <div class="flex gap-5 items-start">
+                    <span class="font-tech font-bold text-neonBlue text-2xl md:text-3xl leading-none flex-shrink-0">03</span>
+                    <div>
+                        <h3 class="font-tech font-bold text-white text-base md:text-lg mb-2">O que a IA pode assumir na sua consultoria fitness agora</h3>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed">Atendimento, onboarding de alunos, follow-up, análise de protocolo, entrega de conteúdo — vou mostrar ao vivo o que já está automatizado, construído sem uma linha de código.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic-card rounded-2xl p-6 md:p-8">
+                <div class="flex gap-5 items-start">
+                    <span class="font-tech font-bold text-neonBlue text-2xl md:text-3xl leading-none flex-shrink-0">04</span>
+                    <div>
+                        <h3 class="font-tech font-bold text-white text-base md:text-lg mb-2">Como qualquer pessoa constrói isso — mesmo sem ser técnica</h3>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed">Vibe Coding: você conversa com a IA em linguagem natural e ela constrói. Não é programação. É mais próximo de dar instrução para um colaborador que nunca erra e nunca cansa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic-card rounded-2xl p-6 md:p-8">
+                <div class="flex gap-5 items-start">
+                    <span class="font-tech font-bold text-neonBlue text-2xl md:text-3xl leading-none flex-shrink-0">05</span>
+                    <div>
+                        <h3 class="font-tech font-bold text-white text-base md:text-lg mb-2">Por onde você começa para sair de R$15k–20k e ir para R$30k–50k+</h3>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed">O primeiro sistema que qualquer consultor fitness precisa configurar para parar de depender de si mesmo — independente do seu nível atual com IA.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     RETORNO GARANTIDO
+════════════════════════════════════════════════ -->
+<section class="py-20 md:py-28">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <h2 class="text-2xl md:text-4xl font-tech font-bold mb-4 text-center">Três formas de retorno garantido</h2>
+        <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Mesmo que você nunca tenha tocado em IA antes.</p>
+        <div class="grid md:grid-cols-3 gap-6">
+
+            <div class="roi-card rounded-2xl p-7">
+                <span class="text-3xl font-tech font-bold text-neonPurple block mb-4">01</span>
+                <h3 class="font-tech font-bold text-white text-base mb-3">Economia real de desenvolvimento</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Tudo que você aprende a construir custaria R$5.000–25.000 contratado externamente. Você para de pagar isso para sempre — não só uma vez.</p>
+            </div>
+
+            <div class="roi-card rounded-2xl p-7">
+                <span class="text-3xl font-tech font-bold text-neonPurple block mb-4">02</span>
+                <h3 class="font-tech font-bold text-white text-base mb-3">Equipe que entrega 10x sem aumentar a folha</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Um colaborador operando IA no ambiente certo entrega o que antes precisaria de dois ou três. Cada contratação que você deixa de precisar fazer paga a mentoria inteira.</p>
+            </div>
+
+            <div class="roi-card rounded-2xl p-7">
+                <span class="text-3xl font-tech font-bold text-neonPurple block mb-4">03</span>
+                <h3 class="font-tech font-bold text-white text-base mb-3">Nova fonte de receita no mercado fitness</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">O mercado tem demanda altíssima por profissionais que implementam IA de verdade. Você sai com habilidade para prestar serviço, criar produto próprio ou virar a referência em IA no fitness.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     ESCASSEZ
+════════════════════════════════════════════════ -->
+<section class="py-16 md:py-20 bg-surface">
+    <div class="container mx-auto px-6 max-w-3xl">
+        <div class="scarcity-box rounded-2xl p-8 md:p-10 text-center">
+            <span class="inline-block border border-red-500/30 bg-red-500/10 text-red-400 font-tech text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">Atenção</span>
+            <p class="text-gray-200 text-base md:text-lg leading-relaxed">
+                Essa aula não vai ficar gravada. Quem entra no grupo recebe o link e participa ao vivo — ou perde. A IA está se atualizando toda semana. Consultores que entenderam isso estão atendendo mais alunos, com menos esforço, e cobrando mais. <strong class="text-white">Os que estão esperando o momento certo já estão ficando para trás.</strong>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA FINAL
+════════════════════════════════════════════════ -->
+<section class="py-20 md:py-28">
+    <div class="container mx-auto px-6 max-w-3xl text-center">
+
+        <div class="glass-panel rounded-2xl p-8 md:p-12 mb-8 border border-neonBlue/10">
+            <p class="font-tech text-sm text-gray-400 uppercase tracking-widest mb-2">Data &amp; Hora</p>
+            <p class="font-tech font-bold text-white text-lg md:text-xl mb-8">Terça-feira · 12h · Horário de Brasília · Ao vivo · Sem gravação</p>
+
+            <a href="https://chat.whatsapp.com/K8zZF9yUNeGJq4OghCPDlI?mode=gi_t" target="_blank" class="animated-border inline-block group w-full max-w-md text-center">
+                <span class="block bg-surface px-6 py-5 rounded-full font-tech font-bold text-white text-base md:text-lg transition-all group-hover:bg-transparent uppercase tracking-wider">
+                    Quero participar — entrar no grupo agora
+                </span>
+            </a>
+
+            <p class="mt-5 text-sm text-gray-500">Você entra no grupo do WhatsApp e recebe o link da aula por lá.<br>Gratuito. Sem formulário. Sem enrolação.</p>
+
+            <!-- Checklist -->
+            <div class="mt-8 grid grid-cols-2 gap-3 max-w-sm mx-auto text-left">
+                <div class="checklist-item"><span class="check">✓</span> Gratuito</div>
+                <div class="checklist-item"><span class="check">✓</span> Sem saber programar</div>
+                <div class="checklist-item"><span class="check">✓</span> Para quem já fatura</div>
+                <div class="checklist-item"><span class="check">✓</span> Ao vivo · sem gravação</div>
+            </div>
+        </div>
+
+        <!-- Prova Social -->
+        <div class="text-center space-y-2 text-gray-500 text-sm">
+            <p class="font-tech font-semibold text-gray-300">TIP Digital Solutions &nbsp;·&nbsp; 2+ anos implementando IA &nbsp;·&nbsp; R$150k+ economizados em clientes</p>
+            <p><strong class="text-gray-400">Anderson Botelho</strong> · Fundador, TIP Digital Solutions · Criador do Método Stark</p>
+        </div>
+    </div>
+</section>
+
+<footer class="w-full text-center py-10 border-t border-white/5 bg-base relative z-10">
+    <p class="text-sm text-gray-600 font-medium">© 2025 TIP Digital Solutions. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>
