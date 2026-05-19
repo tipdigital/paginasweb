@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrindo WhatsApp... · Consultor 10x</title>
+    <!-- Fallback sem JS -->
+    <meta http-equiv="refresh" content="0; url=https://chat.whatsapp.com/K8zZF9yUNeGJq4OghCPDlI?mode=gi_t">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '867360219693005');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=867360219693005&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --base: #050508;
+            --surface: #0d0d14;
+            --neon-blue: #00CFFF;
+            --neon-purple: #7B2CBF;
+        }
+
+        html, body {
+            min-height: 100%;
+            background-color: var(--base);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Fundo animado sutil */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 20% 40%, rgba(123,44,191,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 60%, rgba(0,207,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            max-width: 420px;
+            width: 90%;
+            background: rgba(13, 13, 20, 0.7);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 0 60px rgba(123,44,191,0.1), 0 0 30px rgba(0,207,255,0.05);
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ícone de WhatsApp animado */
+        .wa-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease infinite;
+            box-shadow: 0 0 0 0 rgba(37,211,102,0.4);
+        }
+
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+            70%  { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+
+        .wa-icon svg {
+            width: 34px;
+            height: 34px;
+            fill: #ffffff;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* Botão principal */
+        .btn-wrapper {
+            position: relative;
+            border-radius: 9999px;
+            z-index: 1;
+            display: inline-block;
+            width: 100%;
+        }
+        .btn-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #00CFFF, #7B2CBF, #00CFFF);
+            background-size: 200% 200%;
+            z-index: -1;
+            border-radius: 9999px;
+            animation: moveGrad 3s ease infinite;
+        }
+        @keyframes moveGrad {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-inner {
+            display: block;
+            background: #0d0d14;
+            border-radius: 9999px;
+            padding: 1rem 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn-inner:hover { background: #13131e; }
+
+        .divider {
+            margin: 1.5rem 0 1rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Barra de loading sutil */
+        .loading-bar {
+            height: 2px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        .loading-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 9999px;
+            animation: loadFill 1.5s ease forwards;
+        }
+        @keyframes loadFill {
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Ícone WhatsApp -->
+        <div class="wa-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+        </div>
+
+        <h1>Abrindo o WhatsApp…</h1>
+        <p class="subtitle">Você está sendo redirecionado para o grupo.<br>Aguarde um instante.</p>
+
+        <p class="divider">Não abriu automaticamente?</p>
+
+        <a href="https://chat.whatsapp.com/K8zZF9yUNeGJq4OghCPDlI?mode=gi_t"
+           class="btn-wrapper"
+           id="btn-fallback">
+            <span class="btn-inner">Entrar no grupo agora</span>
+        </a>
+
+        <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Dispara o evento de conversão imediatamente
+        fbq('track', 'CompleteRegistration');
+
+        // 2. Redireciona sem deixar esta página no histórico
+        window.location.replace('https://chat.whatsapp.com/K8zZF9yUNeGJq4OghCPDlI?mode=gi_t');
+    </script>
+</body>
+</html>
